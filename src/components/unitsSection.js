@@ -102,7 +102,6 @@ const UnitsSection = ({ unitsData }) => {
           <UnitsList>
             {unitsData.map((unit) => {
               const slugifiedLink = slugify(unit.unitName)
-              console.log(unit)
               return (
                 <UnitItem>
                   <Link to={`/${slugifiedLink}`} title=''>

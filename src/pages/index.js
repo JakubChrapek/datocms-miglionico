@@ -3,6 +3,8 @@ import { graphql } from 'gatsby'
 import HeroSection from '../components/heroSection'
 import styled from 'styled-components'
 import UnitsSection from '../components/unitsSection'
+import WhoAreWeSection from '../components/whoAreWeSection'
+import FaqSection from '../components/faqSection'
 
 const HeroTitle = styled.p`
   font-family: 'k2d';
@@ -37,7 +39,7 @@ export default function Index({
   }
 }) {
   const homeQueryData = homeData[0]
-  console.log(unitsData)
+  console.log(homeQueryData)
   return (
     <>
       <HeroSection
@@ -69,6 +71,14 @@ export default function Index({
         heroBg={homeQueryData.heroSectionBg}
       />
       <UnitsSection unitsData={unitsData} />
+      <WhoAreWeSection
+        smallerHeading='Kim jesteśmy?'
+        heading='Poznaj firmę Miglionico'
+        paragraph='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Viverra a arcu sed risus tristique. Eget non velit semper vitae sollicitudin eget. Quis felis convallis tristique rhoncus scelerisque. Cras diam sed id habitant purus et lorem.'
+        ctaText='Więcej o nas'
+        gridImages={homeQueryData.imagesGrid}
+      />
+      <FaqSection faqItems={homeQueryData.faqItems} />
     </>
   )
 }
@@ -82,14 +92,13 @@ export const query = graphql`
         }
         aboutUsBtnText
         faqItems {
+          originalId
           faqTitle
-          id
-          faqAnswer {
-            value
-          }
+          faqAnswerPlain
         }
         faqMiglionicoTitle {
           value
+          __typename
         }
         heroSectionBg {
           gatsbyImageData
@@ -103,40 +112,55 @@ export const query = graphql`
 
         shortParagraph {
           value
+          __typename
         }
         sliderTitle {
           value
+          __typename
         }
         smallerTitle {
           value
+          __typename
         }
         smallerTitleFaq {
           value
+          __typename
         }
         smallerTitleGetToKnow {
           value
+          __typename
+        }
+        imagesGrid {
+          originalId
+          gatsbyImageData
         }
         smallerTitleTestimonials {
           value
+          __typename
         }
         testimonials {
           clientName
           id
           testimonial {
             value
+            __typename
           }
           businessName {
             value
+            __typename
           }
         }
         testimonialsMiglionicoTitle {
           value
+          __typename
         }
         title {
           value
+          __typename
         }
         titleGetToKnow {
           value
+          __typename
         }
       }
     }
