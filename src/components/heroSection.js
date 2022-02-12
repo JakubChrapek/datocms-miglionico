@@ -7,23 +7,29 @@ import { BUTTON_VARIANTS } from '../utils/constants'
 import Button from './Button'
 import { Link } from 'gatsby'
 
-const Wrapper = styled.header`
+const Wrapper = styled.section`
   background-color: var(--off-white);
+  z-index: 1;
 `
 
 const Container = styled.div`
   max-width: var(--container-max-width);
   padding: 0 ${20 / 16}rem 0 ${41 / 16}rem;
   margin: 0 auto;
-  display: flex;
+  display: grid;
+  grid-template-columns: 47fr 53fr;
+  position: relative;
 `
 const TextContentWrapper = styled.div`
   flex: 1 1 47%;
-  padding: ${43 / 16}rem ${95 / 16}rem 1.5rem 0;
+  padding: ${43 / 16}rem ${95 / 16}rem ${70 / 16}rem 0;
 `
 
 const UnitWrapper = styled.div`
   flex: 1 1 53%;
+  position: absolute;
+  right: 0;
+  top: 0;
 `
 
 const ButtonsWrapper = styled.div`
@@ -39,6 +45,7 @@ const ButtonsWrapper = styled.div`
 `
 
 const HeroBgImage = styled(BgImage)`
+  z-index: 1;
   :after {
     filter: blur(5px);
   }

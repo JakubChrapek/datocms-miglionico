@@ -2,16 +2,18 @@ import React from 'react'
 import { graphql } from 'gatsby'
 import HeroSection from '../components/heroSection'
 import styled from 'styled-components'
+import UnitsSection from '../components/unitsSection'
 
 const HeroTitle = styled.p`
   font-family: 'k2d';
   font-size: var(--header-font-size);
-  line-height: ${84 / 64};
+  line-height: ${80 / 64};
   font-weight: 600;
-  margin-bottom: ${46 / 16}rem;
+  margin-bottom: ${24 / 16}rem;
   color: var(--primary-navy);
-  > highlight {
+  > mark {
     color: var(--primary-red);
+    background-color: transparent;
   }
 `
 
@@ -21,7 +23,7 @@ const HeroParagraph = styled.p`
   font-weight: 300;
   color: var(--paragraph-text);
   max-width: ${555 / 16}rem;
-  margin-bottom: ${36 / 16}rem;
+  margin-bottom: ${32 / 16}rem;
 
   > strong {
     font-weight: 700;
@@ -30,17 +32,19 @@ const HeroParagraph = styled.p`
 
 export default function Index({
   data: {
-    home: { nodes: homeData }
+    home: { nodes: homeData },
+    units: { nodes: unitsData }
   }
 }) {
   const homeQueryData = homeData[0]
+  console.log(unitsData)
   return (
     <>
       <HeroSection
         title={() => (
           <HeroTitle>
-            Włoska <highlight>elegancja</highlight> w 
-            <highlight>każdym detalu</highlight>
+            Włoska <mark>elegancja</mark> w 
+            <mark>każdym detalu</mark>
           </HeroTitle>
         )}
         textParagraph={() => (
@@ -64,6 +68,7 @@ export default function Index({
         unitImage={homeQueryData.mainUnit.gatsbyImageData}
         heroBg={homeQueryData.heroSectionBg}
       />
+      <UnitsSection unitsData={unitsData} />
     </>
   )
 }
@@ -132,6 +137,22 @@ export const query = graphql`
         }
         titleGetToKnow {
           value
+        }
+      }
+    }
+    units: allDatoCmsUnit {
+      nodes {
+        showOnHome
+        unitName
+        unitFeaturedImage {
+          gatsbyImageData
+          title
+          alt
+        }
+        logo {
+          gatsbyImageData
+          title
+          alt
         }
       }
     }
