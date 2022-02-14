@@ -12,10 +12,18 @@ const ListWrapper = styled.ul`
 const FaqItemWrapper = styled.details`
   padding: ${20 / 16}rem ${30 / 16}rem ${36 / 16}rem;
   font-family: 'k2d', sans-serif;
-  border-radius: ${10 / 16}rem;
+  &:first-of-type {
+    border-top-left-radius: ${10 / 16}rem;
+    border-top-right-radius: ${10 / 16}rem;
+  }
+  &:last-of-type {
+    border-bottom-left-radius: ${10 / 16}rem;
+    border-bottom-right-radius: ${10 / 16}rem;
+  }
   color: var(--off-white);
   position: relative;
   overflow: hidden;
+  cursor: pointer;
   :before {
     content: '';
     position: absolute;
@@ -31,8 +39,12 @@ const FaqItemWrapper = styled.details`
   }
   &:hover {
     &:before {
-      opacity: 0.4;
+      opacity: 0.1;
     }
+  }
+  :not(&[open]) + [open] {
+    border-top-left-radius: ${10 / 16}rem;
+    border-top-right-radius: ${10 / 16}rem;
   }
   &[open] {
     &:before {
@@ -51,7 +63,6 @@ const FaqItemWrapper = styled.details`
 
 const FaqQuestion = styled.summary`
   position: relative;
-  cursor: pointer;
   list-style: none;
   appearance: none;
   border-radius: ${5 / 16}rem;

@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import UnitsSection from '../components/unitsSection'
 import WhoAreWeSection from '../components/whoAreWeSection'
 import FaqSection from '../components/faqSection'
+import TestimonialsSection from '../components/TestimonialsSection'
 
 const HeroTitle = styled.p`
   font-family: 'k2d';
@@ -39,7 +40,6 @@ export default function Index({
   }
 }) {
   const homeQueryData = homeData[0]
-  console.log(homeQueryData)
   return (
     <>
       <HeroSection
@@ -79,6 +79,9 @@ export default function Index({
         gridImages={homeQueryData.imagesGrid}
       />
       <FaqSection faqItems={homeQueryData.faqItems} />
+      <TestimonialsSection
+        testimonials={homeQueryData.testimonials}
+      />
     </>
   )
 }
@@ -140,15 +143,9 @@ export const query = graphql`
         }
         testimonials {
           clientName
+          city
+          testimonialContent
           id
-          testimonial {
-            value
-            __typename
-          }
-          businessName {
-            value
-            __typename
-          }
         }
         testimonialsMiglionicoTitle {
           value

@@ -247,6 +247,38 @@ export const ChevronDownIcon = ({ rotate, stroke }) => (
   </ChevronIconStyles>
 )
 
+export const ArrowLeft = ({
+  color = COLORS.PRIMARY_NAVY
+}) => (
+  <svg
+    width='31'
+    height='28'
+    viewBox='0 0 31 28'
+    fill='none'
+    xmlns='http://www.w3.org/2000/svg'>
+    <path
+      d='M16.9469 3.33446L14.2951 0.682861L0.973145 14.0049L14.2951 27.3268L16.9469 24.6752L8.15147 15.8799H30.1171V12.1299H8.15147L16.9469 3.33446V3.33446Z'
+      fill={color}
+    />
+  </svg>
+)
+
+export const ArrowRight = ({
+  color = COLORS.PRIMARY_NAVY
+}) => (
+  <svg
+    width='31'
+    height='28'
+    viewBox='0 0 31 28'
+    fill='none'
+    xmlns='http://www.w3.org/2000/svg'>
+    <path
+      d='M14.053 3.33446L16.7047 0.682861L30.0267 14.0049L16.7047 27.3268L14.053 24.6752L22.8484 15.8799H0.882788V12.1299H22.8484L14.053 3.33446Z'
+      fill={color}
+    />
+  </svg>
+)
+
 export const ICONS = {
   pinezka: MapPinIcon,
   telefon: PhoneIcon,
