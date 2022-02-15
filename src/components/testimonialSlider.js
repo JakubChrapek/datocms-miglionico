@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 import { ArrowLeft, ArrowRight } from '../assets/icons'
 import { COLORS } from '../utils/constants'
@@ -50,7 +50,7 @@ const IconButton = styled.button`
   }
 `
 
-const CarouselContainer = styled.div`
+const CarouselContainer = styled(motion.div)`
   --carousel-container-width: calc(
     100% - 4.25 * var(--arrow-size)
   );
@@ -60,7 +60,7 @@ const CarouselContainer = styled.div`
   margin: 0 auto;
   overflow: hidden;
   display: flex;
-  padding: ${40 / 16}rem 0;
+  padding: ${40 / 16}rem 1rem;
 `
 
 const CardWrapper = styled(motion.blockquote)`
@@ -68,10 +68,10 @@ const CardWrapper = styled(motion.blockquote)`
   --card-padding-horizontal: ${40 / 16}rem;
   --border-width: 2px;
   --container-width: calc(
-    -2 * var(--gap-width) + 4.25 * var(--arrow-size) + var(--carousel-container-width)
+    -2 * var(--gap-width) + 4.4 * var(--arrow-size) + var(--carousel-container-width)
   );
   --carousel-item-width: calc(
-    -2 * var(--border-width) + var(--container-width) / 3 + -1 *
+    -4 * var(--border-width) + var(--container-width) / 3 + -1 *
       var(--card-padding-horizontal)
   );
   min-width: var(--carousel-item-width);
@@ -84,8 +84,24 @@ const CardWrapper = styled(motion.blockquote)`
   box-shadow: 0.25rem 0.25rem ${25 / 16}rem 0
     rgba(0, 0, 0, 0.05);
   border-radius: ${10 / 16}rem;
-  border: var(--border-width) solid
-    ${({ active }) => (active ? 'red' : 'transparet')};
+  background-clip: padding-box;
+  border: var(--border-width) solid transparent;
+  background-color: var(--off-white);
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+    margin: calc(-1 * var(--border-width));
+    border-radius: inherit;
+    background: var(--primary-gradient);
+    transition: opacity 0.4s var(--transition-function) 0.1s;
+    opacity: ${({ active }) => (active ? 1 : 0)};
+  }
 `
 
 const CardFooter = styled.footer`
@@ -129,13 +145,12 @@ const Card = ({
   subtitle,
   content,
   active,
-  index,
   position
 }) => (
   <CardWrapper
     active={active}
     animate={{
-      left: `calc(2 * var(--card-padding-horizontal) + ${-position} * var(--carousel-item-width)`
+      left: `calc(${-position} * (2.775 * var(--gap-width) + var(--carousel-item-width)))`
     }}>
     <Content>{content}</Content>
     <CardFooter>
@@ -147,6 +162,8 @@ const Card = ({
 
 const TestimonialSlider = ({ testimonials }) => {
   const [position, setPosition] = useState(0)
+  const [itemWidth, setItemWidth] = useState(0)
+  const carouselRef = useRef()
   const handleRightArrow = () => {
     if (position < testimonials.length - 1) {
       setPosition(position + 1)
@@ -157,6 +174,15 @@ const TestimonialSlider = ({ testimonials }) => {
       setPosition(position - 1)
     }
   }
+
+  useEffect(() => {
+    setItemWidth(
+      [
+        ...carouselRef.current.children
+      ][0].getBoundingClientRect().width
+    )
+  }, [])
+
   return (
     <CarouselWrapper>
       <IconButton
@@ -169,7 +195,7 @@ const TestimonialSlider = ({ testimonials }) => {
         disabled={position >= testimonials.length - 1}>
         <ArrowRight color={COLORS.PRIMARY_NAVY} />
       </IconButton>
-      <CarouselContainer>
+      <CarouselContainer ref={carouselRef}>
         {testimonials.map((testimonial, index) => (
           <Card
             key={testimonial.id}
