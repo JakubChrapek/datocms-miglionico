@@ -9,6 +9,7 @@ const GlobalStyles = createGlobalStyle`
     --off-white: #fff;
     --off-black: #000;
     --paragraph-text: #3A3A3A;
+    --gray: #61646B;
     --primary-gradient: linear-gradient(94.81deg, #C3112D 0%, #262F6E 100%);
     --secondary-gradient: linear-gradient(94.81deg, #262F6E 0%, #262F6E 40.36%, #C3112D 98.24%);
   
