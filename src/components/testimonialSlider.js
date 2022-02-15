@@ -149,6 +149,13 @@ const Card = ({
 }) => (
   <CardWrapper
     active={active}
+    transition={{
+      left: {
+        type: 'spring',
+        damping: 22,
+        stiffness: 130
+      }
+    }}
     animate={{
       left: `calc(${-position} * (2.775 * var(--gap-width) + var(--carousel-item-width)))`
     }}>
