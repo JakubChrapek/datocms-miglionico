@@ -10,6 +10,22 @@ import {
 
 const NavigationWrapper = styled(motion.nav)`
   margin: 0 var(--nav-gap);
+  ${({ variant }) =>
+    variant === 'desktop' &&
+    css`
+      @media (max-width: 1024px) {
+        display: none;
+      }
+    `}
+
+  ${({ variant }) =>
+    variant === 'mobile' &&
+    css`
+      @media (min-width: 1025px) {
+        display: none;
+      }
+    `}
+
   @media (max-width: 1024px) {
     ${({ mobileMenuOpen }) =>
       mobileMenuOpen
@@ -62,32 +78,44 @@ const NavigationItem = styled(motion.li)`
     ${({ mobileMenuOpen }) =>
       mobileMenuOpen &&
       css`
-        margin: clamp(0.75rem, 3vw, 1.25rem) 0;
+        margin: clamp(1rem, 3.5vw, 1.75rem) 0;
         a {
           font-size: clamp(
             var(--paragraph-font-size),
-            5vw,
-            1.5rem
+            6.5vw,
+            2.25rem
           );
         }
       `}
   }
 `
 
-const Navigation = ({ navData, mobileMenuOpen }) => {
+const Navigation = ({
+  navData,
+  mobileMenuOpen,
+  variant,
+  cycleMobileMenu
+}) => {
   return (
-    <NavigationWrapper mobileMenuOpen={mobileMenuOpen}>
+    <NavigationWrapper
+      variant={variant}
+      mobileMenuOpen={mobileMenuOpen}>
       <NavigationList
         initial='closed'
         animate='open'
         exit='closed'
-        variants={sideVariants}
+        variants={variant === 'mobile' && sideVariants}
         mobileMenuOpen={mobileMenuOpen}>
         <NavigationItem
-          variants={itemVariants}
+          variants={variant === 'mobile' && itemVariants}
           mobileMenuOpen={mobileMenuOpen}>
           <Link
             to='/'
+            onClick={() => {
+              if (variant === 'mobile') {
+                cycleMobileMenu()
+              }
+            }}
             className='link__underline'
             activeClassName='link__active'
             title='Miglionico – strona główna'>
@@ -101,7 +129,9 @@ const Navigation = ({ navData, mobileMenuOpen }) => {
             )
           return (
             <NavigationItem
-              variants={itemVariants}
+              variants={
+                variant === 'mobile' && itemVariants
+              }
               mobileMenuOpen={mobileMenuOpen}
               key={capitalizedLink}>
               <Link

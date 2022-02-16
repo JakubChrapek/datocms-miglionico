@@ -4,6 +4,7 @@ import { HelmetDatoCms } from 'gatsby-source-datocms'
 import { graphql, useStaticQuery } from 'gatsby'
 import Header from '../components/header'
 import Footer from './footer'
+import { useBlockBody } from './blockBodyContext'
 
 const CommonLayout = ({ children }) => {
   const data = useStaticQuery(graphql`
@@ -99,9 +100,13 @@ const CommonLayout = ({ children }) => {
   const header = headerData[0]
   const footer = footerData[0]
 
+  const {
+    state: { blockBody }
+  } = useBlockBody()
+
   return (
     <>
-      <GlobalStyles />
+      <GlobalStyles blockBody={blockBody} />
       <HelmetDatoCms
         seo={blog.seo}
         favicon={site.favicon}

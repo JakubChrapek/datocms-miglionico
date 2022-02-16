@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components'
+import { createGlobalStyle, css } from 'styled-components'
 import reset from 'styled-reset'
 
 const GlobalStyles = createGlobalStyle`
@@ -24,6 +24,15 @@ const GlobalStyles = createGlobalStyle`
     --paragraph-font-size: 1.125rem;
     --smaller-paragraph-font-size: 0.875rem;
     --button-font-size: var(--paragraph-font-size);
+  }
+
+  #gatsby-focus-wrapper {
+    ${({ blockBody }) =>
+      blockBody &&
+      css`
+        overflow: hidden;
+        max-height: 100vh;
+      `}
   }
 
   h1,h2,h3,h4,h5,h6, a {

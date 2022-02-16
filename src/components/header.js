@@ -10,6 +10,7 @@ import {
   motion,
   useCycle
 } from 'framer-motion'
+import { useBlockBody } from './blockBodyContext'
 
 const Wrapper = styled.header`
   background-color: var(--off-white);
@@ -34,8 +35,6 @@ const Container = styled.div`
     flex-direction: column;
     align-items: flex-start;
     max-height: 100vh;
-    overflow: ${({ mobileMenuOpen }) =>
-      mobileMenuOpen && 'hidden'};
   }
 
   .gatsby-image-wrapper {
@@ -60,18 +59,23 @@ const ButtonWrapper = styled.button`
   background-color: transparent;
   cursor: pointer;
   z-index: 3;
-  opacity: 1;
+  opacity: 0;
+  padding: 0;
+  visibility: none;
+  display: none;
   transition: opacity 0.3s var(--transition-function);
 
   @media (max-width: 1024px) {
+    display: block;
     visibility: visible;
     opacity: 1;
   }
 
   &:focus-visible {
-    outline: 2px solid currentColor;
-    outline-color: ${({ open }) =>
-      open ? COLORS.PRIMARY_RED : COLORS.PRIMARY_NAVY};
+    outline: 2px solid
+      ${({ open }) =>
+        open ? COLORS.PRIMARY_RED : COLORS.PRIMARY_NAVY};
+    /* outline-color: ; */
     outline-offset: 0;
   }
 
@@ -87,7 +91,7 @@ const HamburgerStyles = styled.svg`
   overflow: visible;
   .bar {
     fill: none;
-    stroke-width: 4;
+    stroke-width: 5;
     stroke-linecap: round;
     transition: stroke 0.3s var(--transition-function),
       opacity 0.3s var(--transition-function),
@@ -101,7 +105,7 @@ const HamburgerStyles = styled.svg`
             stroke: ${COLORS.PRIMARY_RED};
             transform-origin: center center;
             &.bar1 {
-              transform: translate(-0.55rem, 0.725rem)
+              transform: translate(-0.7rem, 0.725rem)
                 rotate(45deg) scaleX(1);
               opacity: 1;
             }
@@ -110,7 +114,7 @@ const HamburgerStyles = styled.svg`
               opacity: 0;
             }
             &.bar3 {
-              transform: translate(-0.5rem, -0.725rem)
+              transform: translate(-0.65rem, -0.725rem)
                 rotate(-45deg) scaleX(1);
               opacity: 1;
             }
@@ -137,11 +141,24 @@ const HamburgerMenu = ({
   mobileMenuOpen,
   cycleMobileMenu
 }) => {
+  const { dispatch } = useBlockBody()
+
+  const handleMenuToggle = () => {
+    if (mobileMenuOpen) {
+      dispatch({ type: 'hideMenu' })
+    } else {
+      dispatch({ type: 'showMenu' })
+    }
+  }
+
   return (
     <ButtonWrapper
       open={mobileMenuOpen}
       id='hamburger'
-      onClick={() => cycleMobileMenu()}
+      onClick={() => {
+        cycleMobileMenu()
+        handleMenuToggle()
+      }}
       type='button'
       aria-label={
         mobileMenuOpen ? 'Zamknij menu' : 'Otwórz menu'
@@ -164,14 +181,37 @@ const HamburgerMenu = ({
   )
 }
 
+const MobileAside = styled(motion.aside)`
+  @media (min-width: 1024px) {
+    display: none;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+  background-color: var(--off-white);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`
+
 export default function Header({ headerData }) {
   const [open, cycleMobileMenu] = useCycle(false, true)
-
   const { headerLogo, nawigacja, socialMedia } = headerData
+  const { dispatch } = useBlockBody()
 
   useEffect(() => {
     const handleKeyDown = (e) => {
-      if (e.key === 'Escape') {
+      if (open && e.key === 'Escape') {
+        dispatch({ type: 'hideMenu' })
+        cycleMobileMenu()
       }
     }
 
@@ -189,26 +229,35 @@ export default function Header({ headerData }) {
         <Link to='/' title='Strona główna miglionico.pl'>
           <Logo logoData={headerLogo} />
         </Link>
+        <Navigation variant='desktop' navData={nawigacja} />
         <AnimatePresence>
           {open && (
-            <motion.aside
-              initial={{ width: 0 }}
+            <MobileAside
+              initial={{ opacity: 0 }}
               animate={{
-                width: 300
+                opacity: 1
               }}
               exit={{
-                width: 0,
+                opacity: 0,
                 transition: { delay: 0.7, duration: 0.3 }
               }}>
               <Navigation
+                variant='mobile'
                 mobileMenuOpen={open}
                 navData={nawigacja}
+                cycleMobileMenu={cycleMobileMenu}
               />
-
-              <SocialMedia socialMediaData={socialMedia} />
-            </motion.aside>
+              <SocialMedia
+                navigationVariant='mobile'
+                socialMediaData={socialMedia}
+              />
+            </MobileAside>
           )}
         </AnimatePresence>
+        <SocialMedia
+          navigationVariant='desktop'
+          socialMediaData={socialMedia}
+        />
         <HamburgerMenu
           cycleMobileMenu={cycleMobileMenu}
           mobileMenuOpen={open}
