@@ -87,6 +87,7 @@ const CardWrapper = styled(motion.blockquote)`
   background-clip: padding-box;
   border: var(--border-width) solid transparent;
   background-color: var(--off-white);
+  cursor: pointer;
 
   &:before {
     content: '';
@@ -101,6 +102,10 @@ const CardWrapper = styled(motion.blockquote)`
     background: var(--primary-gradient);
     transition: opacity 0.4s var(--transition-function) 0.1s;
     opacity: ${({ active }) => (active ? 1 : 0)};
+  }
+
+  :hover:before {
+    opacity: ${({ active }) => (active ? 1 : 0.25)};
   }
 `
 
@@ -145,39 +150,49 @@ const Card = ({
   subtitle,
   content,
   active,
-  position
-}) => (
-  <CardWrapper
-    active={active}
-    transition={{
-      left: {
-        type: 'spring',
-        damping: 22,
-        stiffness: 130
-      }
-    }}
-    animate={{
-      left: `calc(${-position} * (2.775 * var(--gap-width) + var(--carousel-item-width)))`
-    }}>
-    <Content>{content}</Content>
-    <CardFooter>
-      <Title>{title}</Title>
-      <Subtitle>{subtitle}</Subtitle>
-    </CardFooter>
-  </CardWrapper>
-)
+  position,
+  index,
+  setPosition
+}) => {
+  const handleClick = () => {
+    if (position + 1 !== index) {
+      setPosition(index - 1)
+    }
+  }
+  return (
+    <CardWrapper
+      onClick={handleClick}
+      active={active}
+      transition={{
+        left: {
+          type: 'spring',
+          damping: 22,
+          stiffness: 130
+        }
+      }}
+      animate={{
+        left: `calc(${-position} * (2.775 * var(--gap-width) + var(--carousel-item-width)))`
+      }}>
+      <Content>{content}</Content>
+      <CardFooter>
+        <Title>{title}</Title>
+        <Subtitle>{subtitle}</Subtitle>
+      </CardFooter>
+    </CardWrapper>
+  )
+}
 
 const TestimonialSlider = ({ testimonials }) => {
   const [position, setPosition] = useState(0)
   const [itemWidth, setItemWidth] = useState(0)
   const carouselRef = useRef()
   const handleRightArrow = () => {
-    if (position < testimonials.length - 1) {
+    if (position < testimonials.length - 2) {
       setPosition(position + 1)
     }
   }
   const handleLeftArrow = () => {
-    if (position > 0) {
+    if (position >= 0) {
       setPosition(position - 1)
     }
   }
@@ -194,12 +209,12 @@ const TestimonialSlider = ({ testimonials }) => {
     <CarouselWrapper>
       <IconButton
         onClick={handleLeftArrow}
-        disabled={position <= 0}>
+        disabled={position < 0}>
         <ArrowLeft color={COLORS.PRIMARY_NAVY} />
       </IconButton>
       <IconButton
         onClick={handleRightArrow}
-        disabled={position >= testimonials.length - 1}>
+        disabled={position >= testimonials.length - 2}>
         <ArrowRight color={COLORS.PRIMARY_NAVY} />
       </IconButton>
       <CarouselContainer ref={carouselRef}>
@@ -209,6 +224,7 @@ const TestimonialSlider = ({ testimonials }) => {
             active={position === index - 1}
             index={index}
             position={position}
+            setPosition={setPosition}
             title={testimonial.clientName}
             subtitle={testimonial.city}
             content={testimonial.testimonialContent}
