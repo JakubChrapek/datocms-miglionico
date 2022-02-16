@@ -143,6 +143,9 @@ export const query = graphql`
       nodes {
         showOnHome
         unitName
+        unitColor {
+          hex
+        }
         unitFeaturedImage {
           gatsbyImageData
           title

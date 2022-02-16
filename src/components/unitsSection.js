@@ -35,61 +35,90 @@ const UnitsContentWrapper = styled.div`
 const UnitsList = styled.ul`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-gap: ${31 / 16}rem;
+  grid-gap: ${29 / 16}rem;
   padding: 0 ${10 / 16}rem;
-  margin-top: ${47 / 16}rem;
+  margin-top: 6.9rem;
 `
 
 const UnitItem = styled.li`
-  position: relative;
-  overflow: hidden;
-  --button-offset: ${20 / 16}rem;
-  --smaller-units-padding: ${20 / 16}rem;
-  :first-of-type,
-  :last-of-type {
-    margin: var(--smaller-units-padding);
-  }
-
   > a {
     display: inline-block;
     width: 100%;
     height: 100%;
-    :hover,
-    :focus-visible {
-      outline: 2px solid red;
-      .unit {
+    border-radius: 1rem;
+    color: var(--paragraph-text);
+    text-decoration: none;
+    span {
+      color: var(--paragraph-text);
+    }
+    :hover {
+      .unitName {
+        transform: translateY(-2.5rem);
+      }
+      span {
+        color: ${({ color }) => color};
+      }
+      .gatsby-image-wrapper img {
+        transform: translateY(-1rem);
+      }
+      .gatsby-image-wrapper {
         img {
-          transform: scale(1.05);
+          filter: grayscale(0);
         }
       }
-      .unitLogo {
-        opacity: 1;
-        transform: translate(
-          -50%,
-          calc(-2 * var(--button-offset))
-        );
+    }
+    :focus-visible {
+      span {
+        color: ${({ color }) => color};
       }
+    }
+  }
+  .gatsby-image-wrapper {
+    overflow: visible;
+    img {
+      filter: grayscale(1);
+      transition: filter 0.6s var(--transition-function);
     }
   }
   .unit {
     width: 100%;
-    height: 100%;
-    border-radius: ${10 / 16}rem;
-    transition: opacity 0.4s var(--transition-function);
-    overflow: hidden;
+    transition: opacity 0.6s var(--transition-function);
+    position: relative;
     > img {
       transition: transform 0.6s var(--transition-function);
     }
+
+    &:before {
+      content: '';
+      position: absolute;
+      top: -6.4rem;
+      left: 0;
+      height: calc(100% + 2rem);
+      width: 100%;
+      background-color: var(--off-white);
+      border-radius: 1rem;
+    }
   }
-  .unitLogo {
-    position: absolute;
-    bottom: calc(-1 * var(--button-offset));
-    left: 50%;
-    opacity: 0;
-    transform: translateX(-50%);
-    transition: opacity 0.6s var(--transition-function),
-      transform 0.6s var(--transition-function);
+`
+
+const SeeMoreText = styled.p`
+  color: var(--paragraph-text);
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  text-transform: capitalize;
+  font-family: 'k2d';
+  font-weight: 600;
+  font-size: 2rem;
+  line-height: 1.2;
+  transition: transform 0.6s var(--transition-function);
+  span {
+    transition: color 0.6s var(--transition-function);
   }
+`
+
+const SeeText = styled.p`
+  color: var(--paragraph-text) !important;
 `
 
 const UnitsSection = ({ unitsData }) => {
@@ -102,9 +131,24 @@ const UnitsSection = ({ unitsData }) => {
           <UnitsList>
             {unitsData.map((unit) => {
               const slugifiedLink = slugify(unit.unitName)
+              const specialName = (
+                <span>{unit.unitName.split(' ')[1]}</span>
+              )
               return (
-                <UnitItem>
-                  <Link to={`/${slugifiedLink}`} title=''>
+                <UnitItem
+                  color={
+                    unit?.unitColor?.hex ||
+                    'var(--off-black)'
+                  }>
+                  <Link
+                    to={`/${slugifiedLink}`}
+                    title={unit.unitName}>
+                    <SeeMoreText className='unitName'>
+                      Nice {specialName}
+                    </SeeMoreText>
+                    <SeeText className='secondary'>
+                      Zobacz
+                    </SeeText>
                     <GatsbyImage
                       className='unit'
                       image={
@@ -113,12 +157,6 @@ const UnitsSection = ({ unitsData }) => {
                       }
                       alt={unit.unitFeaturedImage.alt}
                       title={unit.unitFeaturedImage.title}
-                    />
-                    <GatsbyImage
-                      className='unitLogo'
-                      image={unit.logo.gatsbyImageData}
-                      alt={unit.logo.alt}
-                      title={unit.logo.title}
                     />
                   </Link>
                 </UnitItem>
