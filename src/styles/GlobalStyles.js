@@ -19,7 +19,10 @@ const GlobalStyles = createGlobalStyle`
     --container-max-size: 90rem;
     --container-horizontal-padding: 3.75rem;
     --container-max-width: calc(var(--container-max-size) - var(--container-horizontal-padding));
-    --header-font-size: 4rem;
+    --header-font-size: clamp(3rem, 4.44vw, 4rem);
+    @media (max-width: 490px) {
+      --header-font-size: clamp(2rem, 9vw, 3rem);
+    }
     --smaller-header-font-size: 1.5rem;
     --paragraph-font-size: 1.125rem;
     --smaller-paragraph-font-size: 0.875rem;

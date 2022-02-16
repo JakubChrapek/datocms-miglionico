@@ -6,32 +6,10 @@ import UnitsSection from '../components/unitsSection'
 import WhoAreWeSection from '../components/whoAreWeSection'
 import FaqSection from '../components/faqSection'
 import TestimonialsSection from '../components/TestimonialsSection'
-
-const HeroTitle = styled.p`
-  font-family: 'k2d';
-  font-size: var(--header-font-size);
-  line-height: ${80 / 64};
-  font-weight: 600;
-  margin-bottom: ${24 / 16}rem;
-  color: var(--primary-navy);
-  > mark {
-    color: var(--primary-red);
-    background-color: transparent;
-  }
-`
-
-const HeroParagraph = styled.p`
-  font-size: var(--paragraph-font-size);
-  line-height: ${28 / 18};
-  font-weight: 300;
-  color: var(--paragraph-text);
-  max-width: ${555 / 16}rem;
-  margin-bottom: ${32 / 16}rem;
-
-  > strong {
-    font-weight: 700;
-  }
-`
+import {
+  HeroParagraph,
+  HeroTitle
+} from '../components/typography'
 
 export default function Index({
   data: {

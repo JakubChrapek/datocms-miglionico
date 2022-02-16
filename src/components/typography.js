@@ -1,6 +1,40 @@
 import styled, { css } from 'styled-components'
 import { COLORS } from '../utils/constants'
 
+export const HeroTitle = styled.p`
+  font-family: 'k2d';
+  font-size: var(--header-font-size);
+  line-height: ${80 / 64};
+  font-weight: 600;
+  margin-bottom: ${24 / 16}rem;
+  color: var(--primary-navy);
+  > mark {
+    color: var(--primary-red);
+    background-color: transparent;
+  }
+  @media (max-width: 620px) {
+    text-align: center;
+  }
+`
+
+export const HeroParagraph = styled.p`
+  font-size: var(--paragraph-font-size);
+  line-height: ${28 / 18};
+  font-weight: 300;
+  color: var(--paragraph-text);
+  max-width: ${555 / 16}rem;
+  margin-bottom: ${32 / 16}rem;
+
+  > strong {
+    font-weight: 700;
+  }
+
+  @media (max-width: 620px) {
+    margin: 3rem 0;
+    text-align: center;
+  }
+`
+
 export const Subheading = styled.p`
   color: ${({ color }) => color ?? COLORS.WHITE};
   font-size: var(--paragraph-font-size);

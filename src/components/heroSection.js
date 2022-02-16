@@ -6,6 +6,7 @@ import styled from 'styled-components'
 import { BUTTON_VARIANTS } from '../utils/constants'
 import Button from './Button'
 import { Link } from 'gatsby'
+import { HeroParagraph, HeroTitle } from './typography'
 
 const Wrapper = styled.section`
   background-color: var(--off-white);
@@ -18,18 +19,76 @@ const Container = styled.div`
   margin: 0 auto;
   display: grid;
   grid-template-columns: 47fr 53fr;
+  @media (max-width: 1305px) {
+    grid-template-columns: 55fr 45fr;
+  }
+  @media (max-width: 1024px) {
+    grid-template-columns: 55fr 45fr;
+  }
+  @media (max-width: 920px) {
+    grid-template-columns: 1fr;
+  }
+  @media (max-width: 620px) {
+    padding: 0 ${20 / 16}rem;
+  }
   position: relative;
 `
 const TextContentWrapper = styled.div`
-  flex: 1 1 47%;
-  padding: ${43 / 16}rem ${95 / 16}rem ${70 / 16}rem 0;
+  padding: ${43 / 16}rem clamp(3.6rem, 5vw, ${95 / 16}rem)
+    ${70 / 16}rem 0;
+
+  .mobile-only {
+    display: none;
+    visibility: hidden;
+  }
+
+  @media (max-width: 1305px) {
+    padding: ${43 / 16}rem clamp(1.5rem, 3vw, 2rem)
+      ${70 / 16}rem 0;
+  }
+  @media (max-width: 1024px) {
+    z-index: 5;
+  }
+  @media (max-width: 920px) {
+    ${HeroTitle} {
+      max-width: ${555 / 16}rem;
+    }
+  }
+  @media (max-width: 620px) {
+    padding: 2rem 0 ${42 / 16}rem;
+    .mobile-only {
+      display: block;
+      visibility: visible;
+      img {
+        object-fit: contain !important;
+      }
+    }
+  }
 `
 
 const UnitWrapper = styled.div`
-  flex: 1 1 53%;
+  display: flex;
+  justify-content: flex-end;
   position: absolute;
   right: 0;
   top: 0;
+  @media (max-width: 1305px) {
+    .gatsby-image-wrapper {
+      width: 45vw;
+    }
+  }
+  @media (max-width: 1024px) {
+    height: 100%;
+    .gatsby-image-wrapper {
+      width: 50vw;
+      img {
+        object-fit: contain !important;
+      }
+    }
+  }
+  @media (max-width: 920px) {
+    display: none;
+  }
 `
 
 const ButtonsWrapper = styled.div`
@@ -42,12 +101,28 @@ const ButtonsWrapper = styled.div`
       margin-left: ${15 / 16}rem;
     }
   }
+  @media (max-width: 620px) {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    && > button,
+    && a {
+      margin: 0;
+      &:last-of-type {
+        margin-top: 1.75rem;
+      }
+    }
+  }
 `
 
 const HeroBgImage = styled(BgImage)`
   z-index: 1;
   :after {
     filter: blur(5px);
+    @media (max-width: 920px) {
+      filter: blur(3px);
+    }
   }
 `
 
@@ -67,6 +142,10 @@ const HeroSection = ({
         <Container>
           <TextContentWrapper>
             {title()}
+            <GatsbyImage
+              className='mobile-only'
+              image={unitImage}
+            />
             <p>{textParagraph()}</p>
             <ButtonsWrapper>
               <Button
