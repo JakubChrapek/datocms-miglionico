@@ -5,7 +5,10 @@ import styled from 'styled-components'
 const Grid = styled.div`
   flex: 1 1 54%;
   display: grid;
-  grid-gap: ${40 / 16}rem;
+  grid-gap: clamp(1.5rem, 2.77vw, ${40 / 16}rem);
+  @media (max-width: 1240px) {
+    margin-right: 4rem;
+  }
   grid-template-areas:
     'a a a a a a a a a a a a b b b b b b b'
     'a a a a a a a a a a a a b b b b b b b'

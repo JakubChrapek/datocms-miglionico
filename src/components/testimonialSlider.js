@@ -80,7 +80,7 @@ const CardWrapper = styled(motion.blockquote)`
   flex-direction: column;
   align-items: center;
   padding: ${40 / 16}rem
-    calc(var(--card-padding-horizontal) / 2) 0;
+    calc(var(--card-padding-horizontal) / 2);
   box-shadow: 0.25rem 0.25rem ${25 / 16}rem 0
     rgba(0, 0, 0, 0.05);
   border-radius: ${10 / 16}rem;

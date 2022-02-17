@@ -38,12 +38,8 @@ const GlobalStyles = createGlobalStyle`
       `}
   }
 
-  h1,h2,h3,h4,h5,h6, a {
+  h1,h2,h3,h4,h5,h6, a, p, span, button, details, summary  {
     font-family: 'k2d';
-  }
-
-  button, p, span, details, summary {
-    font-family: 'Titillium Web';
   }
 
   button:focus-visible, a:focus-visible {

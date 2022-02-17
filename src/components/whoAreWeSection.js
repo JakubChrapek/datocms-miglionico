@@ -33,12 +33,15 @@ const TextContentWrapper = styled.div`
   align-items: flex-start;
   margin-left: ${90 / 16}rem;
 
+  @media (max-width: 1240px) {
+    margin-left: 0;
+  }
+
   h2 {
     max-width: ${380 / 16}rem;
   }
 
   p {
-    max-width: ${425 / 16}rem;
     margin-bottom: ${96 / 16}rem;
   }
 

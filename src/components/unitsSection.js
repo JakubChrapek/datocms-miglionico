@@ -40,6 +40,21 @@ const UnitsList = styled.ul`
   margin-top: 6.9rem;
 `
 
+const SeeText = styled.p`
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  top: -0.5rem;
+  > span {
+    color: var(--paragraph-text);
+    position: absolute;
+    display: inline-block;
+    transition: opacity 0.6s var(--transition-function),
+      transform 0.6s var(--transition-function);
+    transform: translateY(1rem);
+  }
+`
+
 const UnitItem = styled.li`
   > a {
     display: inline-block;
@@ -48,6 +63,12 @@ const UnitItem = styled.li`
     border-radius: 1rem;
     color: var(--paragraph-text);
     text-decoration: none;
+    position: relative;
+    span,
+    p {
+      position: relative;
+      z-index: 1;
+    }
     span {
       color: var(--paragraph-text);
     }
@@ -55,11 +76,14 @@ const UnitItem = styled.li`
       .unitName {
         transform: translateY(-2.5rem);
       }
+      ${SeeText} > span {
+        transform: translateY(0rem);
+      }
       span {
         color: ${({ color }) => color};
       }
       .gatsby-image-wrapper img {
-        transform: translateY(-1rem);
+        transform: translateY(-0.5rem) scale(1.05);
       }
       .gatsby-image-wrapper {
         img {
@@ -68,8 +92,27 @@ const UnitItem = styled.li`
       }
     }
     :focus-visible {
+      outline: none;
+      .unitName {
+        transform: translateY(-2.5rem);
+      }
+      ${SeeText} > span {
+        transform: translateY(0rem);
+      }
       span {
         color: ${({ color }) => color};
+      }
+      .gatsby-image-wrapper img {
+        transform: translateY(-0.5rem) scale(1.05);
+      }
+      .gatsby-image-wrapper {
+        img {
+          filter: grayscale(0);
+        }
+      }
+      .unit:before {
+        outline: 2px solid var(--off-white);
+        outline-offset: 4px;
       }
     }
   }
@@ -117,10 +160,6 @@ const SeeMoreText = styled.p`
   }
 `
 
-const SeeText = styled.p`
-  color: var(--paragraph-text) !important;
-`
-
 const UnitsSection = ({ unitsData }) => {
   return (
     <UnitsWrapper>
@@ -147,7 +186,7 @@ const UnitsSection = ({ unitsData }) => {
                       Nice {specialName}
                     </SeeMoreText>
                     <SeeText className='secondary'>
-                      Zobacz
+                      <span>Zobacz</span>
                     </SeeText>
                     <GatsbyImage
                       className='unit'
