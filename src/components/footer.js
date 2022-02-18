@@ -119,7 +119,7 @@ const FooterColumn = ({ title, withIcons, links }) => {
               {title === 'Co oferujemy?' ? (
                 <Link
                   className='link link__underline'
-                  to={link.linkText}>
+                  to={`/${link.linkText}`}>
                   {link.tekst}
                 </Link>
               ) : (

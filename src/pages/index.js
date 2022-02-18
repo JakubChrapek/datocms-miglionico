@@ -1,7 +1,6 @@
 import React from 'react'
 import { graphql } from 'gatsby'
 import HeroSection from '../components/heroSection'
-import styled from 'styled-components'
 import UnitsSection from '../components/unitsSection'
 import WhoAreWeSection from '../components/whoAreWeSection'
 import FaqSection from '../components/faqSection'

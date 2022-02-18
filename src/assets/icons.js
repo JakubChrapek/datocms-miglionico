@@ -82,6 +82,70 @@ export const IconLI = ({
   </IconStyles>
 )
 
+export const ContactBg = () => (
+  <svg
+    width='1413'
+    height='314'
+    viewBox='0 0 1413 314'
+    fill='none'
+    xmlns='http://www.w3.org/2000/svg'>
+    <path
+      d='M1388.2 45.7551C1387.98 40.1304 1383.1 35.4265 1377.43 35.3785L25.0659 23.9258C19.6646 23.8801 15.5451 28.0943 15.7519 33.4541L24.8047 268.133C25.0217 273.757 29.9017 278.461 35.57 278.509L1387.93 289.962C1393.34 290.008 1397.46 285.794 1397.25 280.434L1388.2 45.7551Z'
+      fill='#C3112D'
+    />
+    <g filter='url(#filter0_b_914_337)'>
+      <path
+        d='M1398.61 57.7601C1398.96 52.1123 1394.55 47.3063 1388.89 47.1597L38.8127 12.1811C33.4259 12.0415 28.8973 16.1953 28.5719 21.574L14.3859 256.128C14.0443 261.776 18.4525 266.582 24.1086 266.728L1374.19 301.707C1379.57 301.846 1384.1 297.693 1384.43 292.314L1398.61 57.7601Z'
+        fill='url(#paint0_linear_914_337)'
+      />
+    </g>
+    <defs>
+      <filter
+        id='filter0_b_914_337'
+        x='-85.6328'
+        y='-87.8223'
+        width='1584.27'
+        height='489.533'
+        filterUnits='userSpaceOnUse'
+        color-interpolation-filters='sRGB'>
+        <feFlood
+          flood-opacity='0'
+          result='BackgroundImageFix'
+        />
+        <feGaussianBlur
+          in='BackgroundImage'
+          stdDeviation='50'
+        />
+        <feComposite
+          in2='SourceAlpha'
+          operator='in'
+          result='effect1_backgroundBlur_914_337'
+        />
+        <feBlend
+          mode='normal'
+          in='SourceGraphic'
+          in2='effect1_backgroundBlur_914_337'
+          result='shape'
+        />
+      </filter>
+      <linearGradient
+        id='paint0_linear_914_337'
+        x1='34.637'
+        y1='12.1012'
+        x2='720.595'
+        y2='848.801'
+        gradientUnits='userSpaceOnUse'>
+        <stop stop-color='#262F6E' />
+        <stop
+          offset='1'
+          stop-color='#262F6E'
+          stop-opacity='0'
+        />
+      </linearGradient>
+    </defs>
+  </svg>
+)
+
 const FooterBgWrapper = styled.svg`
   position: absolute;
   left: 0;

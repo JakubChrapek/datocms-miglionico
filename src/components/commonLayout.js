@@ -15,7 +15,7 @@ const CommonLayout = ({ children }) => {
           ...GatsbyDatoCmsFaviconMetaTags
         }
       }
-      blog: datoCmsHome {
+      home: datoCmsHome {
         seo: seoMetaTags {
           ...GatsbyDatoCmsSeoMetaTags
         }
@@ -93,7 +93,7 @@ const CommonLayout = ({ children }) => {
 
   const {
     site,
-    blog,
+    home,
     header: { nodes: headerData },
     footer: { nodes: footerData }
   } = data
@@ -109,7 +109,7 @@ const CommonLayout = ({ children }) => {
     <>
       <GlobalStyles blockBody={blockBody} />
       <HelmetDatoCms
-        seo={blog.seo}
+        seo={home.seo}
         favicon={site.favicon}
       />
       <Helmet htmlAttributes={{ lang: 'pl' }} />
