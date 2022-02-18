@@ -23,6 +23,7 @@ const UnitPage = ({data}) => {
         unitWelcomeImage={unitData.unitWelcomeImage}
         unitLogo={unitData.logo}
         unitName={unitData.unitName}
+        unitDescription={unitData.unitDescription}
       />
     </Wrapper>
   )
@@ -54,13 +55,74 @@ export const query = graphql`
         alt
         title
         gatsbyImageData
-        smallerImage: gatsbyImageData(width: 150, height: 150)
+        smallerImage: gatsbyImageData(
+          width: 150
+          height: 150
+        )
       }
       unitColor {
         hex
       }
       unitDescription {
         value
+        blocks {
+          __typename
+          ... on DatoCmsGraphicTextColumnLeft {
+            id: originalId
+            graphicStartingLeft {
+              gatsbyImageData
+            }
+            columnTitle
+            smallerHeading
+            paragraph {
+              value
+            }
+          }
+          ... on DatoCmsGraphicTextColumn {
+            id: originalId
+            graphicStartingRight {
+              gatsbyImageData
+            }
+            columnTitle
+            paragraph {
+              value
+            }
+          }
+          ... on DatoCmsGraphicTextColumn {
+            id: originalId
+            graphicStartingRight {
+              gatsbyImageData
+            }
+            columnTitle
+            paragraph {
+              value
+            }
+          }
+          ... on DatoCmsThreeColumnWithTextAndGraphic {
+            id: originalId
+            firstColTitle
+            firstColImage {
+              gatsbyImageData
+            }
+            firstColParagraph {
+              value
+            }
+            secondColTitle
+            secondColImage {
+              gatsbyImageData
+            }
+            secondColParagraph {
+              value
+            }
+            thirdColTitle
+            thirdColImage {
+              gatsbyImageData
+            }
+            thirdColParagraph {
+              value
+            }
+          }
+        }
       }
       unitDownloadDescription {
         value

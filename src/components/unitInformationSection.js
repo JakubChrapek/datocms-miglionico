@@ -1,8 +1,9 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { GatsbyImage } from 'gatsby-plugin-image'
 import { Link as ScrollLink } from 'react-scroll'
-import { Subheading } from './typography'
+import { StructuredText } from 'react-datocms'
+import { COLUMN_LAYOUT_VARIANTS } from '../utils/constants'
 
 const InformationWrapper = styled.div`
   padding: 0 var(--container-horizontal-padding);
@@ -20,15 +21,15 @@ const navigationItems = [
   {
     name: 'Opis unitu',
     navLink: 'opisUnitu'
-  },
-  {
-    name: 'Dane techniczne',
-    navLink: 'daneTechniczne'
-  },
-  {
-    name: 'Do pobrania',
-    navLink: 'doPobrania'
   }
+  // {
+  //   name: 'Dane techniczne',
+  //   navLink: 'daneTechniczne'
+  // },
+  // {
+  //   name: 'Do pobrania',
+  //   navLink: 'doPobrania'
+  // }
 ]
 
 const NavigationWrapper = styled.div`
@@ -135,27 +136,217 @@ const SectionHeading = styled.h3`
   }
 `
 
+const SectionWrapper = styled.section`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: clamp(3rem, 5.55vw, 5rem);
+  width: 100%;
+
+  + section {
+    margin-top: ${78 / 16}rem;
+  }
+`
+
+const UnitGraphicImage = styled(GatsbyImage)`
+  border-radius: ${10 / 16}rem;
+`
+
+const ContentWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  ${({ variant }) =>
+    variant === COLUMN_LAYOUT_VARIANTS.IMAGE_ON_RIGHT &&
+    css`
+      order: -1;
+      margin: 1rem ${80 / 16}rem 0 0;
+    `}
+
+  > p {
+    font-size: var(--paragraph-font-size);
+    font-weight: 300;
+    color: var(--off-black);
+    line-height: 1.33;
+    letter-spacing: 0.54px;
+    + p {
+      margin-top: 1.25rem;
+    }
+  }
+`
+
+const Title = styled.h3`
+  font-size: ${({ smallerHeading }) =>
+    smallerHeading
+      ? 'var(--subheader-font-size)'
+      : 'var(--header-font-size)'};
+
+  ${({ smallerHeading }) =>
+    smallerHeading
+      ? css`
+          color: var(--primary-navy);
+        `
+      : css`
+          background: -webkit-linear-gradient(
+            var(--primary-red),
+            var(--primary-navy)
+          );
+          background: linear-gradient(
+            96.12deg,
+            #c3112d 4.74%,
+            #262f6e 55.62%
+          );
+          color: transparent;
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+        `}
+
+  + p {
+    margin-top: ${40 / 16}rem;
+  }
+`
+
+const Content = styled(StructuredText)``
+
+const UnitGraphicTextColumn = ({
+  title,
+  content,
+  image,
+  variant = COLUMN_LAYOUT_VARIANTS.IMAGE_ON_LEFT,
+  smallerHeading = false
+}) => (
+  <SectionWrapper variant={variant}>
+    <UnitGraphicImage image={image.gatsbyImageData} />
+    <ContentWrapper variant={variant}>
+      <Title
+        smallerHeading={smallerHeading}
+        variant={variant}>
+        {title}
+      </Title>
+      <Content variant={variant} data={content} />
+    </ContentWrapper>
+  </SectionWrapper>
+)
+
+const ThreeColumnSection = styled.section``
+const Column = styled.div``
+const ColumnTitle = styled.h3``
+const ColumnContent = styled(StructuredText)``
+const ColumnImage = styled(GatsbyImage)``
+
+const ThreeColumnLayout = ({
+  firstColTitle,
+  firstColParagraph,
+  firstColImage,
+  secondColTitle,
+  secondColParagraph,
+  secondColImage,
+  thirdColTitle,
+  thirdColParagraph,
+  thirdColImage
+}) => (
+  <ThreeColumnSection>
+    <Column>
+      <ColumnTitle>{firstColTitle}</ColumnTitle>
+      <ColumnContent data={firstColParagraph} />
+      <ColumnImage image={firstColImage.gatsbyImageData} />
+    </Column>
+    <Column reversed>
+      <ColumnTitle>{secondColTitle}</ColumnTitle>
+      <ColumnContent data={secondColParagraph} />
+      <ColumnImage image={secondColImage.gatsbyImageData} />
+    </Column>
+    <Column>
+      <ColumnTitle>{thirdColTitle}</ColumnTitle>
+      <ColumnContent data={thirdColParagraph} />
+      <ColumnImage image={thirdColImage.gatsbyImageData} />
+    </Column>
+  </ThreeColumnSection>
+)
+
+const UnitWrapper = styled.div`
+  position: relative;
+  margin-bottom: ${75 / 16}rem;
+  display: flex;
+  justify-content: center;
+`
+
 const UnitInformationSection = ({
   unitWelcomeImage,
   unitLogo,
-  unitName
+  unitName,
+  unitDescription
 }) => {
   return (
     <InformationWrapper>
       <InformationNavigation />
       <WelcomeImageWrapper id='opisUnitu'>
-        <SectionHeading>
-          <span className='red'>Pełna</span> kontrola,{' '}
-          <span className='navy'>intuicyjne</span>
-           użytkowanie
-        </SectionHeading>
-        <WelcomeImage
-          image={unitWelcomeImage.gatsbyImageData}
-          alt='Unit dentystyczny Miglionico'
-        />
-        <LogoImage
-          image={unitLogo.gatsbyImageData}
-          alt={`Unit dentystyczny Miglionico – ${unitName}`}
+        <UnitWrapper>
+          <SectionHeading>
+            <span className='red'>Pełna</span> kontrola,{' '}
+            <span className='navy'>intuicyjne</span>
+             użytkowanie
+          </SectionHeading>
+          <WelcomeImage
+            image={unitWelcomeImage.gatsbyImageData}
+            alt='Unit dentystyczny Miglionico'
+          />
+          <LogoImage
+            image={unitLogo.gatsbyImageData}
+            alt={`Unit dentystyczny Miglionico – ${unitName}`}
+          />
+        </UnitWrapper>
+        <StructuredText
+          data={unitDescription}
+          renderBlock={({ record }) => {
+            switch (record.__typename) {
+              case 'DatoCmsGraphicTextColumnLeft':
+                return (
+                  <UnitGraphicTextColumn
+                    title={record.columnTitle}
+                    content={record.paragraph}
+                    image={record.graphicStartingLeft}
+                    variant={
+                      COLUMN_LAYOUT_VARIANTS.IMAGE_ON_LEFT
+                    }
+                    smallerHeading={record.smallerHeading}
+                  />
+                )
+              case 'DatoCmsGraphicTextColumn':
+                return (
+                  <UnitGraphicTextColumn
+                    title={record.columnTitle}
+                    content={record.paragraph}
+                    image={record.graphicStartingRight}
+                    variant={
+                      COLUMN_LAYOUT_VARIANTS.IMAGE_ON_RIGHT
+                    }
+                  />
+                )
+              case 'DatoCmsThreeColumnWithTextAndGraphic':
+                return (
+                  <ThreeColumnLayout
+                    firstColTitle={record.firstColTitle}
+                    firstColParagraph={
+                      record.firstColParagraph
+                    }
+                    firstColImage={record.firstColImage}
+                    secondColTitle={record.secondColTitle}
+                    secondColParagraph={
+                      record.secondColParagraph
+                    }
+                    secondColImage={record.secondColImage}
+                    thirdColTitle={record.thirdColTitle}
+                    thirdColParagraph={
+                      record.thirdColParagraph
+                    }
+                    thirdColImage={record.thirdColImage}
+                  />
+                )
+              default:
+                return null
+            }
+          }}
         />
       </WelcomeImageWrapper>
     </InformationWrapper>

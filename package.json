@@ -36,7 +36,7 @@
     "gbimage-bridge": "^0.2.1",
     "postcss": "^8.3.6",
     "react": "^17.0.2",
-    "react-datocms": "^1.6.3",
+    "react-datocms": "^3.0.8",
     "react-dom": "^17.0.2",
     "react-helmet": "^6.1.0",
     "react-scroll": "^1.8.5",
