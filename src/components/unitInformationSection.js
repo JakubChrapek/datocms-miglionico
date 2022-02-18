@@ -15,6 +15,25 @@ const InformationWrapper = styled.div`
     padding-right: 2.625rem;
   }
   z-index: 2;
+
+  h2 {
+    font-size: var(--header-font-size);
+    font-weight: 600;
+    line-height: ${83 / 64};
+    font-family: 'k2d', sans-serif;
+    background: -webkit-linear-gradient(
+      var(--primary-red),
+      var(--primary-navy)
+    );
+    background: linear-gradient(
+      96.12deg,
+      #c3112d 4.74%,
+      #262f6e 55.62%
+    );
+    color: transparent;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
 `
 
 const navigationItems = [
@@ -113,9 +132,11 @@ const WelcomeImage = styled(GatsbyImage)`
 `
 
 const LogoImage = styled(GatsbyImage)`
-  position: absolute;
-  right: ${20 / 16}rem;
-  bottom: 1rem;
+  && {
+    position: absolute;
+    right: ${20 / 16}rem;
+    bottom: 1rem;
+  }
 `
 
 const SectionHeading = styled.h3`
@@ -146,10 +167,21 @@ const SectionWrapper = styled.section`
   + section {
     margin-top: ${78 / 16}rem;
   }
+  + h2 {
+    margin-top: ${60 / 16}rem;
+  }
 `
 
 const UnitGraphicImage = styled(GatsbyImage)`
   border-radius: ${10 / 16}rem;
+  ${({ variant }) =>
+    variant === COLUMN_LAYOUT_VARIANTS.IMAGE_ON_RIGHT
+      ? css`
+          padding: 0 0 0 5rem;
+        `
+      : css`
+          padding: 0 5rem 0 0;
+        `};
 `
 
 const ContentWrapper = styled.div`
@@ -161,7 +193,6 @@ const ContentWrapper = styled.div`
     variant === COLUMN_LAYOUT_VARIANTS.IMAGE_ON_RIGHT &&
     css`
       order: -1;
-      margin: 1rem ${80 / 16}rem 0 0;
     `}
 
   > p {
@@ -235,7 +266,10 @@ const UnitGraphicTextColumn = ({
   smallerHeading = false
 }) => (
   <SectionWrapper variant={variant}>
-    <UnitGraphicImage image={image.gatsbyImageData} />
+    <UnitGraphicImage
+      variant={variant}
+      image={image.gatsbyImageData}
+    />
     <ContentWrapper variant={variant}>
       <Title
         smallerHeading={smallerHeading}
@@ -247,11 +281,72 @@ const UnitGraphicTextColumn = ({
   </SectionWrapper>
 )
 
-const ThreeColumnSection = styled.section``
-const Column = styled.div``
-const ColumnTitle = styled.h3``
+const ThreeColumnSection = styled.section`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: clamp(2.5rem, 4.02vw, ${58 / 16}rem);
+  margin: ${60 / 16}rem 0;
+`
+const Column = styled.div`
+  display: flex;
+  flex-direction: column;
+  &:nth-of-type(2) {
+    .gatsby-image-wrapper {
+      order: -1;
+    }
+    && > p + .gatsby-image-wrapper {
+      margin: 0 0 ${40 / 16}rem;
+    }
+  }
+
+  > p {
+    font-size: var(--paragraph-font-size);
+    font-weight: 300;
+    color: var(--off-black);
+    line-height: 1.33;
+    letter-spacing: 0.54px;
+
+    + .gatsby-image-wrapper {
+      margin-top: ${40 / 16}rem;
+    }
+
+    + p {
+      margin-top: 1.25rem;
+    }
+    + ul {
+      margin: 1.25rem 0;
+      font-size: var(--paragraph-font-size);
+      font-weight: 300;
+      color: var(--off-black);
+      line-height: 1.33;
+      letter-spacing: 0.54px;
+      list-style-type: disc;
+      list-style-position: inside;
+      > li {
+        + li {
+          margin-top: 0.25rem;
+        }
+        > * {
+          display: inline;
+        }
+      }
+    }
+  }
+`
+const ColumnTitle = styled.h3`
+  font-size: var(--subheader-font-size);
+  color: var(--primary-navy);
+  margin-bottom: 1.25rem;
+`
 const ColumnContent = styled(StructuredText)``
-const ColumnImage = styled(GatsbyImage)``
+const ColumnImage = styled(GatsbyImage)`
+  border-radius: ${10 / 16}rem;
+  + p,
+  + h3,
+  + h2 {
+    margin-top: ${40 / 16}rem;
+  }
+`
 
 const ThreeColumnLayout = ({
   firstColTitle,
@@ -288,6 +383,7 @@ const UnitWrapper = styled.div`
   margin-bottom: ${75 / 16}rem;
   display: flex;
   justify-content: center;
+  width: 100%;
 `
 
 const UnitInformationSection = ({
