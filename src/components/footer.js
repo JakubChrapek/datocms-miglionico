@@ -116,13 +116,21 @@ const FooterColumn = ({ title, withIcons, links }) => {
               contact={withIcons && (i === 1 || i === 2)}
               mail={i === 2}>
               {withIcons && ICONS[link.nazwaIkony]()}
-              <a
-                className='link link__underline'
-                target='_blank'
-                rel='noreferrer noopener'
-                href={link.linkText}>
-                {link.tekst}
-              </a>
+              {title === 'Co oferujemy?' ? (
+                <Link
+                  className='link link__underline'
+                  to={link.linkText}>
+                  {link.tekst}
+                </Link>
+              ) : (
+                <a
+                  className='link link__underline'
+                  target='_blank'
+                  rel='noreferrer noopener'
+                  href={link.linkText}>
+                  {link.tekst}
+                </a>
+              )}
             </ListItem>
           )
         })}

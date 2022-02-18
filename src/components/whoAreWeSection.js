@@ -66,12 +66,12 @@ const WhoAreWeSection = ({
         </Subheading>
         <Heading color={COLORS.GRADIENT}>{heading}</Heading>
         <Paragraph>{paragraph}</Paragraph>
-        <Button
+        {/* <Button
           variant={BUTTON_VARIANTS.FILLED}
           as={Link}
           to='/o-nas'>
           {ctaText}
-        </Button>
+        </Button> */}
       </TextContentWrapper>
     </Container>
   </WhoAreWeWrapper>

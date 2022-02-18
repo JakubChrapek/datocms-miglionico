@@ -143,6 +143,7 @@ export const query = graphql`
       nodes {
         showOnHome
         unitName
+        unitSlug
         unitColor {
           hex
         }

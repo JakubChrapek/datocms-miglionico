@@ -6,6 +6,7 @@ import styled from 'styled-components'
 import { BUTTON_VARIANTS } from '../utils/constants'
 import Button from './Button'
 import { Link } from 'gatsby'
+import { Link as ScrollLink } from 'react-scroll'
 import { HeroParagraph, HeroTitle } from './typography'
 
 const Wrapper = styled.section`
@@ -155,8 +156,13 @@ const HeroSection = ({
                 {ctaBtnText}
               </Button>
               <Button
-                as={Link}
-                to='/unity'
+                as={ScrollLink}
+                // to='/unit/nice-touch'
+                to='oferta'
+                spy={true}
+                smooth={true}
+                offset={-180}
+                duration={600}
                 variant={BUTTON_VARIANTS.OUTLINED}>
                 {findOutMoreBtnText}
               </Button>

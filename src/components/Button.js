@@ -31,7 +31,16 @@ const ButtonBaseStyles = styled.button`
   }
 `
 
-const Button = ({ variant, children, as, to, onClick }) => {
+const Button = ({
+  variant,
+  children,
+  as,
+  to,
+  smooth,
+  offset,
+  duration,
+  onClick
+}) => {
   let Element
 
   switch (variant) {
@@ -46,7 +55,13 @@ const Button = ({ variant, children, as, to, onClick }) => {
       break
   }
   return (
-    <Element as={as} to={to} onClick={onClick}>
+    <Element
+      as={as}
+      to={to}
+      smooth={smooth}
+      offset={offset}
+      duration={duration}
+      onClick={onClick}>
       {children}
     </Element>
   )

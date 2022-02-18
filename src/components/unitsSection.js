@@ -162,14 +162,16 @@ const SeeMoreText = styled.p`
 
 const UnitsSection = ({ unitsData }) => {
   return (
-    <UnitsWrapper>
+    <UnitsWrapper id='oferta'>
       <UnitsContainer>
         <UnitsContentWrapper>
           <Subheading>Co oferujemy?</Subheading>
           <Heading>Poznaj nasze unity</Heading>
           <UnitsList>
             {unitsData.map((unit) => {
-              const slugifiedLink = slugify(unit.unitName)
+              const slugifiedLink = `/unit/${slugify(
+                unit.unitSlug
+              )}`
               const specialName = (
                 <span>{unit.unitName.split(' ')[1]}</span>
               )
@@ -180,7 +182,7 @@ const UnitsSection = ({ unitsData }) => {
                     'var(--off-black)'
                   }>
                   <Link
-                    to={`/${slugifiedLink}`}
+                    to={`${slugifiedLink}`}
                     title={unit.unitName}>
                     <SeeMoreText className='unitName'>
                       Nice {specialName}

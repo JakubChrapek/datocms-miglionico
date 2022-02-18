@@ -5,6 +5,7 @@ import { graphql, useStaticQuery } from 'gatsby'
 import Header from '../components/header'
 import Footer from './footer'
 import { useBlockBody } from './blockBodyContext'
+import { Helmet } from 'react-helmet'
 
 const CommonLayout = ({ children }) => {
   const data = useStaticQuery(graphql`
@@ -111,6 +112,7 @@ const CommonLayout = ({ children }) => {
         seo={blog.seo}
         favicon={site.favicon}
       />
+      <Helmet htmlAttributes={{ lang: 'pl' }} />
       <Header headerData={header} />
       {children}
       <Footer footerData={footer} />
