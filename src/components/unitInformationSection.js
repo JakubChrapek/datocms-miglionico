@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { GatsbyImage } from 'gatsby-plugin-image'
 import { Link as ScrollLink } from 'react-scroll'
+import { Subheading } from './typography'
 
 const InformationWrapper = styled.div`
   padding: 0 var(--container-horizontal-padding);
@@ -21,8 +22,8 @@ const navigationItems = [
     navLink: 'opisUnitu'
   },
   {
-    name: 'Date techniczne',
-    navLink: 'dateTechniczne'
+    name: 'Dane techniczne',
+    navLink: 'daneTechniczne'
   },
   {
     name: 'Do pobrania',
@@ -35,8 +36,10 @@ const NavigationWrapper = styled.div`
   margin-top: 0px;
   top: 0px;
   padding: ${28 / 16}rem 0;
+  margin-bottom: ${28 / 16}rem;
   background-color: var(--off-white);
   z-index: 2;
+  box-shadow: 0 20px 24px -16px rgba(0, 0, 0, 0.175);
 `
 
 const NavigationList = styled.ul``
@@ -85,7 +88,7 @@ const InformationNavigation = () => (
             to={item.navLink}
             spy={true}
             smooth={true}
-            offset={-180}
+            offset={-175}
             duration={600}>
             {item.name}
           </StyledScrollLink>
@@ -95,33 +98,66 @@ const InformationNavigation = () => (
   </NavigationWrapper>
 )
 
-const WelcomeImage = styled(GatsbyImage)``
-
-const NavShadow = styled.span`
-  width: 100%;
-  height: 4px;
-  position: absolute;
-  left: 0;
-  display: block;
-  box-shadow: 0 14px 18px -4px rgba(0, 0, 0, 0.075);
+const WelcomeImageWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
 `
 
-const UnitInformationSection = () => {
+const WelcomeImage = styled(GatsbyImage)`
+  border-radius: ${10 / 16}rem;
+  width: 100%;
+`
+
+const LogoImage = styled(GatsbyImage)`
+  position: absolute;
+  right: ${20 / 16}rem;
+  bottom: 1rem;
+`
+
+const SectionHeading = styled.h3`
+  font-size: 3rem;
+  line-height: 1.25;
+  color: var(--off-white);
+  font-weight: 600;
+  font-family: 'k2d';
+  text-align: center;
+  position: absolute;
+  top: 0.75rem;
+  z-index: 1;
+  max-width: ${543 / 16}rem;
+  .red {
+    color: var(--primary-red);
+  }
+  .navy {
+    color: var(--primary-navy);
+  }
+`
+
+const UnitInformationSection = ({
+  unitWelcomeImage,
+  unitLogo,
+  unitName
+}) => {
   return (
     <InformationWrapper>
       <InformationNavigation />
-      <NavShadow />
-      <WelcomeImage></WelcomeImage>
-      {navigationItems.map((item) => (
-        <div
-          style={{
-            height: '100vh',
-            border: '3px solid red'
-          }}
-          id={item.navLink}>
-          {item.name}
-        </div>
-      ))}
+      <WelcomeImageWrapper id='opisUnitu'>
+        <SectionHeading>
+          <span className='red'>Pełna</span> kontrola,{' '}
+          <span className='navy'>intuicyjne</span>
+           użytkowanie
+        </SectionHeading>
+        <WelcomeImage
+          image={unitWelcomeImage.gatsbyImageData}
+          alt='Unit dentystyczny Miglionico'
+        />
+        <LogoImage
+          image={unitLogo.gatsbyImageData}
+          alt={`Unit dentystyczny Miglionico – ${unitName}`}
+        />
+      </WelcomeImageWrapper>
     </InformationWrapper>
   )
 }

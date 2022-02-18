@@ -19,7 +19,11 @@ const UnitPage = ({data}) => {
         unitShortDescription={unitData.unitShortDesc}
         unitGalleryImages={unitData.unitGallery}
       />
-      <UnitInformationSection />
+      <UnitInformationSection
+        unitWelcomeImage={unitData.unitWelcomeImage}
+        unitLogo={unitData.logo}
+        unitName={unitData.unitName}
+      />
     </Wrapper>
   )
 }
@@ -36,6 +40,11 @@ export const query = graphql`
       unitType
       unitSlug
       logo {
+        gatsbyImageData
+        alt
+        title
+      }
+      unitWelcomeImage {
         gatsbyImageData
         alt
         title
