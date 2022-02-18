@@ -104,6 +104,7 @@ const WelcomeImageWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   position: relative;
+  margin-bottom: clamp(3.5rem, 6.11vw, ${88 / 16}rem);
 `
 
 const WelcomeImage = styled(GatsbyImage)`
@@ -171,6 +172,24 @@ const ContentWrapper = styled.div`
     letter-spacing: 0.54px;
     + p {
       margin-top: 1.25rem;
+    }
+    + ul {
+      margin: 1.25rem 0;
+      font-size: var(--paragraph-font-size);
+      font-weight: 300;
+      color: var(--off-black);
+      line-height: 1.33;
+      letter-spacing: 0.54px;
+      list-style-type: disc;
+      list-style-position: inside;
+      > li {
+        + li {
+          margin-top: 0.25rem;
+        }
+        > * {
+          display: inline;
+        }
+      }
     }
   }
 `
