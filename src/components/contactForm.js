@@ -175,9 +175,12 @@ const TextArea = ({
   required,
   labelText
 }) => {
+  const [value, setValue] = useState('')
   return (
     <InputWrapper>
-      <InputLabel htmlFor={textAreaName}>
+      <InputLabel
+        className={value !== '' && 'notEmpty'}
+        htmlFor={textAreaName}>
         {`${labelText || textAreaName}${
           required ? '*' : ''
         }`}
@@ -186,7 +189,10 @@ const TextArea = ({
         id={textAreaName}
         name={textAreaName}
         rows='5'
-        {...register(textAreaName, errorConfig)}
+        {...register(textAreaName, {
+          ...errorConfig,
+          onChange: (e) => setValue(e.target.value)
+        })}
       />
       <AnimatePresence exitBeforeEnter>
         {errors[textAreaName] && (

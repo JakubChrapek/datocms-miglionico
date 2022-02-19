@@ -7,6 +7,7 @@ import styled from 'styled-components'
 import { BUTTON_VARIANTS } from '../utils/constants'
 import Button from './Button'
 import { Heading } from './typography'
+import { StructuredText } from 'react-datocms'
 
 const UnitSection = styled.section`
   display: grid;
@@ -25,6 +26,23 @@ const UnitSection = styled.section`
 
 const TextContentWrapper = styled.div`
   padding: ${37 / 16}rem 1rem 0 0;
+  strong {
+    font-weight: 600;
+  }
+
+  em {
+    font-style: italic;
+  }
+  p {
+    font-family: 'k2d';
+    font-size: clamp(
+      1rem,
+      1.25vw,
+      var(--paragraph-font-size)
+    );
+    line-height: 1.5;
+    font-weight: 300;
+  }
 `
 
 const UnitType = styled.h3`
@@ -36,24 +54,16 @@ const UnitType = styled.h3`
 `
 const UnitName = styled(Heading)`
   margin-top: 0.5rem;
+
+  + p {
+    margin-top: 1.5rem;
+  }
+  + p + p {
+    margin-top: 1.5rem;
+  }
 `
 
-const UnitShortDescription = styled.p`
-  && {
-    margin-top: 1.5rem;
-  }
-  font-family: 'k2d';
-  font-size: clamp(
-    1rem,
-    1.25vw,
-    var(--paragraph-font-size)
-  );
-  line-height: 1.5;
-  font-weight: 300;
-  > p + p {
-    margin-top: 1.5rem;
-  }
-`
+const UnitShortDescription = styled(StructuredText)``
 
 const ButtonsWrapper = styled.div`
   display: grid;
@@ -157,11 +167,7 @@ const UnitHeroSection = ({
         <UnitName as='h1' color='var(--primary-red)'>
           {unitName}
         </UnitName>
-        <UnitShortDescription
-          dangerouslySetInnerHTML={{
-            __html: unitShortDescription
-          }}
-        />
+        <UnitShortDescription data={unitShortDescription} />
         <ButtonsWrapper>
           {/* <Button
           as={Link}

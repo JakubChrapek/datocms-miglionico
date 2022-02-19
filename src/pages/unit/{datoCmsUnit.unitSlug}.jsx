@@ -16,7 +16,7 @@ const UnitPage = ({data}) => {
       <UnitHeroSection
         unitType={unitData.unitType}
         unitName={unitData.unitName}
-        unitShortDescription={unitData.unitShortDesc}
+        unitShortDescription={unitData.unitShortDescription}
         unitGalleryImages={unitData.unitGallery}
       />
       <UnitInformationSection
@@ -133,7 +133,9 @@ export const query = graphql`
       unitPrice {
         value
       }
-      unitShortDesc
+      unitShortDescription { 
+        value
+      }
       unitTechDetails {
         value
       }
