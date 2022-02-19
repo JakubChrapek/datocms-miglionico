@@ -2,10 +2,7 @@ import { motion } from 'framer-motion'
 import React from 'react'
 import styled, { css } from 'styled-components'
 import { IconFB, IconIG, IconLI } from '../assets/icons'
-import {
-  itemVariants,
-  sideVariants
-} from '../utils/animations'
+import { sideVariants } from '../utils/animations'
 import { COLORS, VARIANTS } from '../utils/constants'
 
 const SocialMediaList = styled(motion.ul)`
@@ -71,52 +68,58 @@ const SocialMedia = ({
       }
       navigationVariant={navigationVariant}
       variant={variant}>
-      {socialMediaData.map((socialMediaItem, i) => (
-        <SocialMediaItem
-          navigationVariant={navigationVariant}
-          variant={variant}
-          key={socialMediaItem.socialMediaChannel}>
-          <a
-            target='_blank'
-            rel='noreferrer noopener'
-            href={socialMediaItem.socialMediaChannel}>
-            {(() => {
-              switch (i) {
-                case 0:
-                  return (
-                    <IconFB
-                      fillColor={
-                        variant === VARIANTS.FOOTER
-                          ? COLORS.WHITE
-                          : COLORS.PRIMARY_NAVY
-                      }
-                    />
-                  )
-                case 1:
-                  return (
-                    <IconIG
-                      fillColor={
-                        variant === VARIANTS.FOOTER
-                          ? COLORS.WHITE
-                          : COLORS.PRIMARY_NAVY
-                      }
-                    />
-                  )
-                case 2:
-                  return (
-                    <IconLI
-                      fillColor={
-                        variant === VARIANTS.FOOTER
-                          ? COLORS.WHITE
-                          : COLORS.PRIMARY_NAVY
-                      }
-                    />
-                  )
-              }
-            })()}
-          </a>
-        </SocialMediaItem>
-      ))}
+      {socialMediaData.map(
+        ({
+          socialMediaChannel,
+          socialMediaChannelName,
+          originalId
+        }) => (
+          <SocialMediaItem
+            navigationVariant={navigationVariant}
+            variant={variant}
+            key={originalId}>
+            <a
+              target='_blank'
+              rel='noreferrer noopener'
+              href={socialMediaChannel}>
+              {(() => {
+                switch (socialMediaChannelName) {
+                  case 'facebook':
+                    return (
+                      <IconFB
+                        fillColor={
+                          variant === VARIANTS.FOOTER
+                            ? COLORS.WHITE
+                            : COLORS.PRIMARY_NAVY
+                        }
+                      />
+                    )
+                  case 'instagram':
+                    return (
+                      <IconIG
+                        fillColor={
+                          variant === VARIANTS.FOOTER
+                            ? COLORS.WHITE
+                            : COLORS.PRIMARY_NAVY
+                        }
+                      />
+                    )
+                  case 'linkedin':
+                    return (
+                      <IconLI
+                        fillColor={
+                          variant === VARIANTS.FOOTER
+                            ? COLORS.WHITE
+                            : COLORS.PRIMARY_NAVY
+                        }
+                      />
+                    )
+                }
+              })()}
+            </a>
+          </SocialMediaItem>
+        )
+      )}
     </SocialMediaList>
   )
 }

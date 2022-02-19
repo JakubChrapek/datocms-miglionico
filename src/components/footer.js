@@ -2,8 +2,8 @@ import { Link } from 'gatsby'
 import React from 'react'
 import styled from 'styled-components'
 import { VARIANTS } from '../utils/constants'
-import { ICONS } from '../assets/icons'
 import Logo from './logo'
+import ContactDetails from './contactDetails'
 import SocialMedia from './socialMedia'
 import FooterWaves from '../assets/footer-bg.svg'
 
@@ -68,73 +68,11 @@ const ColumnTitle = styled.p`
   margin-bottom: 0.75rem;
 `
 
-const ListOfLinks = styled.ul``
-
-const ListItem = styled.li`
-  display: inline-flex;
-  align-items: center;
-  width: 100%;
-  max-width: ${({ mail }) => (mail ? '27ch' : '24ch')};
-  :first-of-type {
-    margin-top: 0;
-  }
-  :last-of-type {
-    margin-bottom: 0;
-  }
-  margin-top: ${({ withIcons }) =>
-    withIcons ? '0.5rem' : '0.25rem'};
-
-  a {
-    flex: 1 1 80%;
-    color: currentColor;
-    text-decoration: none;
-    font-size: 1rem;
-    line-height: ${({ withIcons }) =>
-      withIcons ? '1.5' : '1'};
-    font-weight: ${({ contact }) =>
-      contact ? '600' : '300'};
-    letter-spacing: 0.32px;
-    text-decoration: none;
-  }
-  svg {
-    margin-right: 0.4rem;
-    width: 30px;
-    flex: 1 1 20%;
-  }
-`
-
 const FooterColumn = ({ title, withIcons, links }) => {
   return (
     <ColumnWrapper>
       <ColumnTitle>{title}</ColumnTitle>
-      <ListOfLinks>
-        {links.map((link, i) => {
-          return (
-            <ListItem
-              key={link.tekst}
-              withIcons={withIcons}
-              contact={withIcons && (i === 1 || i === 2)}
-              mail={i === 2}>
-              {withIcons && ICONS[link.nazwaIkony]()}
-              {title === 'Co oferujemy?' ? (
-                <Link
-                  className='link link__underline'
-                  to={`/${link.linkText}`}>
-                  {link.tekst}
-                </Link>
-              ) : (
-                <a
-                  className='link link__underline'
-                  target='_blank'
-                  rel='noreferrer noopener'
-                  href={link.linkText}>
-                  {link.tekst}
-                </a>
-              )}
-            </ListItem>
-          )
-        })}
-      </ListOfLinks>
+      <ContactDetails links={links} withIcons={withIcons} />
     </ColumnWrapper>
   )
 }

@@ -344,7 +344,7 @@ export const ArrowRight = ({
 )
 
 export const ICONS = {
-  pinezka: MapPinIcon,
-  telefon: PhoneIcon,
-  koperta: MailIcon
+  pinezka: { name: 'pinezka', component: MapPinIcon },
+  telefon: { name: 'telefon', component: PhoneIcon },
+  koperta: { name: 'koperta', component: MailIcon }
 }

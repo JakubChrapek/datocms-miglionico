@@ -174,6 +174,9 @@ const SectionWrapper = styled.section`
 
 const UnitGraphicImage = styled(GatsbyImage)`
   border-radius: ${10 / 16}rem;
+  img {
+    object-fit: contain !important;
+  }
   ${({ variant }) =>
     variant === COLUMN_LAYOUT_VARIANTS.IMAGE_ON_RIGHT
       ? css`

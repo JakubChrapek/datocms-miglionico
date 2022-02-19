@@ -87,6 +87,18 @@ export const Heading = styled.h2`
     `}
 `
 
+export const ContactDetailsTitle = styled.h3`
+  font-size: ${36 / 16}rem;
+  line-height: 1.3;
+  font-weight: 600;
+  font-family: 'k2d';
+  color: var(--primary-navy);
+  margin-bottom: ${30 / 16}rem;
+  * + & {
+    margin-top: ${30 / 16}rem;
+  }
+`
+
 export const Paragraph = styled.p`
   color: var(--paragraph-text);
   font-size: var(--smaller-paragraph-font-size);

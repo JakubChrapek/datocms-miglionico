@@ -1,12 +1,7 @@
-import {
-  MailIcon,
-  MapPin,
-  PhoneIcon
-} from '../assets/icons'
-
 export const VARIANTS = {
   HEADER: 'HEADER',
-  FOOTER: 'FOOTER'
+  FOOTER: 'FOOTER',
+  CONTACT: 'CONTACT'
 }
 
 export const BUTTON_VARIANTS = {

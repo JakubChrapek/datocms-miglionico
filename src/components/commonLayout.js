@@ -37,15 +37,9 @@ const CommonLayout = ({ children }) => {
             tekst
           }
           socialMedia {
-            iconGraphic {
-              gatsbyImageData(
-                height: 25
-                width: 25
-                layout: FIXED
-              )
-              title
-            }
             socialMediaChannel
+            socialMediaChannelName
+            originalId
           }
         }
       }
@@ -71,14 +65,7 @@ const CommonLayout = ({ children }) => {
           }
           socialMedia {
             socialMediaChannel
-            iconGraphic {
-              gatsbyImageData(
-                height: 24
-                width: 24
-                layout: FIXED
-              )
-              title
-            }
+            socialMediaChannelName
           }
           rights {
             value
