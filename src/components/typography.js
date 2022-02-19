@@ -88,7 +88,7 @@ export const Heading = styled.h2`
 `
 
 export const ContactDetailsTitle = styled.h3`
-  font-size: ${36 / 16}rem;
+  font-size: clamp(${28 / 16}rem, 2.5vw, ${36 / 16}rem);
   line-height: 1.3;
   font-weight: 600;
   font-family: 'k2d';

@@ -10,6 +10,7 @@ const GlobalStyles = createGlobalStyle`
     --off-black: #000;
     --paragraph-text: #3A3A3A;
     --gray: #61646B;
+    --input-border-gray: #c4c4c4;
     --primary-gradient: linear-gradient(94.81deg, #C3112D 0%, #262F6E 100%);
     --secondary-gradient: linear-gradient(94.81deg, #262F6E 0%, #262F6E 40.36%, #C3112D 98.24%);
   
@@ -40,7 +41,7 @@ const GlobalStyles = createGlobalStyle`
       `}
   }
 
-  h1,h2,h3,h4,h5,h6, a, p, span, button, details, summary  {
+  h1,h2,h3,h4,h5,h6, input, textarea, select, option, label, a, p, span, button, details, summary  {
     font-family: 'k2d';
   }
 
@@ -119,6 +120,15 @@ const GlobalStyles = createGlobalStyle`
     &__active {
       color: var(--primary-red);
     }
+  }
+  .sr-only:not(:focus):not(:active) {
+    clip: rect(0 0 0 0); 
+    clip-path: inset(50%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap; 
+    width: 1px;
   }
 `
 

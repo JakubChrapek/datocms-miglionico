@@ -1,18 +1,28 @@
 import { AnimatePresence, motion } from 'framer-motion'
-import React, { useEffect } from 'react'
-import { Controller, useForm } from 'react-hook-form'
-import ReactSelect from 'react-select'
-import styled from 'styled-components'
+import React, { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import styled, { css } from 'styled-components'
+import Button from './Button'
 import { ContactDetailsTitle } from './typography'
+import {
+  BUTTON_VARIANTS,
+  INPUT_VARIANTS
+} from '../utils/constants'
 
 const FormWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
 `
 
 const FormStyles = styled.form`
   display: flex;
   flex-direction: column;
+  width: 100%;
+  > button {
+    margin-top: 1.25rem;
+    align-self: flex-start;
+  }
 `
 
 const InputWrapper = styled.div`
@@ -20,15 +30,87 @@ const InputWrapper = styled.div`
   display: flex;
   flex-direction: column;
   padding-bottom: 1.5rem;
+  --input-indentation: 1rem;
+  --input-top-gap: ${11 / 16}rem;
+  &:focus-within {
+    label {
+      transform: translate(0, -${7 / 16}rem) scale(0.75);
+    }
+  }
+  .notEmpty {
+    transform: translate(0, -${7 / 16}rem) scale(0.75);
+  }
 `
 
-const InputLabel = styled.label``
+const InputLabel = styled.label`
+  transform-origin: top left;
+  transition: transform 0.4s var(--transition-function);
 
-const InputField = styled.input``
+  ${({ variant }) =>
+    variant !== INPUT_VARIANTS.SELECT &&
+    css`
+      position: absolute;
+      left: var(--input-indentation);
+      top: var(--input-top-gap);
+    `}
+`
 
-const TextAreaField = styled.textarea``
+const InputField = styled.input`
+  padding: 1rem var(--input-indentation) ${4 / 16}rem;
+  border-radius: ${6 / 16}rem;
+  border: 2px solid var(--input-border-gray);
+  transition: 0.4s border-color var(--transition-function);
+  color: var(--paragraph-text);
+  font-size: var(--smaller-paragraph-font-size);
+  line-height: 1;
+  font-weight: 300;
 
-const SelectField = styled.select``
+  &:focus,
+  &:focus-visible,
+  &:active {
+    border: 2px solid var(--primary-red);
+    outline: none;
+    font-weight: 600;
+  }
+`
+
+const TextAreaField = styled.textarea`
+  padding: 1rem var(--input-indentation) ${4 / 16}rem;
+  border-radius: ${6 / 16}rem;
+  border: 2px solid var(--input-border-gray);
+  transition: 0.4s border-color var(--transition-function);
+  color: var(--paragraph-text);
+  font-size: var(--smaller-paragraph-font-size);
+  line-height: 1;
+  font-weight: 300;
+
+  &:focus,
+  &:focus-visible,
+  &:active {
+    border: 2px solid var(--primary-red);
+    outline: none;
+    font-weight: 600;
+  }
+`
+
+const SelectField = styled.select`
+  padding: ${9 / 16}rem var(--input-indentation);
+  border-radius: ${6 / 16}rem;
+  border: 2px solid var(--input-border-gray);
+  transition: 0.4s border-color var(--transition-function);
+  color: var(--paragraph-text);
+  font-size: var(--smaller-paragraph-font-size);
+  line-height: 1;
+  font-weight: 300;
+
+  &:focus,
+  &:focus-visible,
+  &:active {
+    border: 2px solid var(--primary-red);
+    outline: none;
+    font-weight: 600;
+  }
+`
 
 const ErrorText = styled(motion.span)`
   display: inline-block;
@@ -56,16 +138,23 @@ const Input = ({
   type,
   labelText
 }) => {
+  const [value, setValue] = useState('')
+
   return (
     <InputWrapper>
-      <InputLabel htmlFor={inputName}>
+      <InputLabel
+        className={value !== '' && 'notEmpty'}
+        htmlFor={inputName}>
         {`${labelText || inputName}${required ? '*' : ''}`}
       </InputLabel>
       <InputField
         id={inputName}
         name={inputName}
         type={type}
-        {...register(inputName, errorConfig)}
+        {...register(inputName, {
+          ...errorConfig,
+          onChange: (e) => setValue(e.target.value)
+        })}
       />
       <AnimatePresence exitBeforeEnter>
         {errors[inputName] && (
@@ -120,12 +209,16 @@ const Select = ({
   options
 }) => (
   <InputWrapper>
-    <InputLabel htmlFor={selectName}>
+    <InputLabel
+      className='sr-only'
+      variant={INPUT_VARIANTS.SELECT}
+      htmlFor={selectName}>
       {`${labelText || selectName}${required ? '*' : ''}`}
     </InputLabel>
     <SelectField
       id={selectName}
       name={selectName}
+      required
       {...register(selectName, errorConfig)}>
       <option value='none' selected disabled hidden>
         Wybierz temat wiadomości…
@@ -240,7 +333,11 @@ const Form = () => {
         }}
       />
 
-      <input type='submit' />
+      <Button
+        variant={BUTTON_VARIANTS.FILLED}
+        type='submit'>
+        Wyślij wiadomość
+      </Button>
     </FormStyles>
   )
 }
