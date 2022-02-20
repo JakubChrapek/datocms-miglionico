@@ -321,6 +321,7 @@ const Form = () => {
     <FormStyles
       onSubmit={handleSubmit(onSubmit)}
       data-netlify
+      method='post'
       name='kontakt'>
       <Input
         register={register}

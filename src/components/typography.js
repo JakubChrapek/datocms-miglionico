@@ -8,7 +8,7 @@ export const HeroTitle = styled.p`
   font-weight: 600;
   margin-bottom: ${24 / 16}rem;
   color: var(--primary-navy);
-  > mark {
+  mark {
     color: var(--primary-red);
     background-color: transparent;
   }
@@ -25,7 +25,7 @@ export const HeroParagraph = styled.p`
   max-width: ${555 / 16}rem;
   margin-bottom: ${32 / 16}rem;
 
-  > strong {
+  strong {
     font-weight: 700;
   }
 

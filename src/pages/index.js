@@ -20,28 +20,10 @@ export default function Index({
   return (
     <>
       <HeroSection
-        title={() => (
-          <HeroTitle>
-            Włoska <mark>elegancja</mark> w 
-            <mark>każdym detalu</mark>
-          </HeroTitle>
-        )}
-        textParagraph={() => (
-          <HeroParagraph>
-            <strong>Miglionico</strong> to marka, która jest
-            synonimem jakości wykonania, dbałości o detale,
-            funkcjonalności oraz wyjątkowej, włoskiej
-            stylistyki.{' '}
-            <strong>
-              Unity stomatologiczne Miglionico
-            </strong>{' '}
-            gwarantują więc to, co niezbędne
-            w profesjonalnym gabinecie stomatologicznym -
-            niezawodność, funkcjonalność, a także design,
-            który wpasuje się nawet w najbardziej
-            wymagające gusta.
-          </HeroParagraph>
-        )}
+        title={homeQueryData.title}
+        textParagraph={
+          homeQueryData.paragraphUnderHeroTitle
+        }
         ctaBtnText='Wyślij zapytanie'
         findOutMoreBtnText='Sprawdź naszą ofertę'
         unitImage={homeQueryData.mainUnit.gatsbyImageData}
@@ -67,9 +49,6 @@ export const query = graphql`
   {
     home: allDatoCmsHome {
       nodes {
-        seo: seoMetaTags {
-          ...GatsbyDatoCmsSeoMetaTags
-        }
         aboutUsBtnText
         faqItems {
           originalId
@@ -130,7 +109,9 @@ export const query = graphql`
         }
         title {
           value
-          __typename
+        }
+        paragraphUnderHeroTitle {
+          value
         }
         titleGetToKnow {
           value

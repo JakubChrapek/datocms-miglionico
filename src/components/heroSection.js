@@ -8,6 +8,7 @@ import Button from './Button'
 import { Link } from 'gatsby'
 import { Link as ScrollLink } from 'react-scroll'
 import { HeroParagraph, HeroTitle } from './typography'
+import { StructuredText } from 'react-datocms'
 
 const Wrapper = styled.section`
   background-color: var(--off-white);
@@ -142,12 +143,16 @@ const HeroSection = ({
       <HeroBgImage image={pluginImage}>
         <Container>
           <TextContentWrapper>
-            {title()}
+            <HeroTitle>
+              <StructuredText data={title} />
+            </HeroTitle>
             <GatsbyImage
               className='mobile-only'
               image={unitImage}
             />
-            <p>{textParagraph()}</p>
+            <HeroParagraph>
+              <StructuredText data={textParagraph} />
+            </HeroParagraph>
             <ButtonsWrapper>
               <Button
                 as={Link}
