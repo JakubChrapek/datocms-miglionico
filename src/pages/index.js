@@ -24,12 +24,16 @@ export default function Index({
         textParagraph={
           homeQueryData.paragraphUnderHeroTitle
         }
-        ctaBtnText='Wyślij zapytanie'
-        findOutMoreBtnText='Sprawdź naszą ofertę'
+        ctaBtnText={homeQueryData.contactPageBtnText}
+        findOutMoreBtnText={homeQueryData.offerPageBtnText}
         unitImage={homeQueryData.mainUnit.gatsbyImageData}
         heroBg={homeQueryData.heroSectionBg}
       />
-      <UnitsSection unitsData={unitsData} />
+      <UnitsSection
+        unitsTitle={homeQueryData.sliderTitle}
+        unitsSubtitle={homeQueryData.smallerTitle}
+        unitsData={unitsData}
+      />
       <WhoAreWeSection
         smallerHeading='Kim jesteśmy?'
         heading='Poznaj firmę Miglionico'
@@ -113,6 +117,8 @@ export const query = graphql`
         paragraphUnderHeroTitle {
           value
         }
+        contactPageBtnText
+        offerPageBtnText
         titleGetToKnow {
           value
           __typename

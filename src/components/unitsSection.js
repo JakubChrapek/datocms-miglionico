@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import UnitsWaves from '../assets/units-bg.svg'
 import { Heading, Subheading } from './typography'
 import slugify from 'slugify'
+import { StructuredText } from 'react-datocms'
 
 const UnitsWrapper = styled.section``
 
@@ -160,13 +161,21 @@ const SeeMoreText = styled.p`
   }
 `
 
-const UnitsSection = ({ unitsData }) => {
+const UnitsSection = ({
+  unitsData,
+  unitsTitle,
+  unitsSubtitle
+}) => {
   return (
     <UnitsWrapper id='oferta'>
       <UnitsContainer>
         <UnitsContentWrapper>
-          <Subheading>Co oferujemy?</Subheading>
-          <Heading>Poznaj nasze unity</Heading>
+          <Subheading>
+            <StructuredText data={unitsSubtitle} />
+          </Subheading>
+          <Heading>
+            <StructuredText data={unitsTitle} />
+          </Heading>
           <UnitsList>
             {unitsData.map((unit) => {
               const slugifiedLink = `/unit/${slugify(
