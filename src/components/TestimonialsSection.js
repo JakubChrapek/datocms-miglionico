@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { StructuredText } from 'react-datocms'
 import { COLORS } from '../utils/constants'
 import TestimonialSlider from './testimonialSlider'
 import { Heading, Subheading } from './typography'
@@ -26,16 +27,20 @@ const TestimonialsContentWrapper = styled.div`
   align-items: center;
 `
 
-const TestimonialsSection = ({ testimonials }) => {
+const TestimonialsSection = ({
+  smallerTitle,
+  biggerTitle,
+  testimonials
+}) => {
   return (
     <TestimonialsWrapper>
       <TestimonialsContainer>
         <TestimonialsContentWrapper>
           <Subheading as='span' color={COLORS.PRIMARY_NAVY}>
-            Opinie klientów
+            <StructuredText data={smallerTitle} />
           </Subheading>
           <Heading color={COLORS.GRADIENT}>
-            Zaufali nam
+            <StructuredText data={biggerTitle} />
           </Heading>
           <TestimonialSlider testimonials={testimonials} />
         </TestimonialsContentWrapper>

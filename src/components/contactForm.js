@@ -250,7 +250,7 @@ const Select = ({
       required
       {...register(selectName, errorConfig)}>
       <option value='none' selected disabled hidden>
-        Wybierz temat wiadomości…
+        Wybierz temat wiadomości
       </option>
       {options.map((option) => (
         <option value={option.value}>{option.label}</option>

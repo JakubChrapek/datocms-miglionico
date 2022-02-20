@@ -5,10 +5,6 @@ import UnitsSection from '../components/unitsSection'
 import WhoAreWeSection from '../components/whoAreWeSection'
 import FaqSection from '../components/faqSection'
 import TestimonialsSection from '../components/TestimonialsSection'
-import {
-  HeroParagraph,
-  HeroTitle
-} from '../components/typography'
 
 export default function Index({
   data: {
@@ -48,6 +44,12 @@ export default function Index({
         paragraph={homeQueryData.faqParagraph}
       />
       <TestimonialsSection
+        smallerTitle={
+          homeQueryData.smallerTitleTestimonials
+        }
+        biggerTitle={
+          homeQueryData.testimonialsMiglionicoTitle
+        }
         testimonials={homeQueryData.testimonials}
       />
     </>

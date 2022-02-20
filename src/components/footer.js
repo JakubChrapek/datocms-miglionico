@@ -106,7 +106,7 @@ export default function Footer({ footerData }) {
         <FooterCopyrightsWrapper>
           <AuthorsText>
             Wszelkie prawa zastrzeżone{' '}
-            {new Date().getUTCFullYear}© Miglionico.pl
+            {new Date().getUTCFullYear()} © Miglionico.pl
           </AuthorsText>
           <AuthorsText>
             Strona stworzona przez{' '}

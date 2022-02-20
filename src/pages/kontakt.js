@@ -72,6 +72,9 @@ const ContactDetailsContainer = styled.div`
 
 const ContactDetailsWrapper = styled.div`
   flex: 1 1 50%;
+  ul:first-of-type {
+    margin-left: -0.5rem;
+  }
 `
 
 const FormColumn = styled.div`
