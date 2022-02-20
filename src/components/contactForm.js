@@ -278,13 +278,15 @@ const Form = () => {
   const [formFeedbackMessage, setFormFeedbackMessage] =
     useState('')
 
-  const onSubmit = (data, e) => {
+  const onSubmit = (data) => {
     if (sendCounter >= 2) {
       setFormFeedbackMessage(FORM_MESSAGES.FAILURE)
       return 0
     }
 
     setSendCounter((old) => old + 1)
+
+    console.log(data)
 
     fetch('/', {
       method: 'POST',
@@ -293,11 +295,12 @@ const Form = () => {
       },
       body: encode({
         'form-name': 'kontakt',
-        firstName: data.firstName,
-        eMail: data.eMail,
-        phone: data.phone,
-        question: data.question,
-        accept: data.accept
+        firma: data.firma,
+        eMail: data.email,
+        daneOsobowe: data.imieNazwisko,
+        telefon: data.telefon,
+        temat: data.temat,
+        wiadomosc: data.wiadomosc
       })
     })
       .then(() => {
@@ -317,8 +320,8 @@ const Form = () => {
   return (
     <FormStyles
       onSubmit={handleSubmit(onSubmit)}
-      data-netlify='true'
-      name='contact'>
+      data-netlify
+      name='kontakt'>
       <Input
         register={register}
         errors={errors}
