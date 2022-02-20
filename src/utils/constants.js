@@ -27,3 +27,10 @@ export const COLORS = {
   BLACK: 'var(--off-black)',
   GRADIENT: 'GRADIENT'
 }
+
+export const FORM_MESSAGES = {
+  SUCCESS:
+    'Dziękujemy za wiadomość. Odpiszemy możliwie najszybciej.',
+  FAILURE:
+    'Coś poszło nie tak. Spróbuj jeszcze raz, proszę.'
+}

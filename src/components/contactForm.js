@@ -6,8 +6,10 @@ import Button from './Button'
 import { ContactDetailsTitle } from './typography'
 import {
   BUTTON_VARIANTS,
+  FORM_MESSAGES,
   INPUT_VARIANTS
 } from '../utils/constants'
+import { encode } from '../utils'
 
 const FormWrapper = styled.div`
   display: flex;
@@ -19,9 +21,14 @@ const FormStyles = styled.form`
   display: flex;
   flex-direction: column;
   width: 100%;
+  position: relative;
   > button {
     margin-top: 1.25rem;
     align-self: flex-start;
+  }
+
+  > span {
+    bottom: -2rem;
   }
 `
 
@@ -35,23 +42,28 @@ const InputWrapper = styled.div`
   &:focus-within {
     label {
       transform: translate(0, -${7 / 16}rem) scale(0.75);
+      color: var(--off-black);
     }
   }
   .notEmpty {
     transform: translate(0, -${7 / 16}rem) scale(0.75);
+    color: var(--off-black);
   }
 `
 
 const InputLabel = styled.label`
   transform-origin: top left;
-  transition: transform 0.4s var(--transition-function);
-
+  transition: color 0.4s var(--transition-function),
+    transform 0.4s var(--transition-function);
+  color: var(--paragraph-text);
+  font-size: var(--smaller-paragraph-font-size);
+  font-weight: 400;
   ${({ variant }) =>
     variant !== INPUT_VARIANTS.SELECT &&
     css`
       position: absolute;
-      left: var(--input-indentation);
-      top: var(--input-top-gap);
+      left: calc(var(--input-indentation) + 1px);
+      top: calc(var(--input-top-gap) + 3px);
     `}
 `
 
@@ -94,14 +106,14 @@ const TextAreaField = styled.textarea`
 `
 
 const SelectField = styled.select`
-  padding: ${9 / 16}rem var(--input-indentation);
+  padding: ${9 / 16}rem calc(var(--input-indentation) - 5px);
   border-radius: ${6 / 16}rem;
   border: 2px solid var(--input-border-gray);
   transition: 0.4s border-color var(--transition-function);
   color: var(--paragraph-text);
-  font-size: var(--smaller-paragraph-font-size);
   line-height: 1;
-  font-weight: 300;
+  font-size: var(--smaller-paragraph-font-size);
+  font-weight: 400;
 
   &:focus,
   &:focus-visible,
@@ -115,16 +127,25 @@ const SelectField = styled.select`
 const ErrorText = styled(motion.span)`
   display: inline-block;
   position: absolute;
-  bottom: 0.25rem;
-  font-size: 0.9rem;
-  color: var(--primary-red);
+  bottom: 0.35rem;
+  font-size: 0.8rem;
+  left: var(--input-indentation);
+  color: ${({ error }) =>
+    error ? 'var(--primary-red)' : 'var(--off-black)'};
 `
 
-const ErrorMessage = ({ children }) => (
+const ErrorMessage = ({ children, key, error = true }) => (
   <ErrorText
+    key={key}
+    error={error}
+    role='alert'
     initial={{ opacity: 0, y: 4 }}
-    animate={{ opacity: 1, y: 0 }}
-    exit={{ opacity: 0, y: 4 }}>
+    animate={{
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.3 }
+    }}
+    exit={{ opacity: 0, transition: { duration: 0.15 } }}>
     {children}
   </ErrorText>
 )
@@ -151,6 +172,7 @@ const Input = ({
         id={inputName}
         name={inputName}
         type={type}
+        aria-invalid={errors.name ? 'true' : 'false'}
         {...register(inputName, {
           ...errorConfig,
           onChange: (e) => setValue(e.target.value)
@@ -158,7 +180,8 @@ const Input = ({
       />
       <AnimatePresence exitBeforeEnter>
         {errors[inputName] && (
-          <ErrorMessage>
+          <ErrorMessage
+            key={`${inputName}-${errors[inputName]?.message}`}>
             {errors[inputName].message}
           </ErrorMessage>
         )}
@@ -247,16 +270,55 @@ const Form = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors }
   } = useForm({ mode: 'onBlur' })
 
+  const [sendCounter, setSendCounter] = useState(0)
+  const [formFeedbackMessage, setFormFeedbackMessage] =
+    useState('')
+
   const onSubmit = (data, e) => {
-    console.log(data)
-    e.target.reset() // reset after form submit
+    if (sendCounter >= 2) {
+      setFormFeedbackMessage(FORM_MESSAGES.FAILURE)
+      return 0
+    }
+
+    setSendCounter((old) => old + 1)
+
+    fetch('/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body: encode({
+        'form-name': 'kontakt',
+        firstName: data.firstName,
+        eMail: data.eMail,
+        phone: data.phone,
+        question: data.question,
+        accept: data.accept
+      })
+    })
+      .then(() => {
+        setFormFeedbackMessage(FORM_MESSAGES.SUCCESS)
+        setTimeout(() => {
+          reset()
+        }, [2500])
+      })
+      .catch(() => {
+        setFormFeedbackMessage(FORM_MESSAGES.FAILURE)
+        setTimeout(() => {
+          reset()
+        }, [2500])
+      })
   }
 
   return (
-    <FormStyles onSubmit={handleSubmit(onSubmit)}>
+    <FormStyles
+      onSubmit={handleSubmit(onSubmit)}
+      data-netlify='true'
+      name='contact'>
       <Input
         register={register}
         errors={errors}
@@ -265,8 +327,30 @@ const Form = () => {
         labelText='Gabinet / Firma'
         required
         errorConfig={{
+          minLength: {
+            value: 4,
+            message:
+              'Wymagane podanie co najmniej 4 znaków.'
+          },
           required:
             'Podanie nazwy gabinetu lub firmy jest wymagane.'
+        }}
+      />
+
+      <Input
+        register={register}
+        errors={errors}
+        inputName='email'
+        type='email'
+        labelText='Twój e-mail'
+        required
+        errorConfig={{
+          required: 'Podanie adresu e-mail jest wymagane.',
+          pattern: {
+            value:
+              /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+            message: 'Nieprawidłowy adres e-mail'
+          }
         }}
       />
       <Input
@@ -279,28 +363,15 @@ const Form = () => {
       <Input
         register={register}
         errors={errors}
-        inputName='email'
-        type='email'
-        labelText='Twój e-mail'
-        required
-        errorConfig={{
-          required: 'Podanie adresu jest wymagane.',
-          pattern: {
-            value:
-              /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
-            message: 'Nieprawidłowy adres e-mail'
-          }
-        }}
-      />
-
-      <Input
-        register={register}
-        errors={errors}
         inputName='telefon'
         type='tel'
         labelText='Numer telefonu'
-        required
         errorConfig={{
+          minLength: {
+            value: 9,
+            message:
+              'Wymagane podanie co najmniej 9 znaków.'
+          },
           pattern: {
             value:
               /^(?<!\w)(\(?(\+|00)?48\)?)?[ -]?\d{3}[ -]?\d{3}[ -]?\d{3}(?!\w)/i,
@@ -321,9 +392,22 @@ const Form = () => {
             'Podanie tematu wiadomości jest wymagane.'
         }}
         options={[
-          { value: 'chocolate', label: 'Chocolate' },
-          { value: 'strawberry', label: 'Strawberry' },
-          { value: 'vanilla', label: 'Vanilla' }
+          {
+            value: 'Unit Nice One',
+            label: 'Unit Nice One'
+          },
+          {
+            value: 'Unit Nice Glass',
+            label: 'Unit Nice Glass'
+          },
+          {
+            value: 'Unit Nice Touch',
+            label: 'Unit Nice Touch'
+          },
+          {
+            value: 'Pytanie techniczne / Serwis',
+            label: 'Pytanie techniczne / Serwis'
+          }
         ]}
       />
 
@@ -344,6 +428,15 @@ const Form = () => {
         type='submit'>
         Wyślij wiadomość
       </Button>
+      <AnimatePresence exitBeforeEnter>
+        <ErrorMessage
+          key='feedback-msg'
+          error={
+            formFeedbackMessage === FORM_MESSAGES.FAILURE
+          }>
+          {formFeedbackMessage}
+        </ErrorMessage>
+      </AnimatePresence>
     </FormStyles>
   )
 }
