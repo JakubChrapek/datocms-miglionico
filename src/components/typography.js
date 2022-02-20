@@ -50,7 +50,7 @@ export const Subheading = styled.p`
   + h5,
   + h6,
   + p {
-    margin-top: ${30 / 16}rem;
+    margin-top: 1rem;
   }
 `
 
@@ -66,7 +66,7 @@ export const Heading = styled.h2`
   + h3,
   + h4,
   + h5 {
-    margin-top: ${68 / 16}rem;
+    margin-top: ${52 / 16}rem;
   }
 
   ${({ color }) =>
@@ -101,7 +101,7 @@ export const ContactDetailsTitle = styled.h3`
 
 export const Paragraph = styled.p`
   color: var(--paragraph-text);
-  font-size: var(--smaller-paragraph-font-size);
+  font-size: var(--normal-paragraph-font-size);
   line-height: ${18 / 14}rem;
   font-weight: 300;
 `

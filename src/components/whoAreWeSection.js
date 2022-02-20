@@ -41,10 +41,6 @@ const TextContentWrapper = styled.div`
     max-width: ${380 / 16}rem;
   }
 
-  p {
-    margin-bottom: ${96 / 16}rem;
-  }
-
   a {
     margin-left: -${3 / 16}rem;
   }
@@ -62,10 +58,14 @@ const WhoAreWeSection = ({
       <ImagesGrid images={gridImages} />
       <TextContentWrapper>
         <Subheading as='span' color={COLORS.PRIMARY_NAVY}>
-          {smallerHeading}
+          <StructuredText data={smallerHeading} />
         </Subheading>
-        <Heading color={COLORS.GRADIENT}>{heading}</Heading>
-        <Paragraph>{paragraph}</Paragraph>
+        <Heading color={COLORS.GRADIENT}>
+          <StructuredText data={heading} />
+        </Heading>
+        <Paragraph>
+          <StructuredText data={paragraph} />
+        </Paragraph>
         {/* <Button
           variant={BUTTON_VARIANTS.FILLED}
           as={Link}

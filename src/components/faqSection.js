@@ -1,4 +1,5 @@
 import React from 'react'
+import { StructuredText } from 'react-datocms'
 import styled from 'styled-components'
 import { COLORS } from '../utils/constants'
 import FaqList from './faqList'
@@ -34,15 +35,15 @@ const TextContentWrapper = styled.div`
     max-width: ${574 / 16}rem;
   }
 
-  p {
+  > p {
     max-width: ${555 / 16}rem;
   }
 `
 
 const FaqSection = ({
-  subheading = 'FAQ – najczęściej zadawane pytania',
-  heading = 'O co najczęściej pytają nasi Klienci?',
-  paragraph = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Viverra a arcu sed risus tristique. Eget non velit semper vitae sollicitudin eget. Quis felis convallis tristique rhoncus scelerisque. Cras diam sed id habitant purus et lorem.',
+  smallerTitle,
+  biggerTitle,
+  paragraph,
   faqItems
 }) => {
   return (
@@ -50,12 +51,14 @@ const FaqSection = ({
       <Container>
         <TextContentWrapper>
           <Subheading as='span' color={COLORS.PRIMARY_NAVY}>
-            {subheading}
+            <StructuredText data={smallerTitle} />
           </Subheading>
           <Heading color={COLORS.GRADIENT}>
-            {heading}
+            <StructuredText data={biggerTitle} />
           </Heading>
-          <Paragraph>{paragraph}</Paragraph>
+          <Paragraph>
+            <StructuredText data={paragraph} />
+          </Paragraph>
         </TextContentWrapper>
         <FaqList faqItems={faqItems} />
       </Container>

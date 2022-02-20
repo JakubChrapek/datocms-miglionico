@@ -28,6 +28,7 @@ const GlobalStyles = createGlobalStyle`
     }
     --smaller-header-font-size: 1.5rem;
     --paragraph-font-size: 1.125rem;
+    --normal-paragraph-font-size: 1rem;
     --smaller-paragraph-font-size: 0.875rem;
     --button-font-size: var(--paragraph-font-size);
   }

@@ -35,13 +35,18 @@ export default function Index({
         unitsData={unitsData}
       />
       <WhoAreWeSection
-        smallerHeading='Kim jesteśmy?'
-        heading='Poznaj firmę Miglionico'
-        paragraph='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Viverra a arcu sed risus tristique. Eget non velit semper vitae sollicitudin eget. Quis felis convallis tristique rhoncus scelerisque. Cras diam sed id habitant purus et lorem.'
-        ctaText='Więcej o nas'
+        smallerHeading={homeQueryData.smallerTitleGetToKnow}
+        heading={homeQueryData.titleGetToKnow}
+        paragraph={homeQueryData.shortParagraph}
+        ctaText={homeQueryData.aboutUsBtnText}
         gridImages={homeQueryData.imagesGrid}
       />
-      <FaqSection faqItems={homeQueryData.faqItems} />
+      <FaqSection
+        faqItems={homeQueryData.faqItems}
+        smallerTitle={homeQueryData.smallerTitleFaq}
+        biggerTitle={homeQueryData.faqMiglionicoTitle}
+        paragraph={homeQueryData.faqParagraph}
+      />
       <TestimonialsSection
         testimonials={homeQueryData.testimonials}
       />
@@ -61,7 +66,9 @@ export const query = graphql`
         }
         faqMiglionicoTitle {
           value
-          __typename
+        }
+        faqParagraph {
+          value
         }
         heroSectionBg {
           gatsbyImageData
@@ -75,23 +82,18 @@ export const query = graphql`
 
         shortParagraph {
           value
-          __typename
         }
         sliderTitle {
           value
-          __typename
         }
         smallerTitle {
           value
-          __typename
         }
         smallerTitleFaq {
           value
-          __typename
         }
         smallerTitleGetToKnow {
           value
-          __typename
         }
         imagesGrid {
           originalId
@@ -99,7 +101,6 @@ export const query = graphql`
         }
         smallerTitleTestimonials {
           value
-          __typename
         }
         testimonials {
           clientName
@@ -109,7 +110,6 @@ export const query = graphql`
         }
         testimonialsMiglionicoTitle {
           value
-          __typename
         }
         title {
           value
@@ -121,7 +121,6 @@ export const query = graphql`
         offerPageBtnText
         titleGetToKnow {
           value
-          __typename
         }
       }
     }
