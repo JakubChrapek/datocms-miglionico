@@ -37,8 +37,7 @@ const Container = styled.div`
   position: relative;
 `
 const TextContentWrapper = styled.div`
-  padding: ${43 / 16}rem clamp(3.6rem, 5vw, ${95 / 16}rem)
-    ${70 / 16}rem 0;
+  padding: ${43 / 16}rem 0 ${70 / 16}rem 0;
 
   .mobile-only {
     display: none;

@@ -2,6 +2,10 @@ import React from 'react'
 import { HelmetDatoCms } from 'gatsby-source-datocms'
 import { graphql } from 'gatsby'
 import { ContactBg } from '../assets/icons'
+import {
+  SmallerRedRect,
+  SmallGradientRect
+} from '../assets/backgrounds'
 import styled from 'styled-components'
 import {
   ContactDetailsTitle,
@@ -16,10 +20,16 @@ import ContactForm from '../components/contactForm'
 const ContactWrapper = styled.section`
   > section > svg {
     position: absolute;
-    left: 0;
-    top: 0;
-    z-index: -1;
-    width: 100%;
+    top: 2rem;
+    left: 1rem;
+    width: calc(100% - 2rem);
+    border-radius: ${10 / 16}rem;
+    &:first-of-type {
+      transform: skewY(1deg);
+    }
+    &:last-of-type {
+      transform: skewX(-2.5deg) rotate(1.75deg);
+    }
   }
 `
 
@@ -39,6 +49,7 @@ const ContactContainer = styled.section`
   align-items: center;
   justify-content: center;
   p {
+    position: relative;
     color: var(--off-white);
     font-size: var(--paragraph-font-size);
     line-height: 1.33;
@@ -47,11 +58,14 @@ const ContactContainer = styled.section`
 `
 
 const ContactPageHeading = styled(Heading)`
+  position: relative;
   + p {
     margin-top: ${26 / 16}rem;
   }
 `
-const Text = styled(StructuredText)``
+const Text = styled(StructuredText)`
+  position: relative;
+`
 const ContactDetailsContainer = styled.div`
   --container-horizontal-padding: 120px;
   --container-max-width: calc(
@@ -86,7 +100,8 @@ const Kontakt = ({ data }) => {
       <HelmetDatoCms seo={data.contact.seo} />
       <ContactWrapper>
         <ContactContainer>
-          <ContactBg />
+          <SmallerRedRect />
+          <SmallGradientRect />
           <ContactPageHeading color='var(--off-white)'>
             {data.contact.title}
           </ContactPageHeading>

@@ -88,6 +88,16 @@ const FaqQuestion = styled.summary`
 
 const FaqAnswer = styled.p`
   position: relative;
+  color: var(--off-white);
+  font-size: var(--paragraph-normal-font-size);
+  line-height: ${26 / 16};
+  font-weight: 300;
+  max-width: ${612 / 16}rem;
+  margin-top: 2rem;
+
+  strong {
+    font-weight: 700;
+  }
 `
 
 const FaqItem = ({ item }) => {

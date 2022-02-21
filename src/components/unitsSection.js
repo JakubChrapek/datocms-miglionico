@@ -2,7 +2,10 @@ import { Link } from 'gatsby'
 import { GatsbyImage } from 'gatsby-plugin-image'
 import React from 'react'
 import styled from 'styled-components'
-import UnitsWaves from '../assets/units-bg.svg'
+import {
+  GradientRect,
+  NavyRect
+} from '../assets/backgrounds'
 import { Heading, Subheading } from './typography'
 import slugify from 'slugify'
 import { StructuredText } from 'react-datocms'
@@ -21,14 +24,24 @@ const UnitsContainer = styled.section`
     ${52 / 16}rem;
   margin: 0 auto;
   position: relative;
-  background-image: url(${UnitsWaves});
-  background-size: cover;
-  border-radius: 0.5rem;
-  background-repeat: no-repeat;
+  svg {
+    position: absolute;
+    top: 2rem;
+    left: 1rem;
+    width: calc(100% - 2rem);
+    border-radius: ${10 / 16}rem;
+    &:first-of-type {
+      transform: skewY(1deg);
+    }
+    &:last-of-type {
+      transform: skewY(1.25deg) rotate(2.25deg);
+    }
+  }
 `
 
 const UnitsContentWrapper = styled.div`
   z-index: 2;
+  position: relative;
   display: flex;
   flex-direction: column;
 `
@@ -169,6 +182,8 @@ const UnitsSection = ({
   return (
     <UnitsWrapper id='oferta'>
       <UnitsContainer>
+        <NavyRect />
+        <GradientRect />
         <UnitsContentWrapper>
           <Subheading>
             <StructuredText data={unitsSubtitle} />

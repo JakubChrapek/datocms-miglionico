@@ -23,7 +23,7 @@ export const HeroParagraph = styled.p`
   font-weight: 300;
   color: var(--paragraph-text);
   max-width: ${555 / 16}rem;
-  margin-bottom: ${32 / 16}rem;
+  margin-bottom: 2rem;
 
   strong {
     font-weight: 700;
@@ -101,7 +101,12 @@ export const ContactDetailsTitle = styled.h3`
 
 export const Paragraph = styled.p`
   color: var(--paragraph-text);
-  font-size: var(--normal-paragraph-font-size);
-  line-height: ${18 / 14}rem;
+  font-size: var(--paragraph-font-size);
+  line-height: ${28 / 18};
   font-weight: 300;
+  max-width: ${555 / 16}rem;
+
+  strong {
+    font-weight: 700;
+  }
 `

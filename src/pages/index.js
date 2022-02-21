@@ -126,7 +126,7 @@ export const query = graphql`
         }
       }
     }
-    units: allDatoCmsUnit {
+    units: allDatoCmsUnit(sort: { fields: homepageOrder }) {
       nodes {
         showOnHome
         unitName
