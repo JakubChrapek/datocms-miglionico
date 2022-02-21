@@ -22,6 +22,7 @@ const Container = styled.div`
   padding: ${36 / 16}rem ${40 / 16}rem ${112 / 16}rem 3rem;
   margin: 0 auto;
   display: flex;
+  align-items: flex-start;
 `
 
 const TextContentWrapper = styled.div`

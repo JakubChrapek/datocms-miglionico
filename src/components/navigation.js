@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { Link } from 'gatsby'
 import styled, { css } from 'styled-components'
 import { capitalizeFirstLetterOfString } from '../utils'
@@ -7,6 +7,7 @@ import {
   itemVariants,
   sideVariants
 } from '../utils/animations'
+import { useBlockBody } from './blockBodyContext'
 
 const NavigationWrapper = styled(motion.nav)`
   margin: 0 var(--nav-gap);
@@ -96,6 +97,18 @@ const Navigation = ({
   variant,
   cycleMobileMenu
 }) => {
+  const { dispatch } = useBlockBody()
+
+  const handleClickMenu = useCallback(() => {
+    if (variant === 'mobile') {
+      if (mobileMenuOpen) dispatch({ type: 'hideMenu' })
+      else {
+        dispatch({ type: 'showMenu' })
+      }
+      cycleMobileMenu()
+    }
+  }, [mobileMenuOpen, variant])
+
   return (
     <NavigationWrapper
       variant={variant}
@@ -111,11 +124,7 @@ const Navigation = ({
           mobileMenuOpen={mobileMenuOpen}>
           <Link
             to='/'
-            onClick={() => {
-              if (variant === 'mobile') {
-                cycleMobileMenu()
-              }
-            }}
+            onClick={handleClickMenu}
             className='link__underline'
             activeClassName='link__active'
             title='Miglionico – strona główna'>
@@ -135,6 +144,7 @@ const Navigation = ({
               mobileMenuOpen={mobileMenuOpen}
               key={capitalizedLink}>
               <Link
+                onClick={handleClickMenu}
                 to={`/${navItem.linkText}`}
                 className='link__underline'
                 title={capitalizedLink}

@@ -28,7 +28,7 @@ const ContactWrapper = styled.section`
       transform: skewY(1deg);
     }
     &:last-of-type {
-      transform: skewX(-2.5deg) rotate(1.75deg);
+      transform: skewX(-2.5deg) rotate(2deg);
     }
   }
 `
@@ -76,7 +76,7 @@ const ContactDetailsContainer = styled.div`
   max-width: var(--container-max-width);
   padding: ${22 / 16}rem ${40 / 16}rem ${91 / 16}rem
     ${17 / 16}rem;
-  margin: 0 auto ${31 / 16}rem;
+  margin: 3.5rem auto ${31 / 16}rem;
   display: flex;
   background-color: var(--off-white);
   box-shadow: 4px 4px 25px 0px rgba(0, 0, 0, 0.05);

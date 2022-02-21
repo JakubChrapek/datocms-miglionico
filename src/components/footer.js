@@ -5,7 +5,10 @@ import { VARIANTS } from '../utils/constants'
 import Logo from './logo'
 import ContactDetails from './contactDetails'
 import SocialMedia from './socialMedia'
-import FooterWaves from '../assets/footer-bg.svg'
+import {
+  FooterGradientRect,
+  FooterNavyRect
+} from '../assets/backgrounds'
 
 const FooterWrapper = styled.footer``
 
@@ -17,28 +20,39 @@ const FooterContainer = styled.section`
   );
 
   max-width: var(--container-max-width);
-  padding: ${149 / 16}rem ${45 / 16}rem ${22 / 16}rem
-    ${40 / 16}rem;
+  padding: clamp(5rem, 9vw, ${128 / 16}rem) ${45 / 16}rem
+    ${22 / 16}rem ${40 / 16}rem;
   margin: 0 auto;
   position: relative;
-  background-image: url(${FooterWaves});
-  background-size: cover;
-  border-radius: 0.5rem;
-  background-repeat: no-repeat;
+
+  > svg {
+    position: absolute;
+    top: 2rem;
+    left: 0;
+    width: 100%;
+    &:first-of-type {
+      /* clip-path: polygon(3% 0, 98% 10%, 100% 100%, 0 100%); */
+    }
+    &:last-of-type {
+      /* display: none; */
+    }
+  }
 `
 
 const FooterContentWrapper = styled.div`
   z-index: 2;
   display: flex;
   align-items: flex-start;
+  position: relative;
 `
 
 const FooterCopyrightsWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   padding: ${12 / 16}rem ${5 / 16}rem 0;
-  margin-top: ${43 / 16}rem;
+  margin-top: clamp(1.5rem, 3vw, ${43 / 16}rem);
   border-top: 2px solid var(--off-white);
+  position: relative;
 `
 
 const LogoAndSocialMediaWrapper = styled.div`
@@ -50,11 +64,20 @@ const LogoAndSocialMediaWrapper = styled.div`
   a {
     color: var(--off-white);
   }
+
+  .gatsby-image-wrapper {
+    max-width: clamp(10rem, 20.8vw, ${300 / 16}rem);
+    img {
+      object-fit: contain !important;
+    }
+  }
 `
 
 const AuthorsText = styled.span`
   color: var(--off-white);
   font-family: 'k2d';
+  font-size: var(--paragraph-font-size);
+  font-weight: 300;
 `
 
 const ColumnWrapper = styled.div`
@@ -63,7 +86,7 @@ const ColumnWrapper = styled.div`
 `
 const ColumnTitle = styled.p`
   font-weight: 600;
-  font-size: 1.5rem;
+  font-size: clamp(1.25rem, 1.66vw, 1.5rem);
   line-height: 1.33;
   margin-bottom: 0.75rem;
 `
@@ -84,6 +107,8 @@ export default function Footer({ footerData }) {
   return (
     <FooterWrapper>
       <FooterContainer>
+        {/* <FooterNavyRect /> */}
+        <FooterGradientRect />
         <FooterContentWrapper>
           <LogoAndSocialMediaWrapper>
             <Link to='/' title={footerLogo.title}>
