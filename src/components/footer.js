@@ -91,11 +91,20 @@ const ColumnTitle = styled.p`
   margin-bottom: 0.75rem;
 `
 
-const FooterColumn = ({ title, withIcons, links }) => {
+const FooterColumn = ({
+  title,
+  withIcons,
+  links,
+  innerLinks
+}) => {
   return (
     <ColumnWrapper>
       <ColumnTitle>{title}</ColumnTitle>
-      <ContactDetails links={links} withIcons={withIcons} />
+      <ContactDetails
+        innerLinks={innerLinks}
+        links={links}
+        withIcons={withIcons}
+      />
     </ColumnWrapper>
   )
 }
@@ -119,12 +128,13 @@ export default function Footer({ footerData }) {
               variant={VARIANTS.FOOTER}
             />
           </LogoAndSocialMediaWrapper>
-          {footerColumns.map((column) => (
+          {footerColumns.map((column, index) => (
             <FooterColumn
               key={column.columnTitle}
               title={column.columnTitle}
               withIcons={column.columnWithIcons}
               links={column.links}
+              innerLinks={index !== 0}
             />
           ))}
         </FooterContentWrapper>

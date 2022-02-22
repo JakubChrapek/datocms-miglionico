@@ -12,6 +12,7 @@ const GlobalStyles = createGlobalStyle`
     --gray: #61646B;
     --input-border-gray: #c4c4c4;
     --primary-gradient: linear-gradient(94.81deg, #C3112D 0%, #262F6E 100%);
+    --units-gradient: linear-gradient(135.81deg, #C3112D 0%, #262F6E 100%);
     --secondary-gradient: linear-gradient(94.81deg, #262F6E 0%, #262F6E 40.36%, #C3112D 98.24%);
   
     --link-padding: ${7 / 16}rem 0;

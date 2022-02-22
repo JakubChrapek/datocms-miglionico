@@ -1,3 +1,4 @@
+import { Link } from 'gatsby'
 import React from 'react'
 import styled, { css } from 'styled-components'
 import { ICONS } from '../assets/icons'
@@ -51,7 +52,8 @@ const ContactDetails = ({
   links,
   withIcons,
   color,
-  column
+  column,
+  innerLinks
 }) => {
   return (
     <ListOfLinks column={column}>
@@ -65,13 +67,21 @@ const ContactDetails = ({
             mail={link.nazwaIkony === ICONS.koperta.name}>
             {withIcons &&
               ICONS[link.nazwaIkony].component()}
-            <a
-              className='link link__underline'
-              target='_blank'
-              rel='noreferrer noopener'
-              href={link.linkText}>
-              {link.tekst}
-            </a>
+            {innerLinks ? (
+              <Link
+                to={link.linkText}
+                className='link link__underline'>
+                {link.tekst}
+              </Link>
+            ) : (
+              <a
+                className='link link__underline'
+                target='_blank'
+                rel='noreferrer noopener'
+                href={link.linkText}>
+                {link.tekst}
+              </a>
+            )}
           </ListItem>
         )
       })}

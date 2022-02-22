@@ -105,7 +105,7 @@ const HamburgerStyles = styled.svg`
             stroke: ${COLORS.PRIMARY_RED};
             transform-origin: center center;
             &.bar1 {
-              transform: translate(-0.7rem, 0.725rem)
+              transform: translate(-1.35rem, 0.725rem)
                 rotate(45deg) scaleX(1);
               opacity: 1;
             }
@@ -114,7 +114,7 @@ const HamburgerStyles = styled.svg`
               opacity: 0;
             }
             &.bar3 {
-              transform: translate(-0.65rem, -0.725rem)
+              transform: translate(-1.3rem, -0.725rem)
                 rotate(-45deg) scaleX(1);
               opacity: 1;
             }

@@ -15,6 +15,9 @@ export const HeroTitle = styled.p`
   @media (max-width: 620px) {
     text-align: center;
   }
+  @media (max-width: 387px) {
+    --header-font-size: clamp(1.5rem, 8.2vw, 2rem);
+  }
 `
 
 export const HeroParagraph = styled.p`
@@ -30,8 +33,11 @@ export const HeroParagraph = styled.p`
   }
 
   @media (max-width: 620px) {
-    margin: 3rem 0;
+    margin: 1.5rem 0 3rem;
     text-align: center;
+  }
+  @media (max-width: 620px) {
+    margin-top: 0;
   }
 `
 

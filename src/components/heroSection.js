@@ -97,10 +97,21 @@ const ButtonsWrapper = styled.div`
   > button,
   > a {
     margin-right: ${15 / 16}rem;
-
     :last-of-type {
       margin-right: 0;
       margin-left: ${15 / 16}rem;
+    }
+  }
+  @media (max-width: 1027px) {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    > a {
+      margin-left: 0;
+      margin-right: 0;
+      :last-of-type {
+      margin-top: 1.25rem;
+      margin-left: 0;
     }
   }
   @media (max-width: 620px) {

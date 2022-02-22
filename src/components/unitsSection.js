@@ -1,14 +1,21 @@
 import { Link } from 'gatsby'
 import { GatsbyImage } from 'gatsby-plugin-image'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
+import slugify from 'slugify'
+import { StructuredText } from 'react-datocms'
+import { motion } from 'framer-motion'
 import {
   GradientRect,
   NavyRect
 } from '../assets/backgrounds'
 import { Heading, Subheading } from './typography'
-import slugify from 'slugify'
-import { StructuredText } from 'react-datocms'
+import useWindowSize, {
+  useHasMounted
+} from '../utils/hooks'
+import { IconButton } from './iconButton'
+import { ArrowLeft, ArrowRight } from '../assets/icons'
+import { COLORS } from '../utils/constants'
 
 const UnitsWrapper = styled.section``
 
@@ -22,14 +29,45 @@ const UnitsContainer = styled.section`
   max-width: var(--container-max-width);
   padding: ${36 / 16}rem ${80 / 16}rem ${110 / 16}rem
     ${52 / 16}rem;
+
+  &:before {
+    content: none;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: var(--units-gradient);
+    width: 100%;
+    height: 100%;
+    clip-path: polygon(0 0, 100% 6%, 100% 100%, 0 94%);
+  }
+
+  @media (max-width: 1286px) {
+    padding: clamp(1.5rem, 2.8vw, 2.25rem)
+      clamp(2rem, 4.17vw, 3.25rem)
+      clamp(4rem, 10.11vw, 7.875rem);
+    &:before {
+      content: '';
+    }
+  }
+  @media (max-width: 767px) {
+    padding: 3rem 1rem;
+    min-height: 30rem;
+    &:before {
+      content: '';
+    }
+  }
   margin: 0 auto;
   position: relative;
+  overflow: hidden;
   svg {
     position: absolute;
-    top: 2rem;
+    top: 3rem;
     left: 1rem;
     width: calc(100% - 2rem);
     border-radius: ${10 / 16}rem;
+    @media (max-width: 1286px) {
+      display: none;
+    }
     &:first-of-type {
       transform: skewY(1deg);
     }
@@ -44,14 +82,23 @@ const UnitsContentWrapper = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
+  @media (max-width: 1420px) {
+    padding-top: 2rem;
+  }
 `
 
-const UnitsList = styled.ul`
+const UnitsList = styled(motion.ul)`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: ${29 / 16}rem;
   padding: 0 ${10 / 16}rem;
-  margin-top: 6.9rem;
+  margin-top: clamp(5.5rem, 7.6vw, 6.9rem);
+
+  @media (max-width: 767px) {
+    display: block;
+    height: clamp(20rem, 30vh, 27.5rem);
+    padding-bottom: 3rem;
+  }
 `
 
 const SeeText = styled.p`
@@ -69,7 +116,12 @@ const SeeText = styled.p`
   }
 `
 
-const UnitItem = styled.li`
+const UnitItem = styled(motion.li)`
+  @media (max-width: 767px) {
+    position: absolute;
+    width: 50vw;
+    bottom: 0;
+  }
   > a {
     display: inline-block;
     width: 100%;
@@ -89,6 +141,9 @@ const UnitItem = styled.li`
     :hover {
       .unitName {
         transform: translateY(-2.5rem);
+        @media (max-width: 1100px) {
+          transform: translateY(-1.25rem);
+        }
       }
       ${SeeText} > span {
         transform: translateY(0rem);
@@ -109,6 +164,9 @@ const UnitItem = styled.li`
       outline: none;
       .unitName {
         transform: translateY(-2.5rem);
+        @media (max-width: 1100px) {
+          transform: translateY(-1.25rem);
+        }
       }
       ${SeeText} > span {
         transform: translateY(0rem);
@@ -155,6 +213,15 @@ const UnitItem = styled.li`
       background-color: var(--off-white);
       border-radius: 1rem;
     }
+    @media (max-width: 767px) {
+      img {
+        width: ${280 / 16}rem;
+        margin: 0 auto;
+      }
+      &:before {
+        height: 50vw;
+      }
+    }
   }
 `
 
@@ -179,6 +246,38 @@ const UnitsSection = ({
   unitsTitle,
   unitsSubtitle
 }) => {
+  const [position, positionSet] = useState(1)
+  const { width } = useWindowSize()
+  const carouselRef = React.useRef()
+  const [rect, setRect] = React.useState(null)
+
+  useEffect(() => {
+    if (carouselRef.current) {
+      setRect(carouselRef.current.getBoundingClientRect())
+    }
+    return () => setRect(null)
+  }, [])
+
+  const hasMounted = useHasMounted()
+  if (!hasMounted) {
+    return null
+  }
+  const handleDragStart = (event, { offset }) => {}
+  const handleDragEnd = (event, { offset }) => {
+    if (rect) {
+      const swipePower = offset.x / rect.width
+      if (swipePower > 0.1) {
+        if (position > 0) {
+          positionSet((old) => old - 1)
+        }
+      } else if (swipePower < -0.1) {
+        if (position < unitsData.length - 1) {
+          positionSet((old) => old + 1)
+        }
+      }
+    }
+  }
+
   return (
     <UnitsWrapper id='oferta'>
       <UnitsContainer>
@@ -191,8 +290,34 @@ const UnitsSection = ({
           <Heading>
             <StructuredText data={unitsTitle} />
           </Heading>
-          <UnitsList>
-            {unitsData.map((unit) => {
+          <IconButton
+            onClick={() => positionSet((old) => old - 1)}
+            disabled={position <= 0}>
+            <ArrowLeft color={COLORS.PRIMARY_NAVY} />
+          </IconButton>
+          <IconButton
+            onClick={() => positionSet((old) => old + 1)}
+            disabled={position >= unitsData.length - 1}>
+            <ArrowRight color={COLORS.PRIMARY_NAVY} />
+          </IconButton>
+          <UnitsList
+            ref={carouselRef}
+            drag='x'
+            dragDirectionLock
+            dragConstraints={{ left: 0, right: 0 }}
+            onDragStart={handleDragStart}
+            onDragEnd={handleDragEnd}
+            dragPropagation
+            dragMomentum={false}
+            transition={{
+              x: {
+                type: 'spring',
+                mass: 1,
+                stiffness: 200,
+                damping: 20
+              }
+            }}>
+            {unitsData.map((unit, index) => {
               const slugifiedLink = `/unit/${slugify(
                 unit.unitSlug
               )}`
@@ -201,6 +326,28 @@ const UnitsSection = ({
               )
               return (
                 <UnitItem
+                  key={unit.unitName}
+                  initial={
+                    width <= 767 && {
+                      opacity: 0
+                    }
+                  }
+                  animate={
+                    width <= 767 && {
+                      opacity: 1,
+                      left: `calc(${
+                        (1 + index - position) * 50 - 25
+                      }vw - 1rem)`,
+                      scale: index === position ? 1 : 0.9
+                    }
+                  }
+                  transition={
+                    width <= 767 && {
+                      type: 'spring',
+                      stiffness: 320,
+                      damping: 60
+                    }
+                  }
                   color={
                     unit?.unitColor?.hex ||
                     'var(--off-black)'
