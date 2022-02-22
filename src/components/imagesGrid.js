@@ -1,6 +1,17 @@
-import { GatsbyImage } from 'gatsby-plugin-image'
 import React from 'react'
+import { GatsbyImage } from 'gatsby-plugin-image'
+import { StructuredText } from 'react-datocms'
+import { Link } from 'gatsby'
 import styled from 'styled-components'
+import { BUTTON_VARIANTS, COLORS } from '../utils/constants'
+import Button from './Button'
+import { Paragraph } from './typography'
+
+const MobileText = styled(Paragraph)`
+  max-width: 35rem;
+  text-align: center;
+  margin: 4.5rem auto 3.5rem;
+`
 
 const Grid = styled.div`
   flex: 1 1 54%;
@@ -8,6 +19,15 @@ const Grid = styled.div`
   grid-gap: clamp(1.5rem, 2.77vw, ${40 / 16}rem);
   @media (max-width: 1240px) {
     margin-right: 4rem;
+  }
+  @media (max-width: 1020px) {
+    margin-right: 2.5rem;
+  }
+  @media (max-width: 876px) {
+    margin: ${58 / 16}rem 0 0 0;
+    ~ a {
+      align-self: center;
+    }
   }
   grid-template-areas:
     'a a a a a a a a a a a a b b b b b b b'
@@ -70,16 +90,27 @@ const Grid = styled.div`
   }
 `
 
-const ImagesGrid = ({ images }) => {
+const ImagesGrid = ({ images, mobileText, buttonText }) => {
   return (
-    <Grid>
-      {images.map((image) => (
-        <GatsbyImage
-          key={image.originalId}
-          image={image.gatsbyImageData}
-        />
-      ))}
-    </Grid>
+    <>
+      <Grid>
+        {images.map((image) => (
+          <GatsbyImage
+            key={image.originalId}
+            image={image.gatsbyImageData}
+          />
+        ))}
+      </Grid>
+      <MobileText>
+        <StructuredText data={mobileText} />
+      </MobileText>
+      <Button
+        variant={BUTTON_VARIANTS.FILLED}
+        as={Link}
+        to='/o-nas'>
+        {buttonText}
+      </Button>
+    </>
   )
 }
 

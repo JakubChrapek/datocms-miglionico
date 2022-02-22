@@ -14,16 +14,22 @@ import {
 const WhoAreWeWrapper = styled.section``
 
 const Container = styled.div`
-  --container-horizontal-padding: 37px;
+  --container-horizontal-padding: ${37 / 16}rem;
   --container-max-width: calc(
     var(--container-max-size) -
       var(--container-horizontal-padding)
   );
 
   max-width: var(--container-max-width);
-  padding: ${36 / 16}rem ${37 / 16}rem ${112 / 16}rem 0;
   margin: 0 auto;
+  padding: ${36 / 16}rem ${37 / 16}rem ${112 / 16}rem 0;
   display: flex;
+
+  @media (max-width: 876px) {
+    flex-direction: column;
+    padding: ${36 / 16}rem ${20 / 16}rem ${112 / 16}rem;
+    --container-horizontal-padding: ${40 / 16}rem;
+  }
 `
 
 const TextContentWrapper = styled.div`
@@ -44,6 +50,18 @@ const TextContentWrapper = styled.div`
   a {
     margin-left: -${3 / 16}rem;
   }
+
+  @media (max-width: 1070px) {
+    h2 + p {
+      margin-top: 2.25rem;
+    }
+  }
+  @media (max-width: 876px) {
+    order: -1;
+    > p {
+      display: none;
+    }
+  }
 `
 
 const WhoAreWeSection = ({
@@ -55,7 +73,11 @@ const WhoAreWeSection = ({
 }) => (
   <WhoAreWeWrapper>
     <Container>
-      <ImagesGrid images={gridImages} />
+      <ImagesGrid
+        buttonText={ctaText}
+        mobileText={paragraph}
+        images={gridImages}
+      />
       <TextContentWrapper>
         <Subheading as='span' color={COLORS.PRIMARY_NAVY}>
           <StructuredText data={smallerHeading} />
