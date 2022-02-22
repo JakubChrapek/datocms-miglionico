@@ -177,10 +177,10 @@ const UnitItem = styled(motion.li)`
       color: inherit;
       @media (max-width: 767px) {
         position: relative;
-        display: flex;
+        /* display: flex;
         flex-direction: column;
-        padding: 1rem 0;
-        top: -0.25rem;
+        padding: 1rem 0; */
+        top: -1rem;
       }
 
       :focus-visible {
@@ -377,7 +377,7 @@ const UnitsSection = ({
             dragConstraints={{ left: 0, right: 0 }}
             onDragStart={handleDragStart}
             onDragEnd={handleDragEnd}
-            dragPropagation
+            // dragPropagation
             dragMomentum={false}
             transition={{
               x: {
