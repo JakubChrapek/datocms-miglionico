@@ -78,12 +78,30 @@ const UnitsContainer = styled.section`
 `
 
 const UnitsContentWrapper = styled.div`
+  --arrow-size: ${56 / 16}rem;
   z-index: 2;
   position: relative;
   display: flex;
   flex-direction: column;
   @media (max-width: 1420px) {
     padding-top: 2rem;
+  }
+  @media (min-width: 768px) {
+    button {
+      display: none;
+      visibility: hidden;
+    }
+  }
+  @media (max-width: 767px) {
+    button {
+      margin-top: 0;
+      top: unset;
+      bottom: calc(50vw - 3rem);
+      svg {
+        display: block;
+        transform: none !important;
+      }
+    }
   }
 `
 
@@ -96,8 +114,13 @@ const UnitsList = styled(motion.ul)`
 
   @media (max-width: 767px) {
     display: block;
+    cursor: grab;
     height: clamp(20rem, 30vh, 27.5rem);
     padding-bottom: 3rem;
+    margin-top: clamp(2.5rem, 7.6vw, 5.5rem);
+  }
+  @media (max-width: 494px) {
+    margin-top: clamp(1rem, 4.85vw, 1.5rem);
   }
 `
 
@@ -112,7 +135,16 @@ const SeeText = styled.p`
     display: inline-block;
     transition: opacity 0.6s var(--transition-function),
       transform 0.6s var(--transition-function);
-    transform: translateY(1rem);
+    padding: 1rem;
+    margin: -1rem;
+    font-size: var(--paragraph-font-size);
+    @media (min-width: 768px) {
+      transform: translateY(1rem);
+    }
+  }
+  @media (max-width: 767px) {
+    top: 0.5rem;
+    color: var(--gray);
   }
 `
 
@@ -122,7 +154,17 @@ const UnitItem = styled(motion.li)`
     width: 50vw;
     bottom: 0;
   }
-  > a {
+  @media (max-width: 494px) {
+    width: 70vw;
+  }
+  .gatsby-image-wrapper {
+    pointer-events: none;
+    img {
+      max-width: 100%;
+    }
+  }
+
+  > div {
     display: inline-block;
     width: 100%;
     height: 100%;
@@ -130,6 +172,47 @@ const UnitItem = styled(motion.li)`
     color: var(--paragraph-text);
     text-decoration: none;
     position: relative;
+    > a {
+      text-decoration: none;
+      color: inherit;
+      @media (max-width: 767px) {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        padding: 1rem 0;
+        top: -0.25rem;
+      }
+
+      :focus-visible {
+        outline: none;
+        .unitName {
+          transform: translateY(-1.5rem);
+          @media (max-width: 1100px) {
+            transform: translateY(-1.25rem);
+          }
+        }
+        ${SeeText} > span {
+          transform: translateY(0rem);
+        }
+        span {
+          color: ${({ color }) => color};
+        }
+        + .gatsby-image-wrapper img {
+          @media (min-width: 768px) {
+            transform: translateY(-0.5rem) scale(1.05);
+          }
+        }
+        + .gatsby-image-wrapper {
+          img {
+            filter: grayscale(0);
+          }
+        }
+        + .unit:before {
+          outline: 2px solid var(--off-white);
+          outline-offset: 4px;
+        }
+      }
+    }
     span,
     p {
       position: relative;
@@ -140,9 +223,12 @@ const UnitItem = styled(motion.li)`
     }
     :hover {
       .unitName {
-        transform: translateY(-2.5rem);
+        transform: translateY(-1.5rem);
         @media (max-width: 1100px) {
           transform: translateY(-1.25rem);
+        }
+        @media (max-width: 767px) {
+          transform: translateY(0);
         }
       }
       ${SeeText} > span {
@@ -152,46 +238,23 @@ const UnitItem = styled(motion.li)`
         color: ${({ color }) => color};
       }
       .gatsby-image-wrapper img {
-        transform: translateY(-0.5rem) scale(1.05);
+        @media (min-width: 768px) {
+          transform: translateY(-0.5rem) scale(1.05);
+        }
       }
       .gatsby-image-wrapper {
         img {
           filter: grayscale(0);
         }
-      }
-    }
-    :focus-visible {
-      outline: none;
-      .unitName {
-        transform: translateY(-2.5rem);
-        @media (max-width: 1100px) {
-          transform: translateY(-1.25rem);
-        }
-      }
-      ${SeeText} > span {
-        transform: translateY(0rem);
-      }
-      span {
-        color: ${({ color }) => color};
-      }
-      .gatsby-image-wrapper img {
-        transform: translateY(-0.5rem) scale(1.05);
-      }
-      .gatsby-image-wrapper {
-        img {
-          filter: grayscale(0);
-        }
-      }
-      .unit:before {
-        outline: 2px solid var(--off-white);
-        outline-offset: 4px;
       }
     }
   }
   .gatsby-image-wrapper {
     overflow: visible;
     img {
-      filter: grayscale(1);
+      @media (min-width: 768px) {
+        filter: grayscale(1);
+      }
       transition: filter 0.6s var(--transition-function);
     }
   }
@@ -210,7 +273,7 @@ const UnitItem = styled(motion.li)`
       left: 0;
       height: calc(100% + 2rem);
       width: 100%;
-      background-color: var(--off-white);
+      background-color: var(--card-white);
       border-radius: 1rem;
     }
     @media (max-width: 767px) {
@@ -220,6 +283,11 @@ const UnitItem = styled(motion.li)`
       }
       &:before {
         height: 50vw;
+      }
+    }
+    @media (max-width: 494px) {
+      &:before {
+        height: 70vw;
       }
     }
   }
@@ -240,6 +308,8 @@ const SeeMoreText = styled.p`
     transition: color 0.6s var(--transition-function);
   }
 `
+
+const UnitLink = styled(motion(Link))``
 
 const UnitsSection = ({
   unitsData,
@@ -290,7 +360,7 @@ const UnitsSection = ({
           <Heading>
             <StructuredText data={unitsTitle} />
           </Heading>
-          <IconButton
+          {/* <IconButton
             onClick={() => positionSet((old) => old - 1)}
             disabled={position <= 0}>
             <ArrowLeft color={COLORS.PRIMARY_NAVY} />
@@ -299,7 +369,7 @@ const UnitsSection = ({
             onClick={() => positionSet((old) => old + 1)}
             disabled={position >= unitsData.length - 1}>
             <ArrowRight color={COLORS.PRIMARY_NAVY} />
-          </IconButton>
+          </IconButton> */}
           <UnitsList
             ref={carouselRef}
             drag='x'
@@ -333,13 +403,25 @@ const UnitsSection = ({
                     }
                   }
                   animate={
-                    width <= 767 && {
-                      opacity: 1,
-                      left: `calc(${
-                        (1 + index - position) * 50 - 25
-                      }vw - 1rem)`,
-                      scale: index === position ? 1 : 0.9
-                    }
+                    width <= 494
+                      ? {
+                          opacity: 1,
+                          left: `calc(${
+                            (1 + index - position) * 70 - 56
+                          }vw - 1.125rem)`,
+                          scale:
+                            index === position ? 1 : 0.9
+                        }
+                      : width <= 767
+                      ? {
+                          opacity: 1,
+                          left: `calc(${
+                            (1 + index - position) * 50 - 25
+                          }vw - 1.8125rem)`,
+                          scale:
+                            index === position ? 1 : 0.9
+                        }
+                      : {}
                   }
                   transition={
                     width <= 767 && {
@@ -352,15 +434,17 @@ const UnitsSection = ({
                     unit?.unitColor?.hex ||
                     'var(--off-black)'
                   }>
-                  <Link
-                    to={`${slugifiedLink}`}
-                    title={unit.unitName}>
-                    <SeeMoreText className='unitName'>
-                      Nice {specialName}
-                    </SeeMoreText>
-                    <SeeText className='secondary'>
-                      <span>Zobacz</span>
-                    </SeeText>
+                  <motion.div>
+                    <UnitLink
+                      to={`${slugifiedLink}`}
+                      title={unit.unitName}>
+                      <SeeMoreText className='unitName'>
+                        Nice {specialName}
+                      </SeeMoreText>
+                      <SeeText className='secondary'>
+                        <span>Zobacz</span>
+                      </SeeText>
+                    </UnitLink>
                     <GatsbyImage
                       className='unit'
                       image={
@@ -370,7 +454,7 @@ const UnitsSection = ({
                       alt={unit.unitFeaturedImage.alt}
                       title={unit.unitFeaturedImage.title}
                     />
-                  </Link>
+                  </motion.div>
                 </UnitItem>
               )
             })}

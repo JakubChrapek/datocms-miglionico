@@ -7,6 +7,7 @@ const GlobalStyles = createGlobalStyle`
     --primary-red: #C3112D;
     --primary-navy: #262F6E;
     --off-white: #fff;
+    --card-white: #f1f1f1;
     --off-black: #000;
     --paragraph-text: #3A3A3A;
     --gray: #61646B;
