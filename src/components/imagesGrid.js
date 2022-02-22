@@ -23,10 +23,22 @@ const Grid = styled.div`
   @media (max-width: 1020px) {
     margin-right: 2.5rem;
   }
+  ~ p,
+  ~ a {
+    display: none;
+    visibility: hidden;
+  }
   @media (max-width: 876px) {
+    grid-gap: clamp(0.5rem, 2.77vw, ${30 / 16}rem);
     margin: ${58 / 16}rem 0 0 0;
+    ~ p {
+      display: block;
+      visibility: visible;
+    }
     ~ a {
+      display: inline-block;
       align-self: center;
+      visibility: visible;
     }
   }
   grid-template-areas:
@@ -64,8 +76,17 @@ const Grid = styled.div`
         top: -${30 / 16}rem;
         width: 80%;
         height: 87.5%;
-        border-radius: ${10 / 16}rem;
+        border-radius: ${16 / 16}rem;
         background-color: var(--primary-red);
+        @media (max-width: 876px) {
+          width: 85%;
+          right: -${14 / 16}rem;
+          top: -${28 / 16}rem;
+        }
+        @media (max-width: 620px) {
+          top: -12%;
+          right: -3%;
+        }
       }
     }
     &:nth-of-type(2) {
@@ -80,8 +101,18 @@ const Grid = styled.div`
         bottom: -${30 / 16}rem;
         width: 65%;
         height: 87.5%;
-        border-radius: ${10 / 16}rem;
+        border-radius: ${16 / 16}rem;
         background-color: var(--primary-navy);
+        @media (max-width: 876px) {
+          left: -10%;
+          width: 70%;
+          bottom: -${20 / 16}rem;
+        }
+        @media (max-width: 620px) {
+          width: 90%;
+          left: -25%;
+          bottom: -10%;
+        }
       }
     }
     &:nth-of-type(4) {

@@ -7,10 +7,18 @@ const ListWrapper = styled.ul`
   border-radius: ${10 / 16}rem;
   background-color: var(--off-white);
   box-shadow: 4px 4px 25px 0 rgba(0, 0, 0, 0.05);
+
+  @media (max-width: 1006px) {
+    width: 100%;
+    margin-top: clamp(${60 / 16}rem, 8.64vw, 5rem);
+  }
 `
 
 const FaqItemWrapper = styled.details`
-  padding: ${20 / 16}rem ${30 / 16}rem ${36 / 16}rem;
+  padding: ${20 / 16}rem 0 ${36 / 16}rem ${30 / 16}rem;
+  @media (max-width: 570px) {
+    padding: ${15 / 16}rem 0 ${15 / 16}rem ${26 / 16}rem;
+  }
   font-family: 'k2d', sans-serif;
   &:first-of-type {
     border-top-left-radius: ${10 / 16}rem;
@@ -76,6 +84,7 @@ const FaqQuestion = styled.summary`
   font-size: var(--paragraph-font-size);
   line-height: ${23 / 18};
   color: var(--primary-navy);
+  padding-right: ${46 / 16}rem;
 
   > * {
     display: inline;
@@ -83,6 +92,17 @@ const FaqQuestion = styled.summary`
   &:focus-visible {
     outline: 2px solid var(--primary-red);
     outline-offset: 2px;
+  }
+
+  svg {
+    position: absolute;
+    right: 1rem;
+    top: 0;
+    width: 1.5rem;
+    height: auto;
+  }
+  @media (max-width: 570px) {
+    align-items: flex-start;
   }
 `
 
@@ -94,6 +114,10 @@ const FaqAnswer = styled.p`
   font-weight: 300;
   max-width: ${612 / 16}rem;
   margin-top: 2rem;
+
+  @media (max-width: 570px) {
+    margin-top: 1rem;
+  }
 
   strong {
     font-weight: 700;

@@ -23,6 +23,18 @@ const Container = styled.div`
   margin: 0 auto;
   display: flex;
   align-items: flex-start;
+  @media (max-width: 1006px) {
+    flex-direction: column;
+    --container-horizontal-padding: 80px;
+    padding: ${36 / 16}rem ${40 / 16}rem ${112 / 16}rem;
+  }
+  @media (max-width: 672px) {
+    --container-horizontal-padding: 40px;
+    padding: ${36 / 16}rem ${20 / 16}rem ${112 / 16}rem;
+  }
+  @media (max-width: 570px) {
+    align-items: center;
+  }
 `
 
 const TextContentWrapper = styled.div`
@@ -30,8 +42,15 @@ const TextContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-right: ${60 / 16}rem;
+  margin-right: clamp(3rem, 4.16vw, ${60 / 16}rem);
 
+  @media (max-width: 672px) {
+    margin-right: 0;
+  }
+  @media (max-width: 570px) {
+    align-items: center;
+    text-align: center;
+  }
   h2 {
     max-width: ${574 / 16}rem;
   }

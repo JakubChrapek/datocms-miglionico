@@ -27,7 +27,7 @@ const Container = styled.div`
 
   @media (max-width: 876px) {
     flex-direction: column;
-    padding: ${36 / 16}rem ${20 / 16}rem ${112 / 16}rem;
+    padding: ${36 / 16}rem ${20 / 16}rem ${60 / 16}rem;
     --container-horizontal-padding: ${40 / 16}rem;
   }
 `
@@ -58,6 +58,11 @@ const TextContentWrapper = styled.div`
   }
   @media (max-width: 876px) {
     order: -1;
+    text-align: center;
+    align-items: center;
+    h2 {
+      max-width: unset;
+    }
     > p {
       display: none;
     }
