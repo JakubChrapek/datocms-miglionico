@@ -19,10 +19,10 @@ export const IconButton = styled.button`
   transform: translateY(-50%);
 
   &:first-of-type {
-    left: 0;
+    left: -1.25rem;
   }
   &:last-of-type {
-    right: 0;
+    right: -1.25rem;
   }
 
   &:focus-visible {

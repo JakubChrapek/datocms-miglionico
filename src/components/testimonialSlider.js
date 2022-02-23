@@ -8,12 +8,14 @@ import { COLORS } from '../utils/constants'
 const CarouselWrapper = styled.div`
   width: 100%;
   position: relative;
-  margin: 0 var(--arrow-size);
 `
 
 const CarouselContainer = styled(motion.div)`
-  --carousel-container-width: calc(
+  /* --carousel-container-width: calc(
     100% - 4.25 * var(--arrow-size)
+  ); */
+  --carousel-container-width: calc(
+    100% - 2 * var(--arrow-size)
   );
   --gap-width: ${25 / 16}rem;
   width: var(--carousel-container-width);
@@ -21,19 +23,16 @@ const CarouselContainer = styled(motion.div)`
   margin: 0 auto;
   overflow: hidden;
   display: flex;
-  padding: ${40 / 16}rem 1rem;
+  padding: ${40 / 16}rem 0;
 `
 
 const CardWrapper = styled(motion.blockquote)`
   position: relative;
-  --card-padding-horizontal: ${40 / 16}rem;
+  --card-padding-horizontal: 40px;
   --border-width: 2px;
-  --container-width: calc(
-    -2 * var(--gap-width) + 4.4 * var(--arrow-size) + var(--carousel-container-width)
-  );
   --carousel-item-width: calc(
-    -4 * var(--border-width) + var(--container-width) / 3 + -1 *
-      var(--card-padding-horizontal)
+    var(--carousel-container-width) / 3 + 2.05rem - 2 *
+      var(--gap-width) / 3 - var(--card-padding-horizontal)
   );
   min-width: var(--carousel-item-width);
   aspect-ratio: 360 / 365;
@@ -132,7 +131,7 @@ const Card = ({
         }
       }}
       animate={{
-        left: `calc(${-position} * (2.775 * var(--gap-width) + var(--carousel-item-width)))`
+        left: `calc(${-position} * (var(--carousel-item-width) - 6 * var(--border-width) + 2 * var(--card-padding-horizontal)))`
       }}>
       <Content>{content}</Content>
       <CardFooter>
