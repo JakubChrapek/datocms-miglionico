@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import { IconButton } from './iconButton'
 import { ArrowLeft, ArrowRight } from '../assets/icons'
 import { COLORS } from '../utils/constants'
+import useWindowSize from '../utils/hooks'
 
 const CarouselWrapper = styled.div`
   width: 100%;
@@ -28,12 +29,25 @@ const CarouselContainer = styled(motion.div)`
 
 const CardWrapper = styled(motion.blockquote)`
   position: relative;
-  --card-padding-horizontal: 40px;
+  --card-padding-horizontal: ${40 / 16}rem;
   --border-width: 2px;
+  --number-of-cards-in-row: 3;
+  --additional-padding-alignment: 2.05rem;
   --carousel-item-width: calc(
-    var(--carousel-container-width) / 3 + 2.05rem - 2 *
-      var(--gap-width) / 3 - var(--card-padding-horizontal)
+    var(--carousel-container-width) /
+      var(--number-of-cards-in-row) +
+      var(--additional-padding-alignment) - 2 *
+      var(--gap-width) / var(--number-of-cards-in-row) -
+      var(--card-padding-horizontal)
   );
+
+  @media (max-width: 1122px) {
+    --card-padding-horizontal: ${30 / 16}rem;
+    --border-width: 2px;
+    --number-of-cards-in-row: 2;
+    --additional-padding-alignment: 3.15rem;
+  }
+
   min-width: var(--carousel-item-width);
   aspect-ratio: 360 / 365;
   display: flex;
@@ -41,6 +55,13 @@ const CardWrapper = styled(motion.blockquote)`
   align-items: center;
   padding: ${40 / 16}rem
     calc(var(--card-padding-horizontal) / 2);
+
+  @media (max-width: 850px) {
+    --carousel-item-width: 60vw;
+    --card-padding-horizontal: 5vw;
+    padding: ${44 / 16}rem 1rem ${26 / 16}rem;
+  }
+
   box-shadow: 0.25rem 0.25rem ${25 / 16}rem 0
     rgba(0, 0, 0, 0.05);
   border-radius: ${10 / 16}rem;
@@ -62,10 +83,16 @@ const CardWrapper = styled(motion.blockquote)`
     background: var(--primary-gradient);
     transition: opacity 0.4s var(--transition-function) 0.1s;
     opacity: ${({ active }) => (active ? 1 : 0)};
+    @media (max-width: 1122px) {
+      opacity: 0;
+    }
   }
 
   :hover:before {
     opacity: ${({ active }) => (active ? 1 : 0.25)};
+    @media (max-width: 1122px) {
+      opacity: 0;
+    }
   }
 `
 
@@ -82,6 +109,7 @@ const Title = styled.cite`
   color: var(--primary-navy);
   font-family: 'k2d', sans-serif;
   font-weight: 400;
+  text-align: center;
   margin-bottom: 0.25rem;
 `
 
@@ -92,6 +120,7 @@ const Subtitle = styled.cite`
   font-family: 'k2d', sans-serif;
   font-weight: 300;
   margin-bottom: 1.5rem;
+  text-align: center;
 `
 
 const Content = styled.p`
@@ -112,11 +141,31 @@ const Card = ({
   active,
   position,
   index,
+  numberOfItems,
   setPosition
 }) => {
+  const { width } = useWindowSize()
+
   const handleClick = () => {
-    if (position + 1 !== index) {
-      setPosition(index - 1)
+    if (width > 1122) {
+      if (position + 1 !== index) {
+        if (
+          position === index &&
+          position < numberOfItems.length - 2
+        ) {
+          setPosition((old) => old - 1)
+        } else if (position < index) {
+          setPosition((old) => old + 1)
+        }
+      }
+    } else {
+      if (position > -1 && position === index) {
+        setPosition((old) => old - 1)
+        console.log('1 pos', position, 'index', index)
+      } else if (position < index) {
+        setPosition((old) => old + 1)
+        console.log('2 pos', position, 'index', index)
+      }
     }
   }
   return (
@@ -143,16 +192,18 @@ const Card = ({
 }
 
 const TestimonialSlider = ({ testimonials }) => {
+  const { width } = useWindowSize()
   const [position, setPosition] = useState(0)
   const [itemWidth, setItemWidth] = useState(0)
   const carouselRef = useRef()
+
   const handleRightArrow = () => {
     if (position < testimonials.length - 2) {
       setPosition(position + 1)
     }
   }
   const handleLeftArrow = () => {
-    if (position >= 0) {
+    if (position > 0) {
       setPosition(position - 1)
     }
   }
@@ -169,7 +220,7 @@ const TestimonialSlider = ({ testimonials }) => {
     <CarouselWrapper>
       <IconButton
         onClick={handleLeftArrow}
-        disabled={position < 0}>
+        disabled={position <= 0}>
         <ArrowLeft color={COLORS.PRIMARY_NAVY} />
       </IconButton>
       <IconButton
@@ -183,6 +234,7 @@ const TestimonialSlider = ({ testimonials }) => {
             key={testimonial.id}
             active={position === index - 1}
             index={index}
+            numberOfItems={testimonials.length}
             position={position}
             setPosition={setPosition}
             title={testimonial.clientName}

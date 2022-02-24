@@ -21,6 +21,9 @@ const TestimonialsContainer = styled.section`
 
 const TestimonialsContentWrapper = styled.div`
   --arrow-size: 3.5rem;
+  @media (max-width: 850px) {
+    --arrow-size: 2.75rem;
+  }
   z-index: 2;
   display: flex;
   flex-direction: column;
