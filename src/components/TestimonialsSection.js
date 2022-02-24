@@ -9,10 +9,7 @@ const TestimonialsWrapper = styled.section``
 
 const TestimonialsContainer = styled.section`
   --container-horizontal-padding: 80px;
-  --container-max-width: calc(
-    var(--container-max-size) -
-      var(--container-horizontal-padding)
-  );
+  --container-max-width: var(--container-max-size);
   max-width: var(--container-max-width);
   padding: 0 ${40 / 16}rem ${92 / 16}rem ${40 / 16}rem;
   margin: 0 auto;

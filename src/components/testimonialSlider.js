@@ -1,22 +1,42 @@
-import { motion } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 import React, { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 import { IconButton } from './iconButton'
 import { ArrowLeft, ArrowRight } from '../assets/icons'
 import { COLORS } from '../utils/constants'
+import { Carousel } from 'react-responsive-carousel'
 import useWindowSize from '../utils/hooks'
 
-const CarouselWrapper = styled.div`
+const CarouselWrapper = styled(Carousel)`
   width: 100%;
   position: relative;
+
+  .prev {
+    right: unset;
+    left: 0;
+  }
+  .next {
+    left: unset;
+    right: 0;
+  }
+
+  && .slide {
+    padding: 0 1rem;
+    :first-of-type {
+      padding-left: 0;
+    }
+    :last-of-type {
+      padding-right: 0;
+    }
+    :not(:first-of-type):not(:last-of-type) {
+      margin: 0 -0.5rem;
+    }
+  }
 `
 
 const CarouselContainer = styled(motion.div)`
-  /* --carousel-container-width: calc(
-    100% - 4.25 * var(--arrow-size)
-  ); */
   --carousel-container-width: calc(
-    100% - 2 * var(--arrow-size)
+    100% + 2 * var(--arrow-size) + 2rem;
   );
   --gap-width: ${25 / 16}rem;
   width: var(--carousel-container-width);
@@ -27,28 +47,11 @@ const CarouselContainer = styled(motion.div)`
   padding: ${40 / 16}rem 0;
 `
 
-const CardWrapper = styled(motion.blockquote)`
+const CardWrapper = styled.blockquote`
   position: relative;
   --card-padding-horizontal: ${40 / 16}rem;
   --border-width: 2px;
-  --number-of-cards-in-row: 3;
-  --additional-padding-alignment: 2.05rem;
-  --carousel-item-width: calc(
-    var(--carousel-container-width) /
-      var(--number-of-cards-in-row) +
-      var(--additional-padding-alignment) - 2 *
-      var(--gap-width) / var(--number-of-cards-in-row) -
-      var(--card-padding-horizontal)
-  );
 
-  @media (max-width: 1122px) {
-    --card-padding-horizontal: ${30 / 16}rem;
-    --border-width: 2px;
-    --number-of-cards-in-row: 2;
-    --additional-padding-alignment: 3.15rem;
-  }
-
-  min-width: var(--carousel-item-width);
   aspect-ratio: 360 / 365;
   display: flex;
   flex-direction: column;
@@ -57,7 +60,6 @@ const CardWrapper = styled(motion.blockquote)`
     calc(var(--card-padding-horizontal) / 2);
 
   @media (max-width: 850px) {
-    --carousel-item-width: 60vw;
     --card-padding-horizontal: 5vw;
     padding: ${44 / 16}rem 1rem ${26 / 16}rem;
   }
@@ -134,54 +136,9 @@ const Content = styled.p`
   transition: color 0.3s var(--transition-function);
 `
 
-const Card = ({
-  title,
-  subtitle,
-  content,
-  active,
-  position,
-  index,
-  numberOfItems,
-  setPosition
-}) => {
-  const { width } = useWindowSize()
-
-  const handleClick = () => {
-    if (width > 1122) {
-      if (position + 1 !== index) {
-        if (
-          position === index &&
-          position < numberOfItems.length - 2
-        ) {
-          setPosition((old) => old - 1)
-        } else if (position < index) {
-          setPosition((old) => old + 1)
-        }
-      }
-    } else {
-      if (position > -1 && position === index) {
-        setPosition((old) => old - 1)
-        console.log('1 pos', position, 'index', index)
-      } else if (position < index) {
-        setPosition((old) => old + 1)
-        console.log('2 pos', position, 'index', index)
-      }
-    }
-  }
+const Card = ({ title, subtitle, content, active }) => {
   return (
-    <CardWrapper
-      onClick={handleClick}
-      active={active}
-      transition={{
-        left: {
-          type: 'spring',
-          damping: 22,
-          stiffness: 130
-        }
-      }}
-      animate={{
-        left: `calc(${-position} * (var(--carousel-item-width) - 6 * var(--border-width) + 2 * var(--card-padding-horizontal)))`
-      }}>
+    <CardWrapper active={active}>
       <Content>{content}</Content>
       <CardFooter>
         <Title>{title}</Title>
@@ -193,46 +150,63 @@ const Card = ({
 
 const TestimonialSlider = ({ testimonials }) => {
   const { width } = useWindowSize()
-  const [position, setPosition] = useState(0)
-  const [itemWidth, setItemWidth] = useState(0)
-  const carouselRef = useRef()
-
-  const handleRightArrow = () => {
-    if (position < testimonials.length - 2) {
-      setPosition(position + 1)
-    }
-  }
-  const handleLeftArrow = () => {
-    if (position > 0) {
-      setPosition(position - 1)
-    }
-  }
-
-  useEffect(() => {
-    setItemWidth(
-      [
-        ...carouselRef.current.children
-      ][0].getBoundingClientRect().width
-    )
-  }, [])
+  const [position, setPosition] = useState(1)
 
   return (
-    <CarouselWrapper>
-      <IconButton
-        onClick={handleLeftArrow}
-        disabled={position <= 0}>
-        <ArrowLeft color={COLORS.PRIMARY_NAVY} />
-      </IconButton>
-      <IconButton
-        onClick={handleRightArrow}
-        disabled={position >= testimonials.length - 2}>
-        <ArrowRight color={COLORS.PRIMARY_NAVY} />
-      </IconButton>
-      <CarouselContainer ref={carouselRef}>
+    <AnimatePresence exitBeforeEnter>
+      <CarouselWrapper
+        infiniteLoop={false}
+        centerMode
+        selectedItem='1'
+        showThumbs={false}
+        centerSlidePercentage={width < 767 ? 80 : 33.333}
+        showArrows
+        showIndicators={false}
+        showStatus={false}
+        useKeyboardArrows
+        emulateTouch
+        autoFocus
+        selectedItem={0}
+        transitionTime={400}
+        swipeScrollTolerance={12}
+        ariaLabel='karuzela z unitami'
+        renderArrowPrev={(onClickHandler, hasPrev) =>
+          hasPrev && (
+            <IconButton
+              className='prev'
+              onClick={() => {
+                onClickHandler()
+                // setPosition((old) => old - 1)
+                console.log(position)
+              }}
+              title='Poprzednia opinia'
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}>
+              <ArrowLeft color={COLORS.PRIMARY_NAVY} />
+            </IconButton>
+          )
+        }
+        renderArrowNext={(onClickHandler, hasNext) =>
+          hasNext && (
+            <IconButton
+              className='next'
+              onClick={() => {
+                onClickHandler()
+                if (position < testimonials.length - 1) {
+                  setPosition((old) => old + 1)
+                }
+                console.log(position)
+              }}
+              title='Następna opinia'>
+              <ArrowRight color={COLORS.PRIMARY_NAVY} />
+            </IconButton>
+          )
+        }>
         {testimonials.map((testimonial, index) => (
           <Card
             key={testimonial.id}
-            active={position === index - 1}
+            active={position === index}
             index={index}
             numberOfItems={testimonials.length}
             position={position}
@@ -242,8 +216,8 @@ const TestimonialSlider = ({ testimonials }) => {
             content={testimonial.testimonialContent}
           />
         ))}
-      </CarouselContainer>
-    </CarouselWrapper>
+      </CarouselWrapper>
+    </AnimatePresence>
   )
 }
 

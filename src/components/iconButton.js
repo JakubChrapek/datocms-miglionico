@@ -1,6 +1,7 @@
+import { motion } from 'framer-motion'
 import styled from 'styled-components'
 
-export const IconButton = styled.button`
+export const IconButton = styled(motion.button)`
   border: 4px solid var(--primary-navy);
   display: flex;
   justify-content: center;
