@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import { StructuredText } from 'react-datocms'
 import {
@@ -6,9 +6,7 @@ import {
   NavyRect
 } from '../assets/backgrounds'
 import { Heading, Subheading } from './typography'
-import useWindowSize, {
-  useHasMounted
-} from '../utils/hooks'
+import { useHasMounted } from '../utils/hooks'
 import { UnitsCarousel } from './unitsCarousel'
 
 const UnitsWrapper = styled.section``
@@ -87,9 +85,6 @@ const UnitsContentWrapper = styled.div`
 
   && .slide {
     padding: 0 1rem;
-    :first-of-type {
-      padding-left: 0;
-    }
     :last-of-type {
       padding-right: 0;
     }
@@ -129,36 +124,9 @@ const UnitsSection = ({
   unitsTitle,
   unitsSubtitle
 }) => {
-  const [position, positionSet] = useState(1)
-  const { width } = useWindowSize()
-  const carouselRef = React.useRef()
-  const [rect, setRect] = React.useState(null)
-
-  useEffect(() => {
-    if (carouselRef.current) {
-      setRect(carouselRef.current.getBoundingClientRect())
-    }
-    return () => setRect(null)
-  }, [])
-
   const hasMounted = useHasMounted()
   if (!hasMounted) {
     return null
-  }
-  const handleDragStart = (event, { offset }) => {}
-  const handleDragEnd = (event, { offset }) => {
-    if (rect) {
-      const swipePower = offset.x / rect.width
-      if (swipePower > 0.1) {
-        if (position > 0) {
-          positionSet((old) => old - 1)
-        }
-      } else if (swipePower < -0.1) {
-        if (position < unitsData.length - 1) {
-          positionSet((old) => old + 1)
-        }
-      }
-    }
   }
 
   return (

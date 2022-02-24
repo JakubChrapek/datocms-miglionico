@@ -9,7 +9,7 @@ export const IconButton = styled(motion.button)`
   border-radius: 50%;
   width: var(--arrow-size);
   height: var(--arrow-size);
-  opacity: 0.5;
+  opacity: 0.35;
   background-color: transparent;
   transition: opacity 0.4s var(--transition-function);
   cursor: pointer;

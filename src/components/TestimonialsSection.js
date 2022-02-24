@@ -14,13 +14,16 @@ const TestimonialsContainer = styled.section`
   padding: 0 ${40 / 16}rem ${92 / 16}rem ${40 / 16}rem;
   margin: 0 auto;
   position: relative;
+  @media (max-width: 1180px) {
+    --container-horizontal-padding: 0;
+    padding-left: 0;
+    padding-right: 0;
+  }
 `
 
 const TestimonialsContentWrapper = styled.div`
   --arrow-size: 3.5rem;
-  @media (max-width: 850px) {
-    --arrow-size: 2.75rem;
-  }
+
   z-index: 2;
   display: flex;
   flex-direction: column;
