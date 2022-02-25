@@ -69,7 +69,7 @@ const ContactDetails = ({
               ICONS[link.nazwaIkony].component()}
             {innerLinks ? (
               <Link
-                to={link.linkText}
+                to={`/${link.linkText}`}
                 className='link link__underline'>
                 {link.tekst}
               </Link>

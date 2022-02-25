@@ -21,6 +21,9 @@ const ContactWrapper = styled.section`
   > section > svg {
     position: absolute;
     top: 2rem;
+    @media (max-width: 1390px) {
+      top: 0;
+    }
     left: 1rem;
     width: calc(100% - 2rem);
     border-radius: ${10 / 16}rem;
@@ -29,6 +32,9 @@ const ContactWrapper = styled.section`
     }
     &:last-of-type {
       transform: skewX(-2.5deg) rotate(2deg);
+    }
+    @media (max-width: 1031px) {
+      display: none;
     }
   }
 `
@@ -41,7 +47,8 @@ const ContactContainer = styled.section`
   );
 
   max-width: var(--container-max-width);
-  padding: ${60 / 16}rem ${20 / 16}rem ${80 / 16}rem;
+  padding: clamp(3.5rem, 4.16vw, ${70 / 16}rem)
+    ${20 / 16}rem clamp(2.5rem, 3.14vw, ${80 / 16}rem);
   margin: 0 auto;
   position: relative;
   display: flex;
@@ -54,6 +61,25 @@ const ContactContainer = styled.section`
     font-size: var(--paragraph-font-size);
     line-height: 1.33;
     font-weight: 300;
+  }
+
+  &:before {
+    content: none;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: var(--contact-gradient);
+    width: 100%;
+    height: 100%;
+    clip-path: polygon(0 0, 100% 6%, 100% 100%, 0 94%);
+  }
+
+  @media (max-width: 1031px) {
+    :before {
+      content: '';
+    }
+    margin-top: ${22 / 16}rem;
+    padding: clamp(4rem, 7.16vw, 5rem) ${20 / 16}rem;
   }
 `
 
