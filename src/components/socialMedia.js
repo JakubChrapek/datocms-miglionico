@@ -54,6 +54,17 @@ const SocialMediaItem = styled(motion.li)`
   a {
     display: inline-flex;
   }
+  ${({ variant }) =>
+    variant === VARIANTS.FOOTER &&
+    css`
+      margin: 0 1rem;
+      :first-of-type {
+        margin-left: 0;
+      }
+      :last-of-type {
+        margin-right: 0;
+      }
+    `}
 `
 
 const SocialMedia = ({
