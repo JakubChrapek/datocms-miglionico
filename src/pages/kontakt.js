@@ -39,7 +39,7 @@ const ContactWrapper = styled.section`
 `
 
 const ContactContainer = styled.section`
-  --container-horizontal-padding: 40px;
+  --container-horizontal-padding: ${40 / 16}rem;
   --container-max-width: calc(
     var(--container-max-size) -
       var(--container-horizontal-padding)
