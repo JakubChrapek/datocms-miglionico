@@ -220,7 +220,6 @@ export const UnitsCarousel = ({ units }) => {
     <CarouselWrapper
       infiniteLoop={false}
       centerMode
-      selectedItem='1'
       showThumbs={false}
       centerSlidePercentage={width < 767 ? 70 : 33.333}
       showArrows
@@ -228,7 +227,6 @@ export const UnitsCarousel = ({ units }) => {
       showStatus={false}
       useKeyboardArrows
       emulateTouch
-      autoFocus
       selectedItem={0}
       transitionTime={600}
       swipeScrollTolerance={7}

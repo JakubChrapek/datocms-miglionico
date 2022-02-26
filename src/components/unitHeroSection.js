@@ -229,9 +229,8 @@ const UnitHeroSection = ({
       <AnimatePresence exitBeforeEnter>
         <MainImage
           key={unitGalleryImages[activeIndex].originalId}
-          // initial={{opacity: 0}}
-          // animate={{opacity: 1}}
-          // exit={{opacity: 0}}
+          alt={unitGalleryImages[activeIndex].alt}
+          title={unitGalleryImages[activeIndex].title}
           image={
             unitGalleryImages[activeIndex].gatsbyImageData
           }

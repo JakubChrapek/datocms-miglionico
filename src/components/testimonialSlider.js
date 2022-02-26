@@ -1,4 +1,4 @@
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence } from 'framer-motion'
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { IconButton } from './iconButton'
@@ -164,7 +164,6 @@ const TestimonialSlider = ({ testimonials }) => {
       <CarouselWrapper
         infiniteLoop={false}
         centerMode
-        selectedItem={1}
         showThumbs={false}
         centerSlidePercentage={
           width < 767 ? 80 : width < 1180 ? 45 : 33.333
@@ -174,8 +173,7 @@ const TestimonialSlider = ({ testimonials }) => {
         showStatus={false}
         useKeyboardArrows
         emulateTouch
-        autoFocus
-        selectedItem={0}
+        selectedItem={1}
         transitionTime={400}
         swipeScrollTolerance={1}
         onClickItem={(index, item) =>

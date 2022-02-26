@@ -138,14 +138,11 @@ const HamburgerStyles = styled.svg`
   }
 `
 
-const HamburgerMenu = ({
-  mobileMenuOpen,
-  cycleMobileMenu
-}) => {
+const HamburgerMenu = ({ open, cycleMobileMenu }) => {
   const { dispatch } = useBlockBody()
 
   const handleMenuToggle = () => {
-    if (mobileMenuOpen) {
+    if (open) {
       dispatch({ type: 'hideMenu' })
     } else {
       dispatch({ type: 'showMenu' })
@@ -154,18 +151,16 @@ const HamburgerMenu = ({
 
   return (
     <ButtonWrapper
-      open={mobileMenuOpen}
+      open={open}
       id='hamburger'
       onClick={() => {
         cycleMobileMenu()
         handleMenuToggle()
       }}
       type='button'
-      aria-label={
-        mobileMenuOpen ? 'Zamknij menu' : 'Otwórz menu'
-      }>
+      aria-label={open ? 'Zamknij menu' : 'Otwórz menu'}>
       <HamburgerStyles
-        open={mobileMenuOpen}
+        open={open}
         className='svg'
         viewBox='2 0 50 52'>
         <polyline className='bar bar1' points='2,8 50,8' />
@@ -226,7 +221,7 @@ export default function Header({ headerData }) {
 
   return (
     <Wrapper>
-      <Container mobileMenuOpen={open}>
+      <Container open={open}>
         <Link to='/' title='Strona główna miglionico.pl'>
           <Logo logoData={headerLogo} />
         </Link>
@@ -244,24 +239,24 @@ export default function Header({ headerData }) {
               }}>
               <Navigation
                 variant='mobile'
-                mobileMenuOpen={open}
+                open={open}
                 navData={nawigacja}
                 cycleMobileMenu={cycleMobileMenu}
               />
               <SocialMedia
-                navigationVariant='mobile'
+                variant='mobile'
                 socialMediaData={socialMedia}
               />
             </MobileAside>
           )}
         </AnimatePresence>
         <SocialMedia
-          navigationVariant='desktop'
+          variant='desktop'
           socialMediaData={socialMedia}
         />
         <HamburgerMenu
           cycleMobileMenu={cycleMobileMenu}
-          mobileMenuOpen={open}
+          open={open}
         />
       </Container>
     </Wrapper>

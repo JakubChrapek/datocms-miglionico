@@ -23,48 +23,12 @@ export const FooterGradientRect = () => (
         gradientUnits='userSpaceOnUse'>
         {' '}
         <stop
-          stop-color='#C3112D'
-          stop-opacity='0'></stop>{' '}
-        <stop offset='1' stop-color='#C3112D'></stop>{' '}
+          stopColor='#C3112D'
+          stopOpacity='0'></stop>{' '}
+        <stop offset='1' stopColor='#C3112D'></stop>{' '}
       </linearGradient>{' '}
     </defs>{' '}
   </svg>
-
-  // <svg
-  //   xmlns='http://www.w3.org/2000/svg'
-  //   version='1.1'
-  //   xmlnsXlink='http://www.w3.org/1999/xlink'
-  //   xmlnsSvgjs='http://svgjs.dev/svgjs'
-  //   viewBox='0 0 1394 418'
-  //   width='1394'
-  //   height='418'
-  //   opacity='1'>
-  //   <defs>
-  //     <linearGradient
-  //       gradientTransform='rotate(129, 0.5, 0.5)'
-  //       x1='50%'
-  //       y1='0%'
-  //       x2='50%'
-  //       y2='100%'
-  //       id='ffflux-gradient'>
-  //       <stop
-  //         stopColor='hsl(356.6666666666667, 72.58064516129032%, 24.313725490196077%)'
-  //         stopOpacity='1'
-  //         offset='0%'></stop>
-  //       <stop
-  //         stopColor='hsl(250.40000000000003, 78.94736842105262%, 18.627450980392158%)'
-  //         stopOpacity='1'
-  //         offset='100%'></stop>
-  //     </linearGradient>
-  //   </defs>
-  //   <rect
-  //     width='1394'
-  //     height='418'
-  //     rx='10'
-  //     ry='10'
-  //     fill='url(#ffflux-gradient)'
-  //   />
-  // </svg>
 )
 
 export const FooterNavyRect = () => (

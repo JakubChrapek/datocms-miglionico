@@ -66,6 +66,7 @@ const CommonLayout = ({ children }) => {
           socialMedia {
             socialMediaChannel
             socialMediaChannelName
+            originalId
           }
           rights {
             value

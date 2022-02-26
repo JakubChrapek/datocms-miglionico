@@ -28,8 +28,8 @@ const NavigationWrapper = styled(motion.nav)`
     `}
 
   @media (max-width: 1024px) {
-    ${({ mobileMenuOpen }) =>
-      mobileMenuOpen
+    ${({ open }) =>
+      open
         ? css`
             margin: 2rem 0 0;
             align-self: center;
@@ -42,8 +42,8 @@ const NavigationList = styled(motion.ul)`
   display: flex;
   padding-top: var(--list-alignment);
   @media (max-width: 1024px) {
-    ${({ mobileMenuOpen }) =>
-      mobileMenuOpen &&
+    ${({ open }) =>
+      open &&
       css`
         padding-top: 0;
         flex-direction: column;
@@ -76,8 +76,8 @@ const NavigationItem = styled(motion.li)`
   }
 
   @media (max-width: 1024px) {
-    ${({ mobileMenuOpen }) =>
-      mobileMenuOpen &&
+    ${({ open }) =>
+      open &&
       css`
         margin: clamp(1rem, 3.5vw, 1.75rem) 0;
         a {
@@ -93,7 +93,7 @@ const NavigationItem = styled(motion.li)`
 
 const Navigation = ({
   navData,
-  mobileMenuOpen,
+  open,
   variant,
   cycleMobileMenu
 }) => {
@@ -101,27 +101,25 @@ const Navigation = ({
 
   const handleClickMenu = useCallback(() => {
     if (variant === 'mobile') {
-      if (mobileMenuOpen) dispatch({ type: 'hideMenu' })
+      if (open) dispatch({ type: 'hideMenu' })
       else {
         dispatch({ type: 'showMenu' })
       }
       cycleMobileMenu()
     }
-  }, [mobileMenuOpen, variant, cycleMobileMenu, dispatch])
+  }, [open, variant, cycleMobileMenu, dispatch])
 
   return (
-    <NavigationWrapper
-      variant={variant}
-      mobileMenuOpen={mobileMenuOpen}>
+    <NavigationWrapper variant={variant} open={open}>
       <NavigationList
         initial='closed'
         animate='open'
         exit='closed'
         variants={variant === 'mobile' && sideVariants}
-        mobileMenuOpen={mobileMenuOpen}>
+        open={open}>
         <NavigationItem
           variants={variant === 'mobile' && itemVariants}
-          mobileMenuOpen={mobileMenuOpen}>
+          open={open}>
           <Link
             to='/'
             onClick={handleClickMenu}
@@ -141,7 +139,7 @@ const Navigation = ({
               variants={
                 variant === 'mobile' && itemVariants
               }
-              mobileMenuOpen={mobileMenuOpen}
+              open={open}
               key={capitalizedLink}>
               <Link
                 onClick={handleClickMenu}

@@ -109,7 +109,7 @@ export const ContactBg = () => (
         filterUnits='userSpaceOnUse'
         color-interpolation-filters='sRGB'>
         <feFlood
-          flood-opacity='0'
+          floodOpacity='0'
           result='BackgroundImageFix'
         />
         <feGaussianBlur
@@ -135,11 +135,11 @@ export const ContactBg = () => (
         x2='720.595'
         y2='848.801'
         gradientUnits='userSpaceOnUse'>
-        <stop stop-color='#262F6E' />
+        <stop stopColor='#262F6E' />
         <stop
           offset='1'
-          stop-color='#262F6E'
-          stop-opacity='0'
+          stopColor='#262F6E'
+          stopOpacity='0'
         />
       </linearGradient>
     </defs>
@@ -169,7 +169,7 @@ export const FooterBg = () => (
       <path
         d='M1412.31 413.354C1412.68 419.119 1408.11 424 1402.33 424H29C23.4772 424 19 419.523 19 414V16.4414C19 10.7491 23.7448 6.20501 29.4317 6.45074L1380.8 64.842C1385.9 65.0625 1390.02 69.091 1390.35 74.1865L1412.31 413.354Z'
         fill='url(#paint0_linear_147_160)'
-        fill-opacity='0.94'
+        fillOpacity='0.94'
       />
     </g>
     <defs>
@@ -182,7 +182,7 @@ export const FooterBg = () => (
         filterUnits='userSpaceOnUse'
         color-interpolation-filters='sRGB'>
         <feFlood
-          flood-opacity='0'
+          floodOpacity='0'
           result='BackgroundImageFix'
         />
         <feGaussianBlur
@@ -208,8 +208,8 @@ export const FooterBg = () => (
         x2='16.0399'
         y2='15.9842'
         gradientUnits='userSpaceOnUse'>
-        <stop stop-color='#C3112D' stop-opacity='0' />
-        <stop offset='1' stop-color='#C3112D' />
+        <stop stopColor='#C3112D' stopOpacity='0' />
+        <stop offset='1' stopColor='#C3112D' />
       </linearGradient>
     </defs>
   </FooterBgWrapper>

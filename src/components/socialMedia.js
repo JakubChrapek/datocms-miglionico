@@ -17,16 +17,16 @@ const SocialMediaList = styled(motion.ul)`
       margin-top: ${22 / 16}rem;
     `}
 
-  ${({ navigationVariant }) =>
-    navigationVariant === 'desktop' &&
+  ${({ variant }) =>
+    variant === 'desktop' &&
     css`
       @media (max-width: 1024px) {
         display: none;
       }
     `}
 
-  ${({ navigationVariant }) =>
-    navigationVariant === 'mobile' &&
+  ${({ variant }) =>
+    variant === 'mobile' &&
     css`
       @media (min-width: 1025px) {
         display: none;
@@ -70,15 +70,13 @@ const SocialMediaItem = styled(motion.li)`
 const SocialMedia = ({
   socialMediaData,
   variant = VARIANTS.HEADER,
-  navigationVariant
+  navigation
 }) => {
   return (
     <SocialMediaList
-      variants={
-        navigationVariant === 'mobile' && sideVariants
-      }
-      navigationVariant={navigationVariant}
-      variant={variant}>
+      variants={variant === 'mobile' && sideVariants}
+      variant={variant}
+      navigation={navigation}>
       {socialMediaData.map(
         ({
           socialMediaChannel,
@@ -86,8 +84,8 @@ const SocialMedia = ({
           originalId
         }) => (
           <SocialMediaItem
-            navigationVariant={navigationVariant}
             variant={variant}
+            navigation={navigation}
             key={originalId}>
             <a
               target='_blank'
@@ -125,6 +123,8 @@ const SocialMedia = ({
                         }
                       />
                     )
+                  default:
+                    return null
                 }
               })()}
             </a>
