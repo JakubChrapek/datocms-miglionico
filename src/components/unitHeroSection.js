@@ -20,6 +20,9 @@ const UnitSection = styled.section`
     padding-left: ${38 / 16}rem;
     padding-right: ${42 / 16}rem;
   }
+  @media (max-width: 1024px) {
+    padding: ${22 / 16}rem ${22 / 16}rem 0;
+  }
   z-index: 3;
   position: relative;
 `
@@ -34,6 +37,7 @@ const TextContentWrapper = styled.div`
     font-style: italic;
   }
   p {
+    color: var(--paragraph-text);
     font-family: 'k2d';
     font-size: clamp(
       1rem,

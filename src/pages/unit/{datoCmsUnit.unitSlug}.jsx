@@ -21,8 +21,7 @@ const UnitPage = ({data}) => {
       />
       <UnitInformationSection
         unitWelcomeImage={unitData.unitWelcomeImage}
-        unitLogo={unitData.logo}
-        unitName={unitData.unitName}
+        unitWelcomeHeader={unitData.titleOverWelcomeImg}
         unitDescription={unitData.unitDescription}
       />
     </Wrapper>
@@ -49,6 +48,9 @@ export const query = graphql`
         gatsbyImageData
         alt
         title
+      }
+      titleOverWelcomeImg {
+        value
       }
       unitGallery {
         originalId

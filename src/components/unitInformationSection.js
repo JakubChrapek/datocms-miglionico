@@ -4,6 +4,7 @@ import { GatsbyImage } from 'gatsby-plugin-image'
 import { Link as ScrollLink } from 'react-scroll'
 import { StructuredText } from 'react-datocms'
 import { COLUMN_LAYOUT_VARIANTS } from '../utils/constants'
+import { Heading } from './typography'
 
 const InformationWrapper = styled.div`
   padding: 0 var(--container-horizontal-padding);
@@ -13,6 +14,10 @@ const InformationWrapper = styled.div`
   @media (max-width: 1480px) {
     padding-left: 2.375rem;
     padding-right: 2.625rem;
+  }
+  @media (max-width: 1024px) {
+    padding-left: ${22 / 16}rem;
+    padding-right: ${22 / 16}rem;
   }
   z-index: 2;
 
@@ -53,13 +58,16 @@ const navigationItems = [
 
 const NavigationWrapper = styled.div`
   position: sticky;
-  margin-top: 0px;
   top: 0px;
-  padding: ${28 / 16}rem 0;
-  margin-bottom: ${28 / 16}rem;
+  padding: ${28 / 16}rem ${22 / 16}rem;
+  margin: 0 -${22 / 16}rem ${80 / 16}rem;
   background-color: var(--off-white);
   z-index: 2;
   box-shadow: 0 20px 24px -16px rgba(0, 0, 0, 0.175);
+
+  @media (max-width: 1120px) {
+    margin-top: 4rem;
+  }
 `
 
 const NavigationList = styled.ul``
@@ -131,25 +139,8 @@ const WelcomeImage = styled(GatsbyImage)`
   width: 100%;
 `
 
-const LogoImage = styled(GatsbyImage)`
-  && {
-    position: absolute;
-    right: ${20 / 16}rem;
-    bottom: 1rem;
-  }
-`
-
-const SectionHeading = styled.h3`
-  font-size: 3rem;
-  line-height: 1.25;
-  color: var(--off-white);
-  font-weight: 600;
-  font-family: 'k2d';
-  text-align: center;
-  position: absolute;
-  top: 0.75rem;
-  z-index: 1;
-  max-width: ${543 / 16}rem;
+const SectionHeading = styled(Heading)`
+  margin-bottom: 2rem;
   .red {
     color: var(--primary-red);
   }
@@ -177,14 +168,17 @@ const UnitGraphicImage = styled(GatsbyImage)`
   img {
     object-fit: contain !important;
   }
-  ${({ variant }) =>
+  > div {
+    max-width: 100% !important;
+  }
+  /* ${({ variant }) =>
     variant === COLUMN_LAYOUT_VARIANTS.IMAGE_ON_RIGHT
       ? css`
-          padding: 0 0 0 5rem;
+          margin: 0 0 0 clamp(3rem, 5.2vw, ${75 / 16}rem);
         `
       : css`
-          padding: 0 5rem 0 0;
-        `};
+          margin: 0 clamp(3rem, 5.2vw, ${75 / 16}rem) 0 0;
+        `}; */
 `
 
 const ContentWrapper = styled.div`
@@ -201,7 +195,7 @@ const ContentWrapper = styled.div`
   > p {
     font-size: var(--paragraph-font-size);
     font-weight: 300;
-    color: var(--off-black);
+    color: var(--paragraph-text);
     line-height: 1.33;
     letter-spacing: 0.54px;
     + p {
@@ -211,7 +205,7 @@ const ContentWrapper = styled.div`
       margin: 1.25rem 0;
       font-size: var(--paragraph-font-size);
       font-weight: 300;
-      color: var(--off-black);
+      color: var(--paragraph-text);
       line-height: 1.33;
       letter-spacing: 0.54px;
       list-style-type: disc;
@@ -385,14 +379,15 @@ const UnitWrapper = styled.div`
   position: relative;
   margin-bottom: ${75 / 16}rem;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
   width: 100%;
 `
 
 const UnitInformationSection = ({
   unitWelcomeImage,
-  unitLogo,
-  unitName,
+  unitWelcomeHeader,
   unitDescription
 }) => {
   return (
@@ -401,17 +396,11 @@ const UnitInformationSection = ({
       <WelcomeImageWrapper id='opisUnitu'>
         <UnitWrapper>
           <SectionHeading>
-            <span className='red'>Pełna</span> kontrola,{' '}
-            <span className='navy'>intuicyjne</span>
-             użytkowanie
+            <StructuredText data={unitWelcomeHeader} />
           </SectionHeading>
           <WelcomeImage
             image={unitWelcomeImage.gatsbyImageData}
             alt='Unit dentystyczny Miglionico'
-          />
-          <LogoImage
-            image={unitLogo.gatsbyImageData}
-            alt={`Unit dentystyczny Miglionico – ${unitName}`}
           />
         </UnitWrapper>
         <StructuredText
