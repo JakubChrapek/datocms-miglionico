@@ -82,7 +82,7 @@ const NavigationItem = styled(motion.li)`
         margin: clamp(1rem, 3.5vw, 1.75rem) 0;
         a {
           font-size: clamp(
-            var(--paragraph-font-size),
+            calc(1.25 * var(--paragraph-font-size)),
             6.5vw,
             2.25rem
           );
@@ -107,7 +107,7 @@ const Navigation = ({
       }
       cycleMobileMenu()
     }
-  }, [mobileMenuOpen, variant])
+  }, [mobileMenuOpen, variant, cycleMobileMenu, dispatch])
 
   return (
     <NavigationWrapper

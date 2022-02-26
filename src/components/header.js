@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'gatsby'
 import styled, { css } from 'styled-components'
 import Logo from './logo'
@@ -58,7 +58,7 @@ const ButtonWrapper = styled.button`
   align-items: center;
   background-color: transparent;
   cursor: pointer;
-  z-index: 3;
+  z-index: 5;
   opacity: 0;
   padding: 0;
   visibility: none;
@@ -89,6 +89,7 @@ const HamburgerStyles = styled.svg`
   color: ${({ open }) =>
     open ? COLORS.PRIMARY_RED : COLORS.PRIMARY_NAVY};
   overflow: visible;
+  z-index: 5;
   .bar {
     fill: none;
     stroke-width: 5;
@@ -105,7 +106,7 @@ const HamburgerStyles = styled.svg`
             stroke: ${COLORS.PRIMARY_RED};
             transform-origin: center center;
             &.bar1 {
-              transform: translate(-1.35rem, 0.725rem)
+              transform: translate(-1.15rem, 0.725rem)
                 rotate(45deg) scaleX(1);
               opacity: 1;
             }
@@ -114,7 +115,7 @@ const HamburgerStyles = styled.svg`
               opacity: 0;
             }
             &.bar3 {
-              transform: translate(-1.3rem, -0.725rem)
+              transform: translate(-1.1rem, -0.725rem)
                 rotate(-45deg) scaleX(1);
               opacity: 1;
             }
@@ -195,7 +196,7 @@ const MobileAside = styled(motion.aside)`
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  z-index: 3;
+  z-index: 4;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -221,7 +222,7 @@ export default function Header({ headerData }) {
     return () =>
       window &&
       window.removeEventListener('keydown', handleKeyDown)
-  }, [])
+  }, [dispatch, open, cycleMobileMenu])
 
   return (
     <Wrapper>
