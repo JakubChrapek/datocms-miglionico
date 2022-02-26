@@ -12,9 +12,6 @@ export const HeroTitle = styled.p`
     color: var(--primary-red);
     background-color: transparent;
   }
-  @media (max-width: 620px) {
-    text-align: center;
-  }
   @media (max-width: 387px) {
     --header-font-size: clamp(1.5rem, 8.2vw, 2rem);
   }
@@ -33,11 +30,8 @@ export const HeroParagraph = styled.p`
   }
 
   @media (max-width: 620px) {
-    margin: 1.5rem 0 3rem;
+    margin: 0 0 3rem;
     text-align: center;
-  }
-  @media (max-width: 620px) {
-    margin-top: 0;
   }
 `
 
@@ -102,6 +96,11 @@ export const ContactDetailsTitle = styled.h3`
   margin-bottom: ${30 / 16}rem;
   * + & {
     margin-top: ${30 / 16}rem;
+  }
+  @media (max-width: 640px) {
+    align-self: center;
+    text-align: center;
+    font-size: clamp(${32 / 16}rem, 8.47vw, ${40 / 16}rem);
   }
 `
 

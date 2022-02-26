@@ -1,7 +1,6 @@
 import React from 'react'
 import { HelmetDatoCms } from 'gatsby-source-datocms'
 import { graphql } from 'gatsby'
-import { ContactBg } from '../assets/icons'
 import {
   SmallerRedRect,
   SmallGradientRect
@@ -85,29 +84,44 @@ const ContactContainer = styled.section`
 
 const ContactPageHeading = styled(Heading)`
   position: relative;
+  text-align: center;
   + p {
     margin-top: ${26 / 16}rem;
+  }
+  p {
+    text-align: center;
   }
 `
 const Text = styled(StructuredText)`
   position: relative;
 `
 const ContactDetailsContainer = styled.div`
-  --container-horizontal-padding: 120px;
+  --container-horizontal-padding: 140px;
   --container-max-width: calc(
     var(--container-max-size) -
       var(--container-horizontal-padding)
   );
 
   max-width: var(--container-max-width);
+
   padding: ${22 / 16}rem ${40 / 16}rem ${91 / 16}rem
     ${17 / 16}rem;
-  margin: 3.5rem auto ${31 / 16}rem;
+  margin: 5rem auto ${31 / 16}rem;
+  @media (max-width: 1390px) {
+    margin-top: 3rem;
+    margin-left: ${20 / 16}rem;
+    margin-right: ${20 / 16}rem;
+  }
   display: flex;
   background-color: var(--off-white);
   box-shadow: 4px 4px 25px 0px rgba(0, 0, 0, 0.05);
   border-radius: ${10 / 16}rem;
   justify-content: space-between;
+
+  @media (max-width: 640px) {
+    flex-direction: column;
+    padding ${40 / 16}rem ${20 / 16}rem 4rem;
+  }
 `
 
 const ContactDetailsWrapper = styled.div`
@@ -115,10 +129,27 @@ const ContactDetailsWrapper = styled.div`
   ul:first-of-type {
     margin-left: -0.5rem;
   }
+
+  @media (max-width: 640px) {
+    text-align: center;
+    ul {
+      :first-of-type {
+        margin-bottom: ${33 / 16}rem;
+        align-items: center;
+      }
+      :last-of-type {
+        margin-top: ${30 / 16}rem;
+        justify-content: center;
+      }
+    }
+  }
 `
 
 const FormColumn = styled.div`
   flex: 1 1 50%;
+  @media (max-width: 640px) {
+    margin-top: 4rem;
+  }
 `
 const Kontakt = ({ data }) => {
   return (

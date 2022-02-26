@@ -29,6 +29,7 @@ export const COLORS = {
 }
 
 export const FORM_MESSAGES = {
+  EMPTY: '',
   SUCCESS:
     'Dziękujemy za wiadomość. Odpiszemy możliwie najszybciej.',
   FAILURE:

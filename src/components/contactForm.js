@@ -286,8 +286,6 @@ const Form = () => {
 
     setSendCounter((old) => old + 1)
 
-    console.log(data)
-
     fetch('/', {
       method: 'POST',
       headers: {
@@ -306,14 +304,16 @@ const Form = () => {
       .then(() => {
         setFormFeedbackMessage(FORM_MESSAGES.SUCCESS)
         setTimeout(() => {
+          setFormFeedbackMessage(FORM_MESSAGES.EMPTY)
           reset()
-        }, [2500])
+        }, [3500])
       })
       .catch(() => {
         setFormFeedbackMessage(FORM_MESSAGES.FAILURE)
         setTimeout(() => {
+          setFormFeedbackMessage(FORM_MESSAGES.EMPTY)
           reset()
-        }, [2500])
+        }, [3500])
       })
   }
 
@@ -433,13 +433,15 @@ const Form = () => {
         Wyślij wiadomość
       </Button>
       <AnimatePresence exitBeforeEnter>
-        <ErrorMessage
-          key='feedback-msg'
-          error={
-            formFeedbackMessage === FORM_MESSAGES.FAILURE
-          }>
-          {formFeedbackMessage}
-        </ErrorMessage>
+        {formFeedbackMessage && (
+          <ErrorMessage
+            key='feedback-msg'
+            error={
+              formFeedbackMessage === FORM_MESSAGES.FAILURE
+            }>
+            {formFeedbackMessage}
+          </ErrorMessage>
+        )}
       </AnimatePresence>
     </FormStyles>
   )

@@ -5,10 +5,7 @@ import { VARIANTS } from '../utils/constants'
 import Logo from './logo'
 import ContactDetails from './contactDetails'
 import SocialMedia from './socialMedia'
-import {
-  FooterGradientRect,
-  FooterNavyRect
-} from '../assets/backgrounds'
+import { FooterGradientRect } from '../assets/backgrounds'
 
 const FooterWrapper = styled.footer``
 
@@ -47,6 +44,9 @@ const FooterContainer = styled.section`
 
   @media (max-width: 620px) {
     padding: 6rem ${20 / 16}rem ${22 / 16}rem;
+    :before {
+      clip-path: polygon(0 0, 100% 6%, 100% 100%, 0 100%);
+    }
   }
 
   > svg {
