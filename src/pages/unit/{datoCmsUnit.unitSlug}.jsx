@@ -90,15 +90,15 @@ export const query = graphql`
               value
             }
           }
-          ... on DatoCmsGraphicTextColumn {
+          ... on DatoCmsVerticalGraphicBlock {
             id: originalId
-            graphicStartingRight {
-              gatsbyImageData
-            }
-            columnTitle
-            paragraph {
+            trescBloku {
               value
             }
+            verticalGraphic {
+              gatsbyImageData
+            }
+            blockTitle
           }
           ... on DatoCmsThreeColumnWithTextAndGraphic {
             id: originalId
@@ -135,7 +135,7 @@ export const query = graphql`
       unitPrice {
         value
       }
-      unitShortDescription { 
+      unitShortDescription {
         value
       }
       unitTechDetails {

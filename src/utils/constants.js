@@ -20,6 +20,10 @@ export const COLUMN_LAYOUT_VARIANTS = {
   IMAGE_ON_RIGHT: 'IMAGE_ON_RIGHT'
 }
 
+export const UNIT_SECTION_VARIANTS = {
+  VERTICAL: 'VERTICAL'
+}
+
 export const COLORS = {
   PRIMARY_NAVY: 'var(--primary-navy)',
   PRIMARY_RED: 'var(--primary-red)',

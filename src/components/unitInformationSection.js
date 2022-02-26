@@ -2,9 +2,16 @@ import React from 'react'
 import styled, { css } from 'styled-components'
 import { GatsbyImage } from 'gatsby-plugin-image'
 import { Link as ScrollLink } from 'react-scroll'
-import { StructuredText } from 'react-datocms'
-import { COLUMN_LAYOUT_VARIANTS } from '../utils/constants'
+import {
+  renderNodeRule,
+  StructuredText
+} from 'react-datocms'
+import {
+  COLUMN_LAYOUT_VARIANTS,
+  UNIT_SECTION_VARIANTS
+} from '../utils/constants'
 import { Heading } from './typography'
+import { isHeading } from 'react-datocms/node_modules/datocms-structured-text-utils'
 
 const InformationWrapper = styled.div`
   padding: 0 var(--container-horizontal-padding);
@@ -161,24 +168,30 @@ const SectionWrapper = styled.section`
   + h2 {
     margin-top: ${60 / 16}rem;
   }
+
+  ${({ variant }) =>
+    variant === UNIT_SECTION_VARIANTS.VERTICAL &&
+    css`
+      grid-gap: 0;
+      .gatsby-image-wrapper {
+        margin-left: clamp(
+          ${80 / 16}rem,
+          8.33vw,
+          ${120 / 16}rem
+        );
+      }
+    `}
 `
 
 const UnitGraphicImage = styled(GatsbyImage)`
   border-radius: ${10 / 16}rem;
+  box-shadow: 0 12px 24px -4px rgba(0, 0, 0, 0.08);
   img {
-    object-fit: contain !important;
+    object-fit: cover !important;
   }
   > div {
     max-width: 100% !important;
   }
-  /* ${({ variant }) =>
-    variant === COLUMN_LAYOUT_VARIANTS.IMAGE_ON_RIGHT
-      ? css`
-          margin: 0 0 0 clamp(3rem, 5.2vw, ${75 / 16}rem);
-        `
-      : css`
-          margin: 0 clamp(3rem, 5.2vw, ${75 / 16}rem) 0 0;
-        `}; */
 `
 
 const ContentWrapper = styled.div`
@@ -187,10 +200,14 @@ const ContentWrapper = styled.div`
   justify-content: center;
 
   ${({ variant }) =>
-    variant === COLUMN_LAYOUT_VARIANTS.IMAGE_ON_RIGHT &&
-    css`
-      order: -1;
-    `}
+    variant === COLUMN_LAYOUT_VARIANTS.IMAGE_ON_RIGHT
+      ? css`
+          order: -1;
+        `
+      : variant === UNIT_SECTION_VARIANTS.VERTICAL &&
+        css`
+          justify-content: flex-start;
+        `}
 
   > p {
     font-size: var(--paragraph-font-size);
@@ -198,6 +215,13 @@ const ContentWrapper = styled.div`
     color: var(--paragraph-text);
     line-height: 1.33;
     letter-spacing: 0.54px;
+
+    + h1,
+    + h2,
+    + h3,
+    + h4 {
+      margin-top: 2.5rem;
+    }
     + p {
       margin-top: 1.25rem;
     }
@@ -223,15 +247,22 @@ const ContentWrapper = styled.div`
 `
 
 const Title = styled.h3`
+  font-weight: 600;
   font-size: ${({ smallerHeading }) =>
     smallerHeading
       ? 'var(--subheader-font-size)'
       : 'var(--header-font-size)'};
+  + p {
+    margin-top: ${40 / 16}rem;
+  }
 
   ${({ smallerHeading }) =>
     smallerHeading
       ? css`
           color: var(--primary-navy);
+          + p {
+            margin-top: ${24 / 16}rem;
+          }
         `
       : css`
           background: -webkit-linear-gradient(
@@ -248,7 +279,7 @@ const Title = styled.h3`
           -webkit-text-fill-color: transparent;
         `}
 
-  + p {
+  + h1, + h2, + h3, + h4 {
     margin-top: ${40 / 16}rem;
   }
 `
@@ -385,6 +416,30 @@ const UnitWrapper = styled.div`
   width: 100%;
 `
 
+const VerticalGraphicBlock = ({
+  title,
+  content,
+  image
+}) => (
+  <SectionWrapper variant={UNIT_SECTION_VARIANTS.VERTICAL}>
+    <ContentWrapper
+      variant={UNIT_SECTION_VARIANTS.VERTICAL}>
+      <Title as='h2'>{title}</Title>
+      <Content
+        data={content}
+        customNodeRules={[
+          renderNodeRule(isHeading, ({ children, key }) => (
+            <Title key={key} smallerHeading>
+              {children}
+            </Title>
+          ))
+        ]}
+      />
+    </ContentWrapper>
+    <UnitGraphicImage image={image.gatsbyImageData} />
+  </SectionWrapper>
+)
+
 const UnitInformationSection = ({
   unitWelcomeImage,
   unitWelcomeHeader,
@@ -448,6 +503,14 @@ const UnitInformationSection = ({
                       record.thirdColParagraph
                     }
                     thirdColImage={record.thirdColImage}
+                  />
+                )
+              case 'DatoCmsVerticalGraphicBlock':
+                return (
+                  <VerticalGraphicBlock
+                    title={record.blockTitle}
+                    content={record.trescBloku}
+                    image={record.verticalGraphic}
                   />
                 )
               default:
