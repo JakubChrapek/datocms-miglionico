@@ -74,6 +74,11 @@ const NavigationWrapper = styled.div`
 
   @media (max-width: 1120px) {
     margin-top: 4rem;
+    margin-bottom: 4rem;
+  }
+  @media (max-width: 920px) {
+    margin-top: 2rem;
+    margin-bottom: 3rem;
   }
 `
 
@@ -94,6 +99,9 @@ const StyledScrollLink = styled(ScrollLink)`
   color: var(--primary-navy);
   font-family: 'k2d';
   font-size: ${22 / 16}rem;
+  @media (max-width: 920px) {
+    font-size: ${20 / 16}rem;
+  }
   display: inline-block;
   margin: 0.33rem 0;
   padding: 0.33rem 0;
@@ -137,6 +145,9 @@ const WelcomeImageWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  @media (max-width: 802px) {
+    align-items: flex-start;
+  }
   position: relative;
   margin-bottom: clamp(3.5rem, 6.11vw, ${88 / 16}rem);
 `
@@ -154,6 +165,9 @@ const SectionHeading = styled(Heading)`
   .navy {
     color: var(--primary-navy);
   }
+  @media (max-width: 802px) {
+    text-align: left;
+  }
 `
 
 const SectionWrapper = styled.section`
@@ -163,10 +177,10 @@ const SectionWrapper = styled.section`
   width: 100%;
 
   + section {
-    margin-top: ${78 / 16}rem;
+    margin-top: clamp(3rem, 7.61vw, ${78 / 16}rem);
   }
   + h2 {
-    margin-top: ${60 / 16}rem;
+    margin-top: clamp(2.25rem, 5.7vw, ${60 / 16}rem);
   }
 
   ${({ variant }) =>
@@ -179,8 +193,17 @@ const SectionWrapper = styled.section`
           8.33vw,
           ${120 / 16}rem
         );
+
+        @media (max-width: 1010px) {
+          margin: 1.5rem 0 0 0;
+        }
       }
     `}
+
+  @media(max-width: 1010px) {
+    grid-template-columns: 1fr;
+    max-width: 95ch;
+  }
 `
 
 const UnitGraphicImage = styled(GatsbyImage)`
@@ -192,6 +215,16 @@ const UnitGraphicImage = styled(GatsbyImage)`
   > div {
     max-width: 100% !important;
   }
+  @media (max-width: 1010px) {
+    order: 1;
+  }
+  ${({ variant }) =>
+    variant === UNIT_SECTION_VARIANTS.VERTICAL &&
+    css`
+      @media (max-width: 1010px) {
+        max-height: ${420 / 16}rem;
+      }
+    `}
 `
 
 const ContentWrapper = styled.div`
@@ -220,10 +253,10 @@ const ContentWrapper = styled.div`
     + h2,
     + h3,
     + h4 {
-      margin-top: 2.5rem;
+      margin-top: clamp(1.5rem, 3.9vw, 2.5rem);
     }
     + p {
-      margin-top: 1.25rem;
+      margin-top: clamp(0.75rem, 1.95vw, 1.25rem);
     }
     + ul {
       margin: 1.25rem 0;
@@ -248,12 +281,13 @@ const ContentWrapper = styled.div`
 
 const Title = styled.h3`
   font-weight: 600;
+  line-height: 1.3;
   font-size: ${({ smallerHeading }) =>
     smallerHeading
       ? 'var(--subheader-font-size)'
       : 'var(--header-font-size)'};
   + p {
-    margin-top: ${40 / 16}rem;
+    margin-top: clamp(1.5rem, 3.9vw, 2.5rem);
   }
 
   ${({ smallerHeading }) =>
@@ -313,24 +347,57 @@ const ThreeColumnSection = styled.section`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: clamp(2.5rem, 4.02vw, ${58 / 16}rem);
-  margin: ${60 / 16}rem 0;
+  margin: clamp(2rem, 5.86vw, ${60 / 16}rem) 0;
+  @media (max-width: 1024px) {
+    grid-template-columns: 1fr 1fr;
+    max-width: 95ch;
+  }
+  @media (max-width: 804px) {
+    grid-template-columns: 1fr;
+    grid-gap: 2.5rem 0;
+  }
 `
 const Column = styled.div`
   display: flex;
   flex-direction: column;
+
+  @media (max-width: 804px) {
+    grid-column: 1/-1;
+  }
+
   &:nth-of-type(2) {
     .gatsby-image-wrapper {
       order: -1;
     }
     && > p + .gatsby-image-wrapper {
       margin: 0 0 ${40 / 16}rem;
+
+      @media (max-width: 1024px) {
+        margin: 0 0 4rem;
+      }
+    }
+  }
+  @media (max-width: 1024px) {
+    &:nth-of-type(3) {
+      grid-column: 1/3;
+      flex-direction: column;
+      flex-wrap: wrap;
+      align-items: flex-start;
+    }
+  }
+  @media (max-width: 804px) {
+    .gatsby-image-wrapper {
+      order: 1 !important;
+    }
+    p + .gatsby-image-wrapper {
+      margin: ${40 / 16}rem 0 0 !important;
     }
   }
 
   > p {
     font-size: var(--paragraph-font-size);
+    color: var(--paragraph-text);
     font-weight: 300;
-    color: var(--off-black);
     line-height: 1.33;
     letter-spacing: 0.54px;
 
@@ -340,12 +407,13 @@ const Column = styled.div`
 
     + p {
       margin-top: 1.25rem;
+      color: var(--paragraph-text);
     }
     + ul {
       margin: 1.25rem 0;
       font-size: var(--paragraph-font-size);
       font-weight: 300;
-      color: var(--off-black);
+      color: var(--paragraph-text);
       line-height: 1.33;
       letter-spacing: 0.54px;
       list-style-type: disc;
@@ -408,7 +476,11 @@ const ThreeColumnLayout = ({
 
 const UnitWrapper = styled.div`
   position: relative;
-  margin-bottom: ${75 / 16}rem;
+  margin-bottom: clamp(
+    ${40 / 16}rem,
+    7.32vw,
+    ${75 / 16}rem
+  );
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -436,7 +508,10 @@ const VerticalGraphicBlock = ({
         ]}
       />
     </ContentWrapper>
-    <UnitGraphicImage image={image.gatsbyImageData} />
+    <UnitGraphicImage
+      variant={UNIT_SECTION_VARIANTS.VERTICAL}
+      image={image.gatsbyImageData}
+    />
   </SectionWrapper>
 )
 
