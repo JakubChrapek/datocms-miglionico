@@ -17,10 +17,14 @@ const CarouselWrapper = styled(Carousel)`
   margin-top: clamp(2rem, 3.95vw, ${57 / 16}rem);
 
   .BrainhubCarousel__track {
-    align-items: center;
-    padding: 1rem 0;
+    align-items: stretch;
+    padding: 3rem 0 0 !important;
   }
 
+  .BrainhubCarouselItem {
+    align-items: stretch;
+    padding: 2rem 0;
+  }
   .prev {
     right: unset;
     left: 0;
@@ -57,9 +61,10 @@ const CardWrapper = styled.blockquote`
   position: relative;
   --card-padding-horizontal: ${40 / 16}rem;
   --border-width: 2px;
-  height: 100%;
+  /* height: 100%; */
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
   align-items: center;
   padding: ${40 / 16}rem
     calc(var(--card-padding-horizontal) / 2);
@@ -174,7 +179,7 @@ class MyCarousel extends React.Component {
         onChange={this.onChange}
         plugins={[
           'centered',
-          'clickToChange',
+          // 'clickToChange',
           {
             resolve: arrowsPlugin,
             options: {
