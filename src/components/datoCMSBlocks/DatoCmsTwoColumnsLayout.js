@@ -49,7 +49,7 @@ export const DatoCmsTwoColumnsLayout = ({
                 <DownloadWrapper>
                   <h3>Do pobrania</h3>
                   {record.list.map(el => (
-                    <a aria-label='filename' href={el.file.url}>
+                    <a className='link link__underline' aria-label='filename' href={el.file.url}>
                       {ICONS[el.nazwaIkony].component()}
                       <StructuredText data={el.text} />
                     </a>

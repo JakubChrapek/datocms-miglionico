@@ -273,5 +273,6 @@ export const DownloadWrapper = styled.div`
     align-items: center;
     color: var(--primary-navy);
     text-decoration: none;
+    width: fit-content;
   }
 `

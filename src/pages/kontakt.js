@@ -120,7 +120,7 @@ const ContactDetailsContainer = styled.div`
 
   @media (max-width: 640px) {
     flex-direction: column;
-    padding ${40 / 16}rem ${20 / 16}rem 4rem;
+    padding: 2.5rem 1.25rem 4rem 1.25rem;
   }
 `
 
