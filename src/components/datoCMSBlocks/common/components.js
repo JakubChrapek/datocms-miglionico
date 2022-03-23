@@ -10,6 +10,7 @@ export const SectionWrapper = styled.section`
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: clamp(3rem, 5.55vw, 5rem);
+  align-items: center;
   width: 100%;
 
   + section {
@@ -57,6 +58,10 @@ export const ContentWrapper = styled.div`
           justify-content: flex-start;
         `}
 
+  strong {
+    font-weight: bold;
+  }
+
   > p {
     font-size: var(--paragraph-font-size);
     font-weight: 300;
@@ -97,16 +102,18 @@ export const ContentWrapper = styled.div`
 export const Title = styled.h3`
   font-weight: 600;
   line-height: 1.3;
-  font-size: ${({ smallerHeading }) =>
-    smallerHeading
+  font-size: ${({ extraSmallHeading, smallerHeading }) =>
+    extraSmallHeading
+      ? 'var(--header4-font-size)'
+      : smallerHeading
       ? 'var(--subheader-font-size)'
       : 'var(--header-font-size)'};
   + p {
     margin-top: clamp(1.5rem, 3.9vw, 2.5rem);
   }
 
-  ${({ smallerHeading }) =>
-    smallerHeading
+  ${({ extraSmallHeading, smallerHeading }) =>
+    smallerHeading || extraSmallHeading
       ? css`
           color: var(--primary-navy);
           + p {

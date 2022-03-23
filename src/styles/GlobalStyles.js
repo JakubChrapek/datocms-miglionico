@@ -25,6 +25,7 @@ const GlobalStyles = createGlobalStyle`
     --container-max-width: calc(var(--container-max-size) - var(--container-horizontal-padding));
     --header-font-size: clamp(2.85rem, 4.44vw, 4rem);
     --subheader-font-size: clamp(2.5rem, 3.33vw, 3rem);
+    --header4-font-size: clamp(1.75rem, 2.5vw, 2.25rem);
   @media (max-width: 490px) {
       --header-font-size: clamp(2rem, 9vw, 3rem);
       --subheader-font-size: clamp(1.75rem, 8vw, 2.25rem);

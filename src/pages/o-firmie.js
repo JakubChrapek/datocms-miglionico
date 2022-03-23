@@ -37,6 +37,22 @@ const AboutImage = styled(GatsbyImage)`
   width: 100%;
 `
 
+const ContentWrapper = styled.div`
+  padding: 0 var(--container-horizontal-padding);
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  position: relative;
+  @media (max-width: 1480px) {
+    padding-left: 2.375rem;
+    padding-right: 2.625rem;
+  }
+  @media (max-width: 1024px) {
+    padding-left: ${22 / 16}rem;
+    padding-right: ${22 / 16}rem;
+  }
+  z-index: 2;
+`
+
 const HeroSection = ({ title, paragraph, img, video }) => (
   <HeroContainer>
     {title && (
@@ -52,45 +68,47 @@ const HeroSection = ({ title, paragraph, img, video }) => (
 
 const ContentSection = ({ content }) => {
   return (
-    <StructuredText
-      data={content}
-      renderBlock={({ record }) => {
-        switch (record.__typename) {
-          case 'DatoCmsGraphicTextColumnLeft':
-            return (
-              <UnitGraphicTextColumn
-                title={record.columnTitle}
-                content={record.paragraph}
-                image={record.graphicStartingLeft}
-                variant={
-                  COLUMN_LAYOUT_VARIANTS.IMAGE_ON_LEFT
-                }
-                smallerHeading={record.smallerHeading}
-              />
-            )
-          case 'DatoCmsGraphicTextColumn':
-            return (
-              <UnitGraphicTextColumn
-                title={record.columnTitle}
-                content={record.paragraph}
-                image={record.graphicStartingRight}
-                variant={
-                  COLUMN_LAYOUT_VARIANTS.IMAGE_ON_RIGHT
-                }
-              />
-            )
-          case 'DatoCmsTwoColumnsLayout':
-            return (
-              <DatoCmsTwoColumnsLayout
-                leftColumnContent={record.leftColumn}
-                rightColumnContent={record.rightColumn}
-              />
-            )
-          default:
-            return null
-        }
-      }}
-    />
+    <ContentWrapper>
+      <StructuredText
+        data={content}
+        renderBlock={({ record }) => {
+          switch (record.__typename) {
+            case 'DatoCmsGraphicTextColumnLeft':
+              return (
+                <UnitGraphicTextColumn
+                  title={record.columnTitle}
+                  content={record.paragraph}
+                  image={record.graphicStartingLeft}
+                  variant={
+                    COLUMN_LAYOUT_VARIANTS.IMAGE_ON_LEFT
+                  }
+                  smallerHeading={record.smallerHeading}
+                />
+              )
+            case 'DatoCmsGraphicTextColumn':
+              return (
+                <UnitGraphicTextColumn
+                  title={record.columnTitle}
+                  content={record.paragraph}
+                  image={record.graphicStartingRight}
+                  variant={
+                    COLUMN_LAYOUT_VARIANTS.IMAGE_ON_RIGHT
+                  }
+                />
+              )
+            case 'DatoCmsTwoColumnsLayout':
+              return (
+                <DatoCmsTwoColumnsLayout
+                  leftColumnContent={record.leftColumn}
+                  rightColumnContent={record.rightColumn}
+                />
+              )
+            default:
+              return null
+          }
+        }}
+      />
+    </ContentWrapper>
   )
 }
 
@@ -151,6 +169,7 @@ export const aboutPageQuery = graphql`
           ... on DatoCmsTwoColumnsLayout {
             id: originalId
             leftColumn {
+              value
               blocks {
                 __typename
                 ... on DatoCmsBlockTitleWithParagraph {
@@ -163,27 +182,29 @@ export const aboutPageQuery = graphql`
               }
             }
             rightColumn {
+              value
               blocks {
                 __typename
-                ... on DatoCmsBlockTitleWithParagraph {
-                  id: originalId
-                  title
-                  content {
-                    value
-                  }
-                }
                 ... on DatoCmsIconsList {
                   id: originalId
                   listTitle
                   list {
-                    file {
-                      filename
-                      url
-                    }
                     nazwaIkony
                     text {
                       value
                     }
+                    file {
+                      filename
+                      url
+                    }
+                  }
+                }
+                ... on DatoCmsTwoImagesInCol {
+                  id: originalId
+                  images {
+                    gatsbyImageData
+                    alt
+                    title
                   }
                 }
               }

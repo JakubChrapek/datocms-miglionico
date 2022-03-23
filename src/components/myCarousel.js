@@ -179,7 +179,6 @@ class MyCarousel extends React.Component {
         onChange={this.onChange}
         plugins={[
           'centered',
-          // 'clickToChange',
           {
             resolve: arrowsPlugin,
             options: {
@@ -227,7 +226,50 @@ class MyCarousel extends React.Component {
           640: {
             plugins: [
               'centered',
-              'clickToChange',
+              {
+                resolve: arrowsPlugin,
+                options: {
+                  arrowLeft: (
+                    <IconButton
+                      className='prev'
+                      title='Poprzednia opinia'>
+                      <ArrowLeft
+                        color={COLORS.PRIMARY_NAVY}
+                      />
+                    </IconButton>
+                  ),
+                  arrowLeftDisabled: (
+                    <IconButton
+                      className='prev'
+                      disabled
+                      title='Brak poprzedniej opinii'>
+                      <ArrowLeft
+                        color={COLORS.PRIMARY_NAVY}
+                      />
+                    </IconButton>
+                  ),
+                  arrowRight: (
+                    <IconButton
+                      className='next'
+                      title='Następna opinia'>
+                      <ArrowRight
+                        color={COLORS.PRIMARY_NAVY}
+                      />
+                    </IconButton>
+                  ),
+                  arrowRightDisabled: (
+                    <IconButton
+                      className='next'
+                      disabled
+                      title='Brak następnej opinii'>
+                      <ArrowRight
+                        color={COLORS.PRIMARY_NAVY}
+                      />
+                    </IconButton>
+                  ),
+                  addArrowClickHandler: true
+                }
+              },
               {
                 resolve: slidesToShowPlugin,
                 options: {
@@ -239,7 +281,50 @@ class MyCarousel extends React.Component {
           960: {
             plugins: [
               'centered',
-              'clickToChange',
+              {
+                resolve: arrowsPlugin,
+                options: {
+                  arrowLeft: (
+                    <IconButton
+                      className='prev'
+                      title='Poprzednia opinia'>
+                      <ArrowLeft
+                        color={COLORS.PRIMARY_NAVY}
+                      />
+                    </IconButton>
+                  ),
+                  arrowLeftDisabled: (
+                    <IconButton
+                      className='prev'
+                      disabled
+                      title='Brak poprzedniej opinii'>
+                      <ArrowLeft
+                        color={COLORS.PRIMARY_NAVY}
+                      />
+                    </IconButton>
+                  ),
+                  arrowRight: (
+                    <IconButton
+                      className='next'
+                      title='Następna opinia'>
+                      <ArrowRight
+                        color={COLORS.PRIMARY_NAVY}
+                      />
+                    </IconButton>
+                  ),
+                  arrowRightDisabled: (
+                    <IconButton
+                      className='next'
+                      disabled
+                      title='Brak następnej opinii'>
+                      <ArrowRight
+                        color={COLORS.PRIMARY_NAVY}
+                      />
+                    </IconButton>
+                  ),
+                  addArrowClickHandler: true
+                }
+              },
               {
                 resolve: slidesToShowPlugin,
                 options: {
