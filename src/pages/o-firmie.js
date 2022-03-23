@@ -12,7 +12,11 @@ import {
   HERO_VARIANTS
 } from '../utils/constants'
 
-const Wrapper = styled.main``
+const Wrapper = styled.main`
+  @media(max-width: 1186px){
+    margin-bottom: 30px;
+  }
+`
 
 const HeroContainer = styled.section`
   --container-horizontal-padding: ${80 / 16}rem;
@@ -116,6 +120,7 @@ const AboutPage = ({ data }) => {
   const {
     datoCmsOFirmie: { welcomeTitle, heroImg, content }
   } = data
+  
   return (
     <Wrapper>
       <HeroSection
@@ -185,6 +190,13 @@ export const aboutPageQuery = graphql`
               value
               blocks {
                 __typename
+                ... on DatoCmsTwoImagesInCol {
+                  id: originalId
+                  images {
+                    gatsbyImageData
+                    alt
+                  }
+                }
                 ... on DatoCmsIconsList {
                   id: originalId
                   listTitle
@@ -209,6 +221,7 @@ export const aboutPageQuery = graphql`
                 }
               }
             }
+            
           }
         }
       }

@@ -12,7 +12,7 @@ export const UnitGraphicTextColumn = ({
   title,
   content,
   image,
-  variant = COLUMN_LAYOUT_VARIANTS.IMAGE_ON_LEFT,
+  variant = COLUMN_LAYOUT_VARIANTS.IMAGE_ON_RIGHT,
   smallerHeading = false
 }) => (
   <SectionWrapper variant={variant}>
