@@ -114,6 +114,7 @@ const ButtonsWrapper = styled.div`
       margin-left: 0;
     }
   }
+}
   @media (max-width: 620px) {
     display: flex;
     flex-direction: column;

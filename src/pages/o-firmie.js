@@ -1,9 +1,9 @@
 import { graphql } from 'gatsby'
 import { GatsbyImage } from 'gatsby-plugin-image'
+import { Heading } from '../components/typography'
 import React from 'react'
 import { StructuredText } from 'react-datocms'
 import styled from 'styled-components'
-import { Heading } from '../components/typography'
 import { DatoCmsTwoColumnsLayout } from '../components/datoCMSBlocks/DatoCmsTwoColumnsLayout'
 import { UnitGraphicTextColumn } from '../components/datoCMSBlocks/UnitGraphicTextColumn'
 import {

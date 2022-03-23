@@ -1,6 +1,14 @@
 import React from "react"
 import { StructuredText } from "react-datocms"
 import styled from "styled-components"
+import { GatsbyImage } from 'gatsby-plugin-image'
+import { Heading, Paragraph } from '../components/typography'
+import { graphql } from 'gatsby'
+import { COLORS } from "../utils/constants"
+import PriceBlock from "../components/datoCMSBlocks/PriceBlock"
+import Details from "../components/datoCMSBlocks/Details"
+import VerticalGraphickBlockWithList from "../components/datoCMSBlocks/VerticalGraphicBlockWithList"
+import SpecialistTestimontials from "../components/datoCMSBlocks/SpecialistTestimontial"
 
 const HeroContainer = styled.section`
   --container-horizontal-padding: ${80 / 16}rem;
@@ -16,9 +24,12 @@ const HeroContainer = styled.section`
   align-items: center;
 `
 const AboutTitle = styled(Heading)`
-  + .gatsby-image-wrapper {
-    margin-top: ${12 / 16}rem;
-  }
+`
+const AboutText = styled(Paragraph)`
+  text-align: center;
+  margin: 26px 0 !important;
+  max-width: 620px;
+  color: var(--primary-navy);
 `
 const AboutImage = styled(GatsbyImage)`
   border-radius: ${10 / 16}rem;
@@ -26,33 +37,115 @@ const AboutImage = styled(GatsbyImage)`
 `
 
 
-const UnityPage = () => {
-    return (
-        <>
-            <HeroContainer>
-                {title && (
-                    <AboutTitle color={COLORS.GRADIENT}>
-                        {title}
-                    </AboutTitle>
-                )}
-                {img && img.gatsbyImageData && (
-                    <AboutImage image={img.gatsbyImageData} />
-                )}
-            </HeroContainer>
-            <StructuredText
-                data={''}
-                renderBlock={({ record }) => {
-
-                }}
-            />
-        </>
-    )
+const UnityPage = ({ data: { datoCmsUnityPage: data } }) => {
+  return (
+    <div>
+      <HeroContainer>
+        <AboutTitle color={COLORS.GRADIENT}>
+          {data.welcomeTitle}
+        </AboutTitle>
+        <AboutText>{data.welcomeText}</AboutText>
+        <AboutImage image={data.heroSection.gatsbyImageData} />
+      </HeroContainer>
+      <StructuredText
+        data={data.pageContent}
+        renderBlock={({ record }) => {
+          switch (record.__typename) {
+            case 'DatoCmsPriceBlock':
+              return (
+                <PriceBlock data={record} />
+              )
+            case 'DatoCmsVerticalGraphicBlockWithList':
+              return (
+                <VerticalGraphickBlockWithList data={record} />
+              )
+            case 'DatoCmsDetailsBlock':
+              return (
+                <Details data={record} />
+              )
+            case 'DatoCmsSpecialistRecommendationBlock':
+              return (
+                <SpecialistTestimontials data={record} />
+              )
+            default:
+              return null
+          }
+        }}
+      />
+    </div>
+  )
 }
 
 export default UnityPage
 
-// export const unityPageQuery = graphql`
-//     query{
-
-//     }
-// `
+export const unityPageQuery = graphql`
+    query{
+      datoCmsUnityPage {
+        welcomeTitle
+        welcomeText
+        heroSection {
+          gatsbyImageData
+        }
+        pageContent {
+          blocks {
+            ... on DatoCmsPriceBlock {
+              __typename
+              id: originalId
+              title
+              text
+              priceItem {
+                title
+                list {
+                  text
+                  isactive
+                }
+                linkUrl {
+                  unitSlug
+                }
+                cennik
+                linkText
+              }
+            }
+            ... on DatoCmsVerticalGraphicBlockWithList {
+              __typename
+              id: originalId
+              verticalGraphic {
+                gatsbyImageData
+              }
+              blockText
+              blockTitle
+              list {
+                description
+                number
+              }
+            }
+            ... on DatoCmsDetailsBlock {
+              __typename
+              id: originalId
+              blockTitle
+              slider {
+                text
+                img {
+                  gatsbyImageData
+                }
+              }
+            }
+            ... on DatoCmsSpecialistRecommendationBlock {
+              __typename
+              id: originalId
+              blockTitle
+              slider {
+                rekomendacjaKlienta
+                clientName
+                miejscowoFirma
+                clientFoto {
+                  gatsbyImageData
+                }
+              }
+            }
+          }
+          value
+        }
+      }
+    }
+`
