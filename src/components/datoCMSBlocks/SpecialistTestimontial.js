@@ -15,6 +15,11 @@ const Wrapper = styled(SectionWrapper)`
     grid-template-columns: 1fr;
     text-align: center;
     padding-bottom: 60px;
+    @media(max-width: 1092px){  
+        gap: 0;
+        max-width: 100% !important;
+        display: block;
+    }
 `
 
 const Slider = styled.div`
@@ -69,40 +74,86 @@ const Slider = styled.div`
 
             }
 
+
+
             &:nth-child(${props => props.centredItem}){
                 border: 0px solid transparent;
                 margin: 2px;
+                    &::before{
+                        content: "";
+                        position: absolute;
+                        top: -2px;
+                        bottom: -2px;
+                        right: -2px;
+                        left: -2px;
+                        background: -webkit-linear-gradient(
+                            45deg,
+                            var(--primary-red),
+                            var(--primary-navy)
+                        );
+                        z-index: -1;
+                        border-radius: 10px;
+                    }
+            }
+        }
+    }
 
-                &::before{
-                    content: "";
-                    position: absolute;
-                    top: -2px;
-                    bottom: -2px;
-                    right: -2px;
-                    left: -2px;
-                    background: -webkit-linear-gradient(
-                        45deg,
-                        var(--primary-red),
-                        var(--primary-navy)
-                    );
-                    z-index: -1;
-                    border-radius: 10px;
+    @media(max-width: 1092px){  
+        padding: 10px 0 0 0;
+        margin: 60px 0 0 0;
+    }
+
+    @media(max-width: 964px){
+        .slider{
+            overflow: visible;
+            grid-template-columns: repeat(${props => props.itemsCount}, calc(50% - 12.5px));
+
+            .item{
+
+                &:nth-child(${props => props.centredItem - 1}){
+                    border: 0px solid transparent;
+                    margin: 2px;
+                    &::before{
+                        content: "";
+                        position: absolute;
+                        top: -2px;
+                        bottom: -2px;
+                        right: -2px;
+                        left: -2px;
+                        background: -webkit-linear-gradient(
+                            45deg,
+                            var(--primary-red),
+                            var(--primary-navy)
+                        );
+                        z-index: -1;
+                        border-radius: 10px;
+                    }
+                }   
+            }
+        }
+    }
+
+    @media (max-width: 640px){
+        .slider{
+            grid-template-columns: repeat(${props => props.itemsCount}, 100%);
+
+            .item{
+                &:nth-child(${props => props.centredItem}){
+                    border: 2px solid #eee;
+                    margin: 0px;
                 }
             }
         }
     }
 `
 
-const SliderControls = styled.div`
+const SliderControls = styled.button`
     top: 50%;
-    left: 0;
-    right: 0;
     transform: translateY(-50%);
     position: absolute;
-    display: flex;
-    justify-content: space-between;
+    left: ${props => props.left ? '0' : 'unset'};
+    right: ${props => props.right ? '0' : 'unset'};
 
-    button{
         width: 60px;
         height: 60px;
         border-radius: 50%;
@@ -115,27 +166,41 @@ const SliderControls = styled.div`
         background-color: #FFF;
 
         &:hover{
-            
+
         }
 
         &:disabled{
             opacity: .5;
         }
+
+    @media (max-width: 1092px){
+      top: 0;
+      transform: translateY(-100%) scale(.5) ${props => props.left ? 'translateX(-200%)' : 'translateX(200%)'};
+    left: ${props => props.left ? '50%' : 'unset'};
+    right: ${props => props.right ? '50%' : 'unset'};
     }
 `
 
 const SpecialistTestimontials = ({ data }) => {
+    const sliderBreackPoint = 964
+    const secondBreackPoint = 640
+
+    const windowWidth = window.innerWidth
+
     const [position, positionSet] = useState(0);
 
     const [canRight, changeCanRight] = useState(false);
     const [canLeft, changeCanLeft] = useState(false);
 
     useEffect(() => {
-        if (data.slider.length >= 4) {
-            if (position === data.slider.length - 3) {
+        if (window != null) {
+            if (position >= (windowWidth <= sliderBreackPoint ? windowWidth <= secondBreackPoint ? data.slider.length - 1 : data.slider.length - 2 : data.slider.length - 3) && position <= 0) {
+                changeCanLeft(false)
+                changeCanRight(false)
+            } else if (position >= (windowWidth <= sliderBreackPoint ? windowWidth <= secondBreackPoint ? data.slider.length - 1 : data.slider.length - 2 : data.slider.length - 3)) {
                 changeCanRight(false)
                 changeCanLeft(true)
-            } else if (position === 0) {
+            } else if (position <= 0) {
                 changeCanLeft(false)
                 changeCanRight(true)
             } else {
@@ -190,31 +255,28 @@ const SpecialistTestimontials = ({ data }) => {
                         ))}
                     </div>
                 </div>
-                {data.slider < 4
-                    ? null
-                    : <SliderControls>
-                        <button
-                            aria-label="slider scroll left"
-                            name="poprzedni artykuł"
-                            disabled={!canLeft}
-                            onClick={() => {
-                                positionSet(position - 1);
-                            }}
-                        >
-                            <img src={ArrowLeft} />
-                        </button>
-                        <button
-                            aria-label="slider scroll right"
-                            name="następny artykuł"
-                            disabled={!canRight}
-                            onClick={() => {
-                                positionSet(position + 1);
-                            }}
-                        >
-                            <img src={ArrowRight} />
-                        </button>
-                    </SliderControls>
-                }
+                <SliderControls
+                    left
+                    aria-label="slider scroll left"
+                    name="poprzedni artykuł"
+                    disabled={!canLeft}
+                    onClick={() => {
+                        positionSet(position - 1);
+                    }}
+                >
+                    <img src={ArrowLeft} />
+                </SliderControls>
+                <SliderControls
+                    right
+                    aria-label="slider scroll right"
+                    name="następny artykuł"
+                    disabled={!canRight}
+                    onClick={() => {
+                        positionSet(position + 1);
+                    }}
+                >
+                    <img src={ArrowRight} />
+                </SliderControls>
             </Slider>
         </Wrapper >
     )

@@ -8,7 +8,9 @@ import { motion } from "framer-motion"
 import ArrowLeft from './../assets/arrow-left.svg'
 import ArrowRight from './../assets/arrow-right.svg'
 
-const TestimonialsWrapper = styled.section``
+const TestimonialsWrapper = styled.section`
+  overflow: hidden;
+`
 
 const TestimonialsContainer = styled.section`
   --container-horizontal-padding: 80px;
@@ -17,11 +19,6 @@ const TestimonialsContainer = styled.section`
   padding: 0 ${40 / 16}rem ${92 / 16}rem ${40 / 16}rem;
   margin: 0 auto;
   position: relative;
-  @media (max-width: 1180px) {
-    --container-horizontal-padding: 0;
-    padding-left: 0;
-    padding-right: 0;
-  }
 `
 
 const TestimonialsContentWrapper = styled.div`
@@ -110,18 +107,57 @@ const Slider = styled.div`
         }
       } 
     }
+
+    @media (max-width: 1180px){
+      padding: 10px 0 0 0;
+      margin: 70px auto 0 auto;
+    }
+
+    @media (max-width: 1024px) {
+    width: -webkit-fill-available;
+      .slider{
+        grid-template-columns: repeat(${props => props.itemsCount}, calc(50% - 12.5px));
+        overflow: visible;
+
+        .item{
+          &:nth-child(${props => props.centredItem - 1}){
+            border: 0px solid transparent;
+            margin: 2px 0;
+
+            &::before{
+              opacity: 1;
+            }
+          } 
+        }
+      }
+    }
+
+    @media (max-width:674px){
+      .slider{
+        grid-template-columns: repeat(${props => props.itemsCount}, calc(100%));
+        .item{
+          height: fit-content;
+
+          &:nth-child(${props => props.centredItem}){
+            border: 2px solid #eee;
+            margin: unset;
+
+            &::before{
+              opacity: unset;
+            }
+          } 
+        }
+      }
+    }
 `
 
-const SliderControls = styled.div`
+const SliderControls = styled.button`
     top: 50%;
-    left: 0;
-    right: 0;
     transform: translateY(-50%);
     position: absolute;
-    display: flex;
-    justify-content: space-between;
+    left: ${props => props.left ? '0' : 'unset'};
+    right: ${props => props.right ? '0' : 'unset'};
 
-    button{
         width: 60px;
         height: 60px;
         border-radius: 50%;
@@ -140,6 +176,12 @@ const SliderControls = styled.div`
         &:disabled{
             opacity: .5;
         }
+
+    @media (max-width: 1180px){
+      top: 0;
+      transform: translateY(-100%) scale(.5) ${props => props.left ? 'translateX(-200%)' : 'translateX(200%)'};
+    left: ${props => props.left ? '50%' : 'unset'};
+    right: ${props => props.right ? '50%' : 'unset'};
     }
 `
 
@@ -148,6 +190,10 @@ const TestimonialsSection = ({
   biggerTitle,
   testimonials
 }) => {
+  const sliderBreackPoint = 1024
+  const secondBreackPoint = 674
+
+  const windowWidth = window.innerWidth
 
   const [position, positionSet] = useState(0);
 
@@ -155,11 +201,14 @@ const TestimonialsSection = ({
   const [canLeft, changeCanLeft] = useState(false);
 
   useEffect(() => {
-    if (testimonials.length >= 4) {
-      if (position === testimonials.length - 3) {
+    if (window != null) {
+      if (position >= (windowWidth <= sliderBreackPoint ? windowWidth <= secondBreackPoint ? testimonials.length - 1 : testimonials.length - 2 : testimonials.length - 3) && position <= 0) {
+        changeCanLeft(false)
+        changeCanRight(false)
+      } else if (position >= (windowWidth <= sliderBreackPoint ? windowWidth <= secondBreackPoint ? testimonials.length - 1 : testimonials.length - 2 : testimonials.length - 3)) {
         changeCanRight(false)
         changeCanLeft(true)
-      } else if (position === 0) {
+      } else if (position <= 0) {
         changeCanLeft(false)
         changeCanRight(true)
       } else {
@@ -216,8 +265,9 @@ const TestimonialsSection = ({
             </div>
             {testimonials < 4
               ? null
-              : <SliderControls>
-                <button
+              : <>
+                <SliderControls
+                  left
                   aria-label="slider scroll left"
                   name="poprzedni artykuł"
                   disabled={!canLeft}
@@ -226,8 +276,9 @@ const TestimonialsSection = ({
                   }}
                 >
                   <img src={ArrowLeft} />
-                </button>
-                <button
+                </SliderControls>
+                <SliderControls
+                  right
                   aria-label="slider scroll right"
                   name="następny artykuł"
                   disabled={!canRight}
@@ -236,8 +287,8 @@ const TestimonialsSection = ({
                   }}
                 >
                   <img src={ArrowRight} />
-                </button>
-              </SliderControls>
+                </SliderControls>
+              </>
             }
           </Slider>
         </TestimonialsContentWrapper>

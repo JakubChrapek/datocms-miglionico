@@ -10,6 +10,10 @@ import { GatsbyImage } from 'gatsby-plugin-image'
 
 const Container = styled.div`
     padding: 80px 40px;
+    
+    @media (max-width: 640px) {
+        padding: 0 20px 68px;
+    }
 `
 
 const Wrapper = styled(SectionWrapper)`
@@ -48,6 +52,26 @@ const Wrapper = styled(SectionWrapper)`
         aspect-ratio: 0.95/1;
         border-radius: 10px;
     }
+
+    @media (max-width: 1192px) {
+        padding: 0 50px;
+        grid-column-gap: 50px;
+        max-width: 100% !important;
+    }
+    
+    @media (max-width: 1044px){
+        display: flex;
+        flex-direction: column-reverse;
+        max-width: 800px !important;
+        padding: 0 30px;
+        grid-gap: 0;
+    }
+
+    @media (max-width: 500px){
+        .imgPart{
+            width: 100%;
+        }
+    }
 `
 
 const SubTitle = styled.p`
@@ -59,10 +83,17 @@ const SubTitle = styled.p`
     letter-spacing: unset  !important;
     text-align: left;
     margin-top: 30px !important;
+    @media (max-width: 1044px){
+        text-align: center;
+        margin-bottom: 20px;
+    }
 `
 
 const STitle = styled(Title)`
     text-align: left;
+    @media (max-width: 1044px){
+        text-align: center;
+    }
 `
 
 const List = styled.ul`
@@ -71,6 +102,7 @@ const List = styled.ul`
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-column-gap: 30px;
     list-style: none;
+    display: ${props => props.mobile ? 'none' : 'grid'};
 
     li{
         display: flex;
@@ -91,6 +123,20 @@ const List = styled.ul`
             text-align: center;
         }
     }
+
+    @media (max-width: 1100px){
+        grid-template-columns: 1fr 1fr;
+        grid-row-gap: 50px;
+    }
+
+    @media (max-width: 1044px) {
+        display: ${props => props.desctop ? 'none' : 'grid'};
+    }
+
+    @media(max-width: 500px){
+        grid-template-columns: 1fr;
+
+    }
 `
 
 const VerticalGraphickBlockWithList = ({ data }) => {
@@ -99,11 +145,19 @@ const VerticalGraphickBlockWithList = ({ data }) => {
             <Wrapper>
                 <ContentWrapper>
                     <GatsbyImage className='imgPart' image={data.verticalGraphic.gatsbyImageData} />
+                    <List mobile>
+                        {data.list.map(el => (
+                            <li>
+                                <p>{el.number}</p>
+                                <h3>{el.description}</h3>
+                            </li>
+                        ))}
+                    </List>
                 </ContentWrapper>
                 <ContentWrapper>
                     <STitle as='h2'>{data.blockTitle}</STitle>
                     <SubTitle>{data.blockText}</SubTitle>
-                    <List>
+                    <List desctop>
                         {data.list.map(el => (
                             <li>
                                 <p>{el.number}</p>

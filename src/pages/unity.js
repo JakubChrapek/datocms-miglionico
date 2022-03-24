@@ -24,6 +24,7 @@ const HeroContainer = styled.section`
   align-items: center;
 `
 const AboutTitle = styled(Heading)`
+  text-align: center;
 `
 const AboutText = styled(Paragraph)`
   text-align: center;

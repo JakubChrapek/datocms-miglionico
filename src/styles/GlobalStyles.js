@@ -57,7 +57,7 @@ const GlobalStyles = createGlobalStyle`
 
   .link {
     position: relative;
-
+    
     &__kamil {
       color: currentColor;
       text-decoration: none;

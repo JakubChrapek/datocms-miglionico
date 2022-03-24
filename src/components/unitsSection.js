@@ -125,7 +125,7 @@ const UnitsContentWrapper = styled.div`
 `
 
 const Slider = styled.div`
-    padding: 0 100px;
+    padding: 0 80px;
    margin-top: 60px;
     position: relative;
     .slider{
@@ -143,10 +143,25 @@ const Slider = styled.div`
             padding: 10px 26px 0 26px;
         }
     }
+
+    @media (max-width: 936px) {
+      .slider{
+        grid-template-columns: repeat(${props => props.itemsCount}, 100%);
+        overflow: visible;
+      }
+    }
+
+    @media(max-width: 562px){
+      padding: 0 40px;
+
+      .slider{
+        grid-column-gap: 18px;
+
+      }
+    }
 `
 
 const SliderControls = styled.button`
-    display: block !important;
     visibility: visible !important;
     top: 50%;
     left: ${props => props.left ? '0' : 'unset'};
@@ -154,24 +169,29 @@ const SliderControls = styled.button`
     transform: translateY(-50%);
     position: absolute;
     width: 60px;
-        height: 60px;
-        border-radius: 50%;
-        border: 4px solid var(--primary-navy);
-        display: inline-flex;
-        justify-content: center;
-        align-items: center;
-        transition: opacity .2s linear;
-        cursor: pointer;
-        background-color: transparent;
-        z-index: 10;
+    display: ${props => props.itemsCount > 3 ? 'block' : 'none'};
+    height: 60px;
+    border-radius: 50%;
+    border: 4px solid var(--primary-navy);
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity .2s linear;
+    cursor: pointer;
+    background-color: transparent;
+    z-index: 10;
 
-        &:hover{
+    &:hover{
 
-        }
+    }
 
-        &:disabled{
-            opacity: .5;
-        }
+    &:disabled{
+      opacity: .5;
+    }
+
+    @media (max-width: 936px){
+      display: none;
+    }
 `
 
 const SliderItem = styled(motion.div)`
@@ -179,7 +199,8 @@ const SliderItem = styled(motion.div)`
   position: relative;
   padding-top: clamp(10px, 4vw, 60px);
   filter: grayscale(1);
-  transition: filter .6s var(--transition-function);;
+  transition: filter .6s var(--transition-function), transform .6s var(--transition-function);
+  transform-origin: 50% 50%;
 
     a{
       text-decoration: none;
@@ -260,6 +281,38 @@ const SliderItem = styled(motion.div)`
         transform: translateY(-15px) scale(1);
       }
     }
+
+    @media (max-width: 936px){
+      transform: scale(.95);
+
+      :nth-child(${props => props.position}){
+        transform: scale(1);
+        filter: grayscale(0);
+
+        h3{
+          transform: translateY(-15px);
+          margin-top: 15px;
+        }
+
+        p{
+          transform: translateY(-15px);
+        }
+
+        .imgWrapper{
+          transform: translateY(-15px) scale(1);
+        }
+      }
+
+      &::before{
+        aspect-ratio: unset;
+        height: 80%;
+      }
+
+      &::after{
+        aspect-ratio: 1/0.5;
+        top: 100px;
+      }
+    }
 `
 
 const UnitsSection = ({
@@ -267,26 +320,33 @@ const UnitsSection = ({
   unitsTitle,
   unitsSubtitle
 }) => {
-  const [position, positionSet] = useState(0);
+  const sliderBreackPoint = 936
+  const secondBreackPoint = 562
+
+  const windowWidth = window.innerWidth
+
+  const [position, positionSet] = useState(windowWidth <= sliderBreackPoint ? 1 : 0);
 
   const [canRight, changeCanRight] = useState(false);
   const [canLeft, changeCanLeft] = useState(false);
 
   useEffect(() => {
-    if (position === unitsData.length - 3 && position === 0) {
-      changeCanLeft(false)
-      changeCanRight(false)
-    } else if (position === unitsData.length - 3) {
-      changeCanRight(false)
-      changeCanLeft(true)
-    } else if (position === 0) {
-      changeCanLeft(false)
-      changeCanRight(true)
-    } else {
-      changeCanLeft(true)
-      changeCanRight(true)
+    if (window !== null) {
+      if (position >= (windowWidth <= sliderBreackPoint ? unitsData.length - 1 : unitsData.length - 3) && position <= 0) {
+        changeCanLeft(false)
+        changeCanRight(false)
+      } else if (position >= (windowWidth <= sliderBreackPoint ? unitsData.length - 1 : unitsData.length - 3)) {
+        changeCanRight(false)
+        changeCanLeft(true)
+      } else if (position <= 0) {
+        changeCanLeft(false)
+        changeCanRight(true)
+      } else {
+        changeCanLeft(true)
+        changeCanRight(true)
+      }
     }
-  }, [position])
+  }, [position, windowWidth])
 
   const handlers = useSwipeable({
     onSwipedLeft: () => {
@@ -301,7 +361,7 @@ const UnitsSection = ({
     },
     preventDefaultTouchmoveEvent: true,
     trackMouse: true
-  });
+  })
 
   const hasMounted = useHasMounted()
   if (!hasMounted) {
@@ -326,9 +386,10 @@ const UnitsSection = ({
               <div className='slider'>
                 {unitsData.filter(el => el.showOnHome).map(el => (
                   <SliderItem
+                    position={position + 1}
                     color={el.unitColor.hex}
                     animate={{
-                      left: `calc(${position} * (-100% - 18px))`,
+                      left: `calc(${position} * ${windowWidth <= secondBreackPoint ? '(-100% - 18px)' : '(-100% - 30px)'})`,
                     }}
                     transition={{
                       ease: 'easeOut',
@@ -348,6 +409,7 @@ const UnitsSection = ({
               </div>
             </div>
             <SliderControls
+              itemsCount={unitsData.length}
               left
               aria-label="slider scroll left"
               name="poprzedni artykuł"
@@ -359,6 +421,7 @@ const UnitsSection = ({
               <img src={ArrowLeft} />
             </SliderControls>
             <SliderControls
+              itemsCount={unitsData.length}
               right
               aria-label="slider scroll right"
               name="następny artykuł"

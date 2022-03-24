@@ -48,6 +48,9 @@ export const SectionWrapper = styled.section`
     grid-template-columns: 1fr;
     max-width: 95ch;
   }
+  @media (max-width: 640px) {
+    padding: 0 20px;
+  }
 `
 
 export const ContentWrapper = styled.div`
@@ -116,8 +119,8 @@ export const Title = styled.h3`
     extraSmallHeading
       ? 'var(--header4-font-size)'
       : smallerHeading
-      ? 'var(--subheader-font-size)'
-      : 'var(--header-font-size)'};
+        ? 'var(--subheader-font-size)'
+        : 'var(--header-font-size)'};
   + p {
     margin-top: clamp(1.5rem, 3.9vw, 2.5rem);
   }

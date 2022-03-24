@@ -68,6 +68,7 @@ const Button = ({
 }
 
 const FilledButton = styled(ButtonBaseStyles)`
+  display: block;
   :before {
     top: 0;
     left: 0;
@@ -130,6 +131,7 @@ const FilledButton = styled(ButtonBaseStyles)`
 `
 const OutlinedButton = styled(ButtonBaseStyles)`
   color: var(--primary-navy);
+  display: block;
   :before {
     top: 0;
     left: 0;

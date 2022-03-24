@@ -36,6 +36,13 @@ const PriceGrid = styled.div`
     box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.05);
 
     margin-top: 64px;
+
+    @media (max-width: 1044px) {
+        grid-template-columns: 1fr;
+        max-width: 600px;
+        width: 100%;
+        margin: 0 auto;
+    }
 `
 
 const PriceItem = styled.div`
@@ -144,7 +151,15 @@ const PriceItem = styled.div`
         var(--primary-navy)
       );
     }
+
+    @media (max-width: 1044px){
+        :nth-child(2){
+            transform: unset;
+        }
+    }
 `
+
+
 
 export const PriceBlock = ({ data }) => {
     return (
@@ -159,7 +174,7 @@ export const PriceBlock = ({ data }) => {
                             <ul>
                                 {el.list.map(inEl => (
                                     <li className={inEl.isactive ? '' : 'disabled'}>
-                                        {inEl.text}
+                                        <p>{inEl.text}</p>
                                     </li>
                                 ))}
                             </ul>

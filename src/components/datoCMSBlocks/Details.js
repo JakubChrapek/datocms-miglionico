@@ -12,10 +12,14 @@ import ArrowLeft from './../../assets/arrow-left.svg'
 import ArrowRight from './../../assets/arrow-right.svg'
 
 const Wrapper = styled(SectionWrapper)`
-    grid-template-columns: 1fr;
+    display: block;
     text-align: center;
     padding-bottom: 60px;
     margin-top: 60px;
+    max-width: 100% !important;
+    @media (max-width: 1024px){
+        grid-gap: 0;
+    }
 `
 
 const Slider = styled.div`
@@ -34,21 +38,78 @@ const Slider = styled.div`
         }
 
         p{
-            padding: 10px 26px 0 26px;
+            margin: 10px 26px 0 26px;
+            font-weight: 400;
+            font-size: 18px;
+            line-height: 23px;
         }
     }
+
+    @media (max-width: 1092px){
+        padding: 10px 0 0 0;
+        margin-top: 60px;
+    }
+
+    @media (max-width: 764px) {
+        margin-top: 20px;
+        .slider{
+            overflow: visible;
+            grid-template-columns: repeat(${props => props.itemsCount}, calc(50% - 9px));
+
+            div{
+                transform: scale(.95);
+                transition: transform .6s var(--transition-function);
+
+                &:nth-child(${props => props.centredItem}), 
+                &:nth-child(${props => props.centredItem + 1}){
+                    transform: scale(1);
+                }
+            }
+
+            p{
+                margin: 10px 10px 0 10px;
+
+            }
+        }
+    }
+
+    @media (max-width: 640px) {
+        padding: 0 40px !important;
+    }
+
+    @media(max-width: 500px){
+        .slider{
+            grid-template-columns: repeat(${props => props.itemsCount}, 100%);
+
+            div{
+
+                &:nth-child(${props => props.centredItem + 1}){
+                    transform: scale(.95);
+                }
+
+            }
+
+            p{
+                max-width: 340px;
+            }
+
+        }
+    }
+
+    /* @media (max-width: 664px){
+        .slider{
+            grid-template-columns: repeat(${props => props.itemsCount}, 100%);
+        }
+    } */
 `
 
-const SliderControls = styled.div`
+const SliderControls = styled.button`
     top: 50%;
-    left: 0;
-    right: 0;
     transform: translateY(-50%);
     position: absolute;
-    display: flex;
-    justify-content: space-between;
+    left: ${props => props.left ? '0' : 'unset'};
+    right: ${props => props.right ? '0' : 'unset'};
 
-    button{
         width: 60px;
         height: 60px;
         border-radius: 50%;
@@ -67,10 +128,24 @@ const SliderControls = styled.div`
         &:disabled{
             opacity: .5;
         }
+
+    @media (max-width: 1092px){
+        top: 0;
+        transform: translateY(-100%) scale(.5) ${props => props.left ? 'translateX(-200%)' : 'translateX(200%)'};
+        left: ${props => props.left ? '50%' : 'unset'};
+        right: ${props => props.right ? '50%' : 'unset'};
+    }
+
+    @media (max-width: 764px){
+        display: none;
     }
 `
 
 const Details = ({ data }) => {
+    const sliderBreackPoint = 764
+    const secondBreackPoint = 460
+
+    const windowWidth = window.innerWidth
 
     const [position, positionSet] = useState(0);
 
@@ -78,11 +153,14 @@ const Details = ({ data }) => {
     const [canLeft, changeCanLeft] = useState(false);
 
     useEffect(() => {
-        if (data.slider.length >= 4) {
-            if (position === data.slider.length - 3) {
+        if (window != null) {
+            if (position >= (windowWidth <= sliderBreackPoint ? windowWidth <= secondBreackPoint ? data.slider.length - 1 : data.slider.length - 2 : data.slider.length - 3) && position <= 0) {
+                changeCanLeft(false)
+                changeCanRight(false)
+            } else if (position >= (windowWidth <= sliderBreackPoint ? windowWidth <= secondBreackPoint ? data.slider.length - 1 : data.slider.length - 2 : data.slider.length - 3)) {
                 changeCanRight(false)
                 changeCanLeft(true)
-            } else if (position === 0) {
+            } else if (position <= 0) {
                 changeCanLeft(false)
                 changeCanRight(true)
             } else {
@@ -112,7 +190,7 @@ const Details = ({ data }) => {
             <Title>
                 {data.blockTitle}
             </Title>
-            <Slider itemsCount={data.slider.length}>
+            <Slider itemsCount={data.slider.length} centredItem={position + 1}>
                 <div {...handlers}>
                     <div className='slider'>
                         {data.slider.map(el => (
@@ -130,31 +208,29 @@ const Details = ({ data }) => {
                         ))}
                     </div>
                 </div>
-                {data.slider < 4
-                    ? null
-                    : <SliderControls>
-                        <button
-                            aria-label="slider scroll left"
-                            name="poprzedni artykuł"
-                            disabled={!canLeft}
-                            onClick={() => {
-                                positionSet(position - 1);
-                            }}
-                        >
-                            <img src={ArrowLeft} />
-                        </button>
-                        <button
-                            aria-label="slider scroll right"
-                            name="następny artykuł"
-                            disabled={!canRight}
-                            onClick={() => {
-                                positionSet(position + 1);
-                            }}
-                        >
-                            <img src={ArrowRight} />
-                        </button>
-                    </SliderControls>
-                }
+
+                <SliderControls
+                    left
+                    aria-label="slider scroll left"
+                    name="poprzedni artykuł"
+                    disabled={!canLeft}
+                    onClick={() => {
+                        positionSet(position - 1);
+                    }}
+                >
+                    <img src={ArrowLeft} />
+                </SliderControls>
+                <SliderControls
+                    right
+                    aria-label="slider scroll right"
+                    name="następny artykuł"
+                    disabled={!canRight}
+                    onClick={() => {
+                        positionSet(position + 1);
+                    }}
+                >
+                    <img src={ArrowRight} />
+                </SliderControls>
             </Slider>
         </Wrapper >
     )
