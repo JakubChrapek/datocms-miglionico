@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import { ChevronDownIcon } from '../assets/icons'
 
-const ListWrapper = styled.ul`
+const ListWrapper = styled.div`
   flex: 1 1 52%;
   border-radius: ${10 / 16}rem;
   background-color: var(--off-white);
@@ -134,8 +134,10 @@ const FaqItem = ({ item }) => {
   }
   return (
     <FaqItemWrapper open={open} onClick={handleClick}>
-      <FaqQuestion>
-        {item.faqTitle}
+      <FaqQuestion itemProp="mainEntity" itemType="https://schema.org/Question">
+        <span itemProp='name'>
+          {item.faqTitle}
+        </span>
         <ChevronDownIcon
           rotate={open}
           stroke={
@@ -145,7 +147,11 @@ const FaqItem = ({ item }) => {
           }
         />
       </FaqQuestion>
-      <FaqAnswer>{item.faqAnswerPlain}</FaqAnswer>
+      <FaqAnswer itemProp="acceptedAnswer" itemType="https://schema.org/Answer">
+        <span itemProp="text">
+          {item.faqAnswerPlain}
+        </span>
+      </FaqAnswer>
     </FaqItemWrapper>
   )
 }

@@ -1,9 +1,9 @@
 import { graphql } from 'gatsby'
 import { GatsbyImage } from 'gatsby-plugin-image'
+import { Heading } from '../components/typography'
 import React from 'react'
 import { StructuredText } from 'react-datocms'
 import styled from 'styled-components'
-import { Heading } from '../components/typography'
 import { DatoCmsTwoColumnsLayout } from '../components/datoCMSBlocks/DatoCmsTwoColumnsLayout'
 import { UnitGraphicTextColumn } from '../components/datoCMSBlocks/UnitGraphicTextColumn'
 import {
@@ -30,6 +30,10 @@ const HeroContainer = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  @media (max-width: 1024px) {
+    padding: ${28 / 16}rem ${20 / 16}rem ${24 / 16}rem;
+  }
 `
 const AboutTitle = styled(Heading)`
   + .gatsby-image-wrapper {
@@ -39,6 +43,22 @@ const AboutTitle = styled(Heading)`
 const AboutImage = styled(GatsbyImage)`
   border-radius: ${10 / 16}rem;
   width: 100%;
+`
+
+const ContentWrapper = styled.div`
+  padding: 0 var(--container-horizontal-padding);
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  position: relative;
+  @media (max-width: 1480px) {
+    padding-left: 2.375rem;
+    padding-right: 2.625rem;
+  }
+  @media (max-width: 1024px) {
+    padding-left: ${22 / 16}rem;
+    padding-right: ${22 / 16}rem;
+  }
+  z-index: 2;
 `
 
 const HeroSection = ({ title, paragraph, img, video }) => (
@@ -56,45 +76,47 @@ const HeroSection = ({ title, paragraph, img, video }) => (
 
 const ContentSection = ({ content }) => {
   return (
-    <StructuredText
-      data={content}
-      renderBlock={({ record }) => {
-        switch (record.__typename) {
-          case 'DatoCmsGraphicTextColumnLeft':
-            return (
-              <UnitGraphicTextColumn
-                title={record.columnTitle}
-                content={record.paragraph}
-                image={record.graphicStartingLeft}
-                variant={
-                  COLUMN_LAYOUT_VARIANTS.IMAGE_ON_LEFT
-                }
-                smallerHeading={record.smallerHeading}
-              />
-            )
-          case 'DatoCmsGraphicTextColumn':
-            return (
-              <UnitGraphicTextColumn
-                title={record.columnTitle}
-                content={record.paragraph}
-                image={record.graphicStartingRight}
-                variant={
-                  COLUMN_LAYOUT_VARIANTS.IMAGE_ON_RIGHT
-                }
-              />
-            )
-          case 'DatoCmsTwoColumnsLayout':
-            return (
-              <DatoCmsTwoColumnsLayout
-                leftColumnContent={record.leftColumn}
-                rightColumnContent={record.rightColumn}
-              />
-            )
-          default:
-            return null
-        }
-      }}
-    />
+    <ContentWrapper>
+      <StructuredText
+        data={content}
+        renderBlock={({ record }) => {
+          switch (record.__typename) {
+            case 'DatoCmsGraphicTextColumnLeft':
+              return (
+                <UnitGraphicTextColumn
+                  title={record.columnTitle}
+                  content={record.paragraph}
+                  image={record.graphicStartingLeft}
+                  variant={
+                    COLUMN_LAYOUT_VARIANTS.IMAGE_ON_LEFT
+                  }
+                  smallerHeading={record.smallerHeading}
+                />
+              )
+            case 'DatoCmsGraphicTextColumn':
+              return (
+                <UnitGraphicTextColumn
+                  title={record.columnTitle}
+                  content={record.paragraph}
+                  image={record.graphicStartingRight}
+                  variant={
+                    COLUMN_LAYOUT_VARIANTS.IMAGE_ON_RIGHT
+                  }
+                />
+              )
+            case 'DatoCmsTwoColumnsLayout':
+              return (
+                <DatoCmsTwoColumnsLayout
+                  leftColumnContent={record.leftColumn}
+                  rightColumnContent={record.rightColumn}
+                />
+              )
+            default:
+              return null
+          }
+        }}
+      />
+    </ContentWrapper>
   )
 }
 
@@ -183,14 +205,22 @@ export const aboutPageQuery = graphql`
                   id: originalId
                   listTitle
                   list {
-                    file {
-                      filename
-                      url
-                    }
                     nazwaIkony
                     text {
                       value
                     }
+                    file {
+                      filename
+                      url
+                    }
+                  }
+                }
+                ... on DatoCmsTwoImagesInCol {
+                  id: originalId
+                  images {
+                    gatsbyImageData
+                    alt
+                    title
                   }
                 }
               }

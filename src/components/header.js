@@ -14,6 +14,7 @@ import { useBlockBody } from './blockBodyContext'
 
 const Wrapper = styled.header`
   background-color: var(--off-white);
+  box-shadow: 0px 4px 25px 0 rgba(0, 0, 0, 0.05);
 `
 
 const Container = styled.div`
@@ -25,7 +26,6 @@ const Container = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0px 4px 25px 0 rgba(0, 0, 0, 0.05);
 
   --list-alignment: 0.25rem;
   --nav-gap: 2rem;

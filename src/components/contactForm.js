@@ -10,6 +10,7 @@ import {
   INPUT_VARIANTS
 } from '../utils/constants'
 import { encode } from '../utils'
+import PrivacyInfoSummary from './privacyInfoSummary'
 
 const FormWrapper = styled.div`
   display: flex;
@@ -23,7 +24,7 @@ const FormStyles = styled.form`
   width: 100%;
   position: relative;
   > button {
-    margin-top: 1.25rem;
+    margin-top: 2rem;
     align-self: flex-start;
   }
 
@@ -428,7 +429,7 @@ const Form = () => {
           required: 'Wiadomość jest wymagana.'
         }}
       />
-
+      <PrivacyInfoSummary />
       <Button
         variant={BUTTON_VARIANTS.FILLED}
         type='submit'>

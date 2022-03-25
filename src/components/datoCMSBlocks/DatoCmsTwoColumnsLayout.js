@@ -1,5 +1,6 @@
 import React from 'react'
 import { StructuredText } from 'react-datocms'
+import styled from 'styled-components'
 import { ICONS } from '../../assets/icons'
 import {
   Content,
@@ -11,12 +12,16 @@ import {
   DownloadWrapper
 } from './common/components'
 
+const Wrapper = styled(SectionWrapper)`
+  overflow: visible;
+`
+
 export const DatoCmsTwoColumnsLayout = ({
   leftColumnContent,
   rightColumnContent
 }) => {
   return (
-    <SectionWrapper>
+    <Wrapper>
       <StructuredText
         data={leftColumnContent}
         renderBlock={({ record }) => {
@@ -60,7 +65,7 @@ export const DatoCmsTwoColumnsLayout = ({
               break
           }
         }} />
-    </SectionWrapper>
+    </Wrapper>
   )
 }
 

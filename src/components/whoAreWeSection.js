@@ -34,7 +34,8 @@ const Container = styled.div`
 
 const TextContentWrapper = styled.div`
   flex: 1 1 46%;
-  display: flex;
+  display: flex !important;
+  visibility: visible !important;
   flex-direction: column;
   align-items: flex-start;
   margin-left: ${90 / 16}rem;
@@ -51,9 +52,13 @@ const TextContentWrapper = styled.div`
     margin-left: -${3 / 16}rem;
   }
 
+  h2 + div {
+    margin: 3.25rem 0 2.75rem 0;
+  }
+
   @media (max-width: 1070px) {
-    h2 + p {
-      margin-top: 2.25rem;
+    h2 + div {
+      margin: 2.25rem 0 1.75rem 0;
     }
   }
   @media (max-width: 876px) {
@@ -63,8 +68,9 @@ const TextContentWrapper = styled.div`
     h2 {
       max-width: unset;
     }
-    > p {
-      display: none;
+    > div {
+      display: none !important;
+      visibility: hidden !important;
     }
   }
 `
@@ -93,15 +99,16 @@ const WhoAreWeSection = ({
         <Paragraph>
           <StructuredText data={paragraph} />
         </Paragraph>
-        {/* <Button
+        <Button
           variant={BUTTON_VARIANTS.FILLED}
           as={Link}
-          to='/o-nas'>
+          to='/o-firmie'>
           {ctaText}
-        </Button> */}
+        </Button>
       </TextContentWrapper>
     </Container>
   </WhoAreWeWrapper>
 )
 
 export default WhoAreWeSection
+

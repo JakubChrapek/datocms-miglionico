@@ -88,6 +88,7 @@ const SocialMedia = ({
             navigation={navigation}
             key={originalId}>
             <a
+              aria-label="link do naszych social media"
               target='_blank'
               rel='noreferrer noopener'
               href={socialMediaChannel}>

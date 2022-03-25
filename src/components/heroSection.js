@@ -37,16 +37,10 @@ const Container = styled.div`
   position: relative;
 `
 const TextContentWrapper = styled.div`
-  padding: ${43 / 16}rem 0 ${70 / 16}rem 0;
 
   .mobile-only {
     display: none;
     visibility: hidden;
-  }
-
-  @media (max-width: 1305px) {
-    padding: ${43 / 16}rem clamp(1.5rem, 3vw, 2rem)
-      ${70 / 16}rem 0;
   }
   @media (max-width: 1024px) {
     z-index: 5;
@@ -57,7 +51,6 @@ const TextContentWrapper = styled.div`
     }
   }
   @media (max-width: 620px) {
-    padding: 2rem 0 ${42 / 16}rem;
     .mobile-only {
       display: block;
       visibility: visible;
@@ -94,6 +87,7 @@ const UnitWrapper = styled.div`
 `
 
 const ButtonsWrapper = styled.div`
+  display: block;
   > button,
   > a {
     margin-right: ${15 / 16}rem;
@@ -114,6 +108,7 @@ const ButtonsWrapper = styled.div`
       margin-left: 0;
     }
   }
+}
   @media (max-width: 620px) {
     display: flex;
     flex-direction: column;
@@ -139,6 +134,18 @@ const HeroBgImage = styled(BgImage)`
   }
 `
 
+const TextWrap = styled.div`
+  padding: ${43 / 16}rem 0 ${70 / 16}rem 0;
+
+  @media (max-width: 1305px) {
+    padding: ${43 / 16}rem clamp(1.5rem, 3vw, 2rem)
+      ${70 / 16}rem 0;
+  }
+  @media (max-width: 620px) {
+    padding: 2rem 0 ${42 / 16}rem;
+  }
+`
+
 const HeroSection = ({
   title,
   textParagraph,
@@ -147,24 +154,26 @@ const HeroSection = ({
   unitImage,
   heroBg
 }) => {
-  const hasMounted = useHasMounted()
-  if (!hasMounted) {
-    return null
-  }
+  // const hasMounted = useHasMounted()
+  // if (!hasMounted) {
+  //   return null
+  // }
   const pluginImage = getImage(heroBg)
 
   return (
     <Wrapper>
       <HeroBgImage image={pluginImage}>
         <Container>
-          <TextContentWrapper>
-            <HeroTitle>
-              <StructuredText data={title} />
-            </HeroTitle>
-            <GatsbyImage
-              className='mobile-only'
-              image={unitImage}
-            />
+          <TextWrap>
+            <TextContentWrapper>
+              <HeroTitle>
+                <StructuredText data={title} />
+              </HeroTitle>
+              <GatsbyImage
+                className='mobile-only'
+                image={unitImage}
+              />
+            </TextContentWrapper>
             <HeroParagraph>
               <StructuredText data={textParagraph} />
             </HeroParagraph>
@@ -178,6 +187,7 @@ const HeroSection = ({
               <Button
                 as={ScrollLink}
                 // to='/unit/nice-touch'
+                href="#"
                 to='oferta'
                 spy={true}
                 smooth={true}
@@ -187,7 +197,7 @@ const HeroSection = ({
                 {findOutMoreBtnText}
               </Button>
             </ButtonsWrapper>
-          </TextContentWrapper>
+          </TextWrap>
           <UnitWrapper>
             <GatsbyImage image={unitImage} />
           </UnitWrapper>

@@ -106,7 +106,7 @@ const ContactDetailsContainer = styled.div`
 
   padding: ${22 / 16}rem ${40 / 16}rem ${91 / 16}rem
     ${17 / 16}rem;
-  margin: 5rem auto ${31 / 16}rem;
+  margin: 5rem auto 0 auto;
   @media (max-width: 1390px) {
     margin-top: 3rem;
     margin-left: ${20 / 16}rem;

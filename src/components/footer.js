@@ -284,7 +284,7 @@ export default function Footer({ footerData }) {
               rel='noreferrer noopener'>
               Kamil Kalbarczyk
             </a>
-             & 
+            {' & '}
             <a
               className='link__kryptonum'
               href='https://www.kryptonum.eu'

@@ -17,6 +17,7 @@ export const SectionWrapper = styled.section`
   grid-template-columns: 1fr 1fr;
   align-items: center;
   grid-gap: clamp(3rem, 5.55vw, 5rem);
+  align-items: center;
   width: 100%;
   overflow-x: hidden;
 
@@ -43,6 +44,10 @@ export const SectionWrapper = styled.section`
         }
       }
     `}
+
+  @media (max-width: 1024px) {
+    padding: 0;
+  }
   @media(max-width: 1010px) {
     grid-template-columns: 1fr;
     max-width: 95ch;
@@ -64,6 +69,10 @@ export const ContentWrapper = styled.div`
           justify-content: flex-start;
         `}
   strong{
+    font-weight: bold;
+  }
+
+  strong {
     font-weight: bold;
   }
 
@@ -107,16 +116,18 @@ export const ContentWrapper = styled.div`
 export const Title = styled.h3`
   font-weight: 600;
   line-height: 1.3;
-  font-size: ${({ smallerHeading }) =>
-    smallerHeading
-      ? 'var(--subheader-font-size)'
-      : 'var(--header-font-size)'};
+  font-size: ${({ extraSmallHeading, smallerHeading }) =>
+    extraSmallHeading
+      ? 'var(--header4-font-size)'
+      : smallerHeading
+        ? 'var(--subheader-font-size)'
+        : 'var(--header-font-size)'};
   + p {
     margin-top: clamp(1.5rem, 3.9vw, 2.5rem);
   }
 
-  ${({ smallerHeading }) =>
-    smallerHeading
+  ${({ extraSmallHeading, smallerHeading }) =>
+    smallerHeading || extraSmallHeading
       ? css`
           color: var(--primary-navy);
           + p {
@@ -263,7 +274,7 @@ export const DownloadWrapper = styled.div`
   
   h3{
     color: var(--primary-navy);
-    font-size: var(--subheader-font-size);
+    font-size: 36px;
   }
 
   a{
@@ -275,4 +286,12 @@ export const DownloadWrapper = styled.div`
     text-decoration: none;
     width: fit-content;
   }
+
+  @media (max-width: 500px) {
+    grid-row-gap: 24px;
+  }
+`
+
+export const UnityContainer = styled.div`
+  padding: 0 22px;
 `

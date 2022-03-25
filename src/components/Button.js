@@ -50,6 +50,9 @@ const Button = ({
     case BUTTON_VARIANTS.OUTLINED:
       Element = OutlinedButton
       break
+    case BUTTON_VARIANTS.EMPTY:
+      Element = EmptyButton
+      break
     default:
       Element = ButtonBaseStyles
       break
@@ -68,6 +71,7 @@ const Button = ({
 }
 
 const FilledButton = styled(ButtonBaseStyles)`
+  display: inline-block;
   :before {
     top: 0;
     left: 0;
@@ -130,6 +134,7 @@ const FilledButton = styled(ButtonBaseStyles)`
 `
 const OutlinedButton = styled(ButtonBaseStyles)`
   color: var(--primary-navy);
+  display: inline-block;
   :before {
     top: 0;
     left: 0;
@@ -191,6 +196,37 @@ const OutlinedButton = styled(ButtonBaseStyles)`
       opacity: 1;
     }
   }
+`
+
+const EmptyButton = styled(ButtonBaseStyles)`
+
+
+  :after {
+    top: 2px;
+    bottom: 2px;
+    left: 2px;
+    right: 2px;
+    background-color: white;
+    opacity: 1;
+    z-index: -2;
+    transition: opacity 0.8s var(--transition-function);
+  }
+      background: -webkit-linear-gradient(
+        var(--primary-red),
+        var(--primary-navy)
+      );
+      background: linear-gradient(
+        96.12deg,
+        #c3112d 4.74%,
+        #262f6e 55.62%
+      );
+      -webkit-background-clip: text;
+      /* -webkit-text-fill-color: transparent; */
+
+      &:hover{
+
+      }
+
 `
 
 export default Button

@@ -10,7 +10,8 @@ export const HERO_VARIANTS = {
 
 export const BUTTON_VARIANTS = {
   FILLED: 'FILLED',
-  OUTLINED: 'OUTLINED'
+  OUTLINED: 'OUTLINED',
+  EMPTY: 'EMPTY'
 }
 
 export const INPUT_VARIANTS = {
