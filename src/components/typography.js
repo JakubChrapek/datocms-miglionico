@@ -114,4 +114,10 @@ export const Paragraph = styled.p`
   strong {
     font-weight: 700;
   }
+  a {
+    color: var(--primary-red);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    text-decoration-thickness: 2px;
+  }
 `
