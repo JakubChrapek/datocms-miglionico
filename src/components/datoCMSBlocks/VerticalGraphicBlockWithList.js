@@ -9,7 +9,7 @@ import { GatsbyImage } from 'gatsby-plugin-image'
 
 
 const Container = styled.div`
-    padding: 80px 40px;
+    padding: 80px 40px 60px 40px;
     
     @media (max-width: 640px) {
         padding: 0 20px 68px;

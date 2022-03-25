@@ -10,6 +10,7 @@ import { BUTTON_VARIANTS } from "../../utils/constants"
 import Button from '../Button'
 import Ok from './../../assets/ok.svg'
 import OkWhite from './../../assets/okWhite.svg'
+import { Link } from 'gatsby'
 
 const Wrapper = styled(SectionWrapper)`
     grid-template-columns: 1fr;
@@ -127,21 +128,11 @@ const PriceItem = styled.div`
         }
 
         a{
-            color: transparent;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            z-index: 2;
+            color: var(--primary-navy);
 
-            &::before{
-                content: '';
-                position: absolute;
-                top: 0;
-                right: 0;
-                left: 0;
-                bottom: 0;
-                background: #fff;
-                border-radius: 0.3125rem;
-                z-index: -1;
+            &:hover{
+                
+                color: var(--primary-red);
             }
         }
 
@@ -180,8 +171,8 @@ export const PriceBlock = ({ data }) => {
                             </ul>
                             <span>do <b>{el.cennik}</b></span>
                             {index === 1
-                                ? <Button variant={BUTTON_VARIANTS.OUTLINED} to={el.linkUrl.unitSlug}>{el.linkText}</Button>
-                                : <Button variant={BUTTON_VARIANTS.FILLED} to={el.linkUrl.unitSlug}>{el.linkText}</Button>
+                                ? <Button as={Link} variant={BUTTON_VARIANTS.EMPTY} to={'/unit/' + el.linkUrl.unitSlug + '/'}>{el.linkText}</Button>
+                                : <Button as={Link} variant={BUTTON_VARIANTS.FILLED} to={'/unit/' + el.linkUrl.unitSlug + '/'}>{el.linkText}</Button>
                             }
 
                         </PriceItem>

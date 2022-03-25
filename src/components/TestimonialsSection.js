@@ -193,7 +193,7 @@ const TestimonialsSection = ({
   const sliderBreackPoint = 1024
   const secondBreackPoint = 674
 
-  const windowWidth = window.innerWidth
+  const windowWidth = typeof window !== "undefined" ? window.innerWidth : 0
 
   const [position, positionSet] = useState(0);
 
@@ -201,7 +201,7 @@ const TestimonialsSection = ({
   const [canLeft, changeCanLeft] = useState(false);
 
   useEffect(() => {
-    if (window != null) {
+    if (typeof window !== "undefined") {
       if (position >= (windowWidth <= sliderBreackPoint ? windowWidth <= secondBreackPoint ? testimonials.length - 1 : testimonials.length - 2 : testimonials.length - 3) && position <= 0) {
         changeCanLeft(false)
         changeCanRight(false)
@@ -275,7 +275,7 @@ const TestimonialsSection = ({
                     positionSet(position - 1);
                   }}
                 >
-                  <img src={ArrowLeft} />
+                  <img src={ArrowLeft} alt='strzałka slidera lewa'/>
                 </SliderControls>
                 <SliderControls
                   right
@@ -286,7 +286,7 @@ const TestimonialsSection = ({
                     positionSet(position + 1);
                   }}
                 >
-                  <img src={ArrowRight} />
+                  <img src={ArrowRight} alt='strzałka slidera prawa'/>
                 </SliderControls>
               </>
             }

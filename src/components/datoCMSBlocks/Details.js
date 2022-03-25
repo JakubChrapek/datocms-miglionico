@@ -14,11 +14,10 @@ import ArrowRight from './../../assets/arrow-right.svg'
 const Wrapper = styled(SectionWrapper)`
     display: block;
     text-align: center;
-    padding-bottom: 60px;
     margin-top: 60px;
-    max-width: 100% !important;
     @media (max-width: 1024px){
         grid-gap: 0;
+        max-width: 100% !important;
     }
 `
 
@@ -145,7 +144,7 @@ const Details = ({ data }) => {
     const sliderBreackPoint = 764
     const secondBreackPoint = 460
 
-    const windowWidth = window.innerWidth
+    const windowWidth = typeof window !== "undefined" ? window.innerWidth : 0
 
     const [position, positionSet] = useState(0);
 
@@ -153,7 +152,7 @@ const Details = ({ data }) => {
     const [canLeft, changeCanLeft] = useState(false);
 
     useEffect(() => {
-        if (window != null) {
+        if (typeof window !== "undefined") {
             if (position >= (windowWidth <= sliderBreackPoint ? windowWidth <= secondBreackPoint ? data.slider.length - 1 : data.slider.length - 2 : data.slider.length - 3) && position <= 0) {
                 changeCanLeft(false)
                 changeCanRight(false)

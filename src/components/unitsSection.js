@@ -323,7 +323,7 @@ const UnitsSection = ({
   const sliderBreackPoint = 936
   const secondBreackPoint = 562
 
-  const windowWidth = window.innerWidth
+  const windowWidth = typeof window !== "undefined" ? window.innerWidth : 0
 
   const [position, positionSet] = useState(windowWidth <= sliderBreackPoint ? 1 : 0);
 
@@ -331,7 +331,7 @@ const UnitsSection = ({
   const [canLeft, changeCanLeft] = useState(false);
 
   useEffect(() => {
-    if (window !== null) {
+    if (typeof window !== "undefined") {
       if (position >= (windowWidth <= sliderBreackPoint ? unitsData.length - 1 : unitsData.length - 3) && position <= 0) {
         changeCanLeft(false)
         changeCanRight(false)
@@ -363,11 +363,6 @@ const UnitsSection = ({
     trackMouse: true
   })
 
-  const hasMounted = useHasMounted()
-  if (!hasMounted) {
-    return null
-  }
-
   return (
     <UnitsWrapper id='oferta'>
       <UnitsContainer>
@@ -395,7 +390,7 @@ const UnitsSection = ({
                       ease: 'easeOut',
                       duration: 0.25,
                     }}>
-                    <Link to={el.unitSlug}>
+                    <Link to={'/unit/' + el.unitSlug + '/'}>
                       <h3>{el.unitName.split(' ').map((el, index) => (
                         <>
                           {index === 1 ? <span>{el}</span> : `${el} `}

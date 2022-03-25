@@ -56,6 +56,24 @@ module.exports = {
         }
       }
     },
+    {
+      resolve: `gatsby-plugin-manifest`,
+      options: {
+        name: `Miglionico`,
+        icon: `src/assets/logo.png`,
+        short_name: `Miglionico`,
+        start_url: `/`,
+        background_color: `#ffffff`,
+        theme_color: `#C3112D`,
+        display: `standalone`,
+      },
+    },
+    {
+      resolve: `gatsby-plugin-offline`,
+      options: {
+        precachePages: ['/', '/unit/*', '/kontakt/', '/o-firmie/', '/unity/']
+      }
+    },
     `gatsby-plugin-styled-components`,
     `gatsby-plugin-sharp`,
     `gatsby-plugin-react-helmet`,

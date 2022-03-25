@@ -273,7 +273,7 @@ export const DownloadWrapper = styled.div`
   
   h3{
     color: var(--primary-navy);
-    font-size: var(--subheader-font-size);
+    font-size: 36px;
   }
 
   a{

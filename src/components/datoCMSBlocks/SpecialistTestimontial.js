@@ -15,6 +15,7 @@ const Wrapper = styled(SectionWrapper)`
     grid-template-columns: 1fr;
     text-align: center;
     padding-bottom: 60px;
+    margin-top: 0 !important; 
     @media(max-width: 1092px){  
         gap: 0;
         max-width: 100% !important;
@@ -185,7 +186,7 @@ const SpecialistTestimontials = ({ data }) => {
     const sliderBreackPoint = 964
     const secondBreackPoint = 640
 
-    const windowWidth = window.innerWidth
+    const windowWidth = typeof window !== "undefined" ? window.innerWidth : 0
 
     const [position, positionSet] = useState(0);
 
@@ -193,7 +194,7 @@ const SpecialistTestimontials = ({ data }) => {
     const [canLeft, changeCanLeft] = useState(false);
 
     useEffect(() => {
-        if (window != null) {
+        if (typeof window !== "undefined") {
             if (position >= (windowWidth <= sliderBreackPoint ? windowWidth <= secondBreackPoint ? data.slider.length - 1 : data.slider.length - 2 : data.slider.length - 3) && position <= 0) {
                 changeCanLeft(false)
                 changeCanRight(false)

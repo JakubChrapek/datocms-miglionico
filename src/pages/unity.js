@@ -35,6 +35,19 @@ const AboutText = styled(Paragraph)`
 const AboutImage = styled(GatsbyImage)`
   border-radius: ${10 / 16}rem;
   width: 100%;
+  position: relative;
+  z-index: 2;
+
+  &::before{
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    box-shadow: 4px 4px 25px 0px rgba(0, 0, 0, 0.05);
+    z-index: -1;
+  }
 `
 
 
