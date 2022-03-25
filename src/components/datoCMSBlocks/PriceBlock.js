@@ -157,7 +157,7 @@ export const PriceBlock = ({ data }) => {
         <Wrapper>
             <ContentWrapper>
                 <Title>{data.title}</Title>
-                <SubTitle>{data.text}</SubTitle>
+                <SubTitle><p>{data.text}</p></SubTitle>
                 <PriceGrid>
                     {data.priceItem.map((el, index) => (
                         <PriceItem key={el.title}>

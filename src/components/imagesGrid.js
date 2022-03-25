@@ -23,7 +23,7 @@ const Grid = styled.div`
   @media (max-width: 1020px) {
     margin-right: 2.5rem;
   }
-  ~ p,
+  ~ div,
   ~ a {
     display: none;
     visibility: hidden;
@@ -31,7 +31,7 @@ const Grid = styled.div`
   @media (max-width: 876px) {
     grid-gap: clamp(0.5rem, 2.77vw, ${30 / 16}rem);
     margin: ${58 / 16}rem 0 0 0;
-    ~ p {
+    ~ div {
       display: block;
       visibility: visible;
     }

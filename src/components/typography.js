@@ -1,56 +1,62 @@
 import styled, { css } from 'styled-components'
 import { COLORS } from '../utils/constants'
 
-export const HeroTitle = styled.p`
-  font-family: 'k2d';
-  font-size: var(--header-font-size);
-  line-height: ${80 / 64};
-  font-weight: 600;
-  margin-bottom: ${24 / 16}rem;
-  color: var(--primary-navy);
-  mark {
-    color: var(--primary-red);
-    background-color: transparent;
-  }
-  @media (max-width: 387px) {
-    --header-font-size: clamp(1.5rem, 8.2vw, 2rem);
+export const HeroTitle = styled.div`
+  p{
+    font-family: 'k2d';
+    font-size: var(--header-font-size);
+    line-height: ${80 / 64};
+    font-weight: 600;
+    margin-bottom: ${24 / 16}rem;
+    color: var(--primary-navy);
+    mark {
+      color: var(--primary-red);
+      background-color: transparent;
+    }
+    @media (max-width: 387px) {
+      --header-font-size: clamp(1.5rem, 8.2vw, 2rem);
+    }
   }
 `
 
-export const HeroParagraph = styled.p`
-  font-size: var(--paragraph-font-size);
-  line-height: ${28 / 18};
-  font-weight: 300;
-  color: var(--paragraph-text);
-  max-width: ${555 / 16}rem;
-  margin-bottom: 2rem;
+export const HeroParagraph = styled.div`
+  p{
+    font-size: var(--paragraph-font-size);
+    line-height: ${28 / 18};
+    font-weight: 300;
+    color: var(--paragraph-text);
+    max-width: ${555 / 16}rem;
+    margin-bottom: 2rem;
 
-  strong {
+    strong {
+      font-weight: 700;
+    }
+
+    @media (max-width: 620px) {
+      margin: 0 0 3rem;
+      text-align: center;
+    }
+  }
+`
+
+export const Subheading = styled.div`
+  p{
+    color: ${({ color }) => color ?? COLORS.WHITE};
+    font-size: var(--paragraph-font-size);
     font-weight: 700;
-  }
+    line-height: ${23 / 18};
+    font-family: 'k2d', sans-serif;
+    text-transform: uppercase;
 
-  @media (max-width: 620px) {
-    margin: 0 0 3rem;
-    text-align: center;
-  }
-`
-
-export const Subheading = styled.p`
-  color: ${({ color }) => color ?? COLORS.WHITE};
-  font-size: var(--paragraph-font-size);
-  font-weight: 700;
-  line-height: ${23 / 18};
-  font-family: 'k2d', sans-serif;
-  text-transform: uppercase;
-
-  + h1,
-  + h2,
-  + h3,
-  + h4,
-  + h5,
-  + h6,
-  + p {
-    margin-top: 1rem;
+    + h1,
+    + h2,
+    + h3,
+    + h4,
+    + h5,
+    + h6,
+    + p {
+      margin-top: 1rem;
+    }
   }
 `
 
@@ -104,14 +110,16 @@ export const ContactDetailsTitle = styled.h3`
   }
 `
 
-export const Paragraph = styled.p`
-  color: var(--paragraph-text);
-  font-size: var(--paragraph-font-size);
-  line-height: ${28 / 18};
-  font-weight: 300;
-  max-width: ${555 / 16}rem;
+export const Paragraph = styled.div`
+  p{
+    color: var(--paragraph-text);
+    font-size: var(--paragraph-font-size);
+    line-height: ${28 / 18};
+    font-weight: 300;
+    max-width: ${555 / 16}rem;
 
-  strong {
-    font-weight: 700;
+    strong {
+      font-weight: 700;
+    }
   }
 `

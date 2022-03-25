@@ -58,7 +58,7 @@ const UnityPage = ({ data: { datoCmsUnityPage: data } }) => {
         <AboutTitle color={COLORS.GRADIENT}>
           {data.welcomeTitle}
         </AboutTitle>
-        <AboutText>{data.welcomeText}</AboutText>
+        <AboutText><p>{data.welcomeText}</p></AboutText>
         <AboutImage image={data.heroSection.gatsbyImageData} />
       </HeroContainer>
       <StructuredText
