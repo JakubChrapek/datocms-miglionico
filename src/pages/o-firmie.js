@@ -30,6 +30,10 @@ const HeroContainer = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  @media (max-width: 1024px) {
+    padding: ${28 / 16}rem ${20 / 16}rem ${24 / 16}rem;
+  }
 `
 const AboutTitle = styled(Heading)`
   + .gatsby-image-wrapper {

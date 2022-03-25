@@ -53,12 +53,12 @@ const TextContentWrapper = styled.div`
   }
 
   h2 + div {
-    margin-top: 3.25rem;
+    margin: 3.25rem 0 2.75rem 0;
   }
 
   @media (max-width: 1070px) {
     h2 + div {
-      margin-top: 2.25rem;
+      margin: 2.25rem 0 1.75rem 0;
     }
   }
   @media (max-width: 876px) {
@@ -102,7 +102,7 @@ const WhoAreWeSection = ({
         <Button
           variant={BUTTON_VARIANTS.FILLED}
           as={Link}
-          to='/o-nas'>
+          to='/o-firmie'>
           {ctaText}
         </Button>
       </TextContentWrapper>

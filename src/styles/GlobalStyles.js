@@ -37,6 +37,10 @@ const GlobalStyles = createGlobalStyle`
     --button-font-size: var(--paragraph-font-size);
   }
 
+  main{
+    overflow-x: hidden;
+  }
+
   #gatsby-focus-wrapper {
     ${({ blockBody }) =>
       blockBody &&

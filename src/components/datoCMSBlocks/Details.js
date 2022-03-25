@@ -140,6 +140,11 @@ const SliderControls = styled.button`
     }
 `
 
+const PTitle = styled(Title)`
+    padding: 0 22px;
+`
+
+
 const Details = ({ data }) => {
     const sliderBreackPoint = 764
     const secondBreackPoint = 460
@@ -186,9 +191,9 @@ const Details = ({ data }) => {
 
     return (
         <Wrapper>
-            <Title>
+            <PTitle>
                 {data.blockTitle}
-            </Title>
+            </PTitle>
             <Slider itemsCount={data.slider.length} centredItem={position + 1}>
                 <div {...handlers}>
                     <div className='slider'>

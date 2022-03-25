@@ -16,7 +16,7 @@ const Wrapper = styled(SectionWrapper)`
     text-align: center;
     padding-bottom: 60px;
     margin-top: 0 !important; 
-    @media(max-width: 1092px){  
+    @media(max-width: 1192px){  
         gap: 0;
         max-width: 100% !important;
         display: block;
@@ -28,6 +28,7 @@ const Slider = styled.div`
     position: relative;
 
     .track{
+        padding: 0 40px;
     }
 
     .slider{
@@ -102,7 +103,7 @@ const Slider = styled.div`
         }
     }
 
-    @media(max-width: 1092px){  
+    @media(max-width: 1192px){  
         padding: 10px 0 0 0;
         margin: 60px 0 0 0;
     }
@@ -177,12 +178,16 @@ const SliderControls = styled.button`
             opacity: .5;
         }
 
-    @media (max-width: 1092px){
+    @media (max-width: 1192px){
       top: 0;
       transform: translateY(-100%) scale(.5) ${props => props.left ? 'translateX(-200%)' : 'translateX(200%)'};
     left: ${props => props.left ? '50%' : 'unset'};
     right: ${props => props.right ? '50%' : 'unset'};
     }
+`
+
+const PTitle = styled(Title)`
+    padding: 0 22px;
 `
 
 const SpecialistTestimontials = ({ data }) => {
@@ -231,9 +236,9 @@ const SpecialistTestimontials = ({ data }) => {
 
     return (
         <Wrapper>
-            <Title>
+            <PTitle>
                 {data.blockTitle}
-            </Title>
+            </PTitle>
             <Slider centredItem={position + 2} itemsCount={data.slider.length}>
                 <div className='track' {...handlers}>
                     <div className='slider'>

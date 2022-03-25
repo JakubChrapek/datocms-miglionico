@@ -44,12 +44,13 @@ export const SectionWrapper = styled.section`
         }
       }
     `}
+
+  @media (max-width: 1024px) {
+    padding: 0;
+  }
   @media(max-width: 1010px) {
     grid-template-columns: 1fr;
     max-width: 95ch;
-  }
-  @media (max-width: 640px) {
-    padding: 0 20px;
   }
 `
 
@@ -285,4 +286,12 @@ export const DownloadWrapper = styled.div`
     text-decoration: none;
     width: fit-content;
   }
+
+  @media (max-width: 500px) {
+    grid-row-gap: 24px;
+  }
+`
+
+export const UnityContainer = styled.div`
+  padding: 0 22px;
 `

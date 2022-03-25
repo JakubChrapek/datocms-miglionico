@@ -3,7 +3,8 @@ import styled from 'styled-components'
 import {
     SectionWrapper,
     ContentWrapper,
-    Title
+    Title,
+    UnityContainer
 } from './common/components'
 import { Paragraph } from '../typography'
 import { BUTTON_VARIANTS } from "../../utils/constants"
@@ -101,6 +102,10 @@ const PriceItem = styled.div`
 
         b{
             font-size: 48px;
+
+            @media (max-width: 500px) {
+                font-size: 40px;
+            }
         }
     }
 
@@ -154,31 +159,34 @@ const PriceItem = styled.div`
 
 export const PriceBlock = ({ data }) => {
     return (
-        <Wrapper>
-            <ContentWrapper>
-                <Title>{data.title}</Title>
-                <SubTitle><p>{data.text}</p></SubTitle>
-                <PriceGrid>
-                    {data.priceItem.map((el, index) => (
-                        <PriceItem key={el.title}>
-                            <h3>{el.title}</h3>
-                            <ul>
-                                {el.list.map(inEl => (
-                                    <li className={inEl.isactive ? '' : 'disabled'}>
-                                        <p>{inEl.text}</p>
-                                    </li>
-                                ))}
-                            </ul>
-                            <span>do <b>{el.cennik}</b></span>
-                            {index === 1
-                                ? <Button as={Link} variant={BUTTON_VARIANTS.EMPTY} to={'/unit/' + el.linkUrl.unitSlug + '/'}>{el.linkText}</Button>
-                                : <Button as={Link} variant={BUTTON_VARIANTS.FILLED} to={'/unit/' + el.linkUrl.unitSlug + '/'}>{el.linkText}</Button>
-                            }
 
-                        </PriceItem>
-                    ))}
-                </PriceGrid>
-            </ContentWrapper>
+        <Wrapper>
+            <UnityContainer>
+                <ContentWrapper>
+                    <Title>{data.title}</Title>
+                    <SubTitle><p>{data.text}</p></SubTitle>
+                    <PriceGrid>
+                        {data.priceItem.map((el, index) => (
+                            <PriceItem key={el.title}>
+                                <h3>{el.title}</h3>
+                                <ul>
+                                    {el.list.map(inEl => (
+                                        <li className={inEl.isactive ? '' : 'disabled'}>
+                                            <p>{inEl.text}</p>
+                                        </li>
+                                    ))}
+                                </ul>
+                                <span>do <b>{el.cennik}</b></span>
+                                {index === 1
+                                    ? <Button as={Link} variant={BUTTON_VARIANTS.EMPTY} to={'/unit/' + el.linkUrl.unitSlug + '/'}>{el.linkText}</Button>
+                                    : <Button as={Link} variant={BUTTON_VARIANTS.FILLED} to={'/unit/' + el.linkUrl.unitSlug + '/'}>{el.linkText}</Button>
+                                }
+
+                            </PriceItem>
+                        ))}
+                    </PriceGrid>
+                </ContentWrapper>
+            </UnityContainer>
         </Wrapper>
     )
 }
