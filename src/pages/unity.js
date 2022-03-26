@@ -94,7 +94,7 @@ const UnityPage = ({ data: { datoCmsUnityPage: data } }) => {
   )
 }
 
-// export default UnityPage
+export default UnityPage
 
 export const unityPageQuery = graphql`
     query{

@@ -16,8 +16,6 @@
   },
   "dependencies": {
     "@brainhubeu/react-carousel": "^2.0.4",
-    "@fontsource/k2d": "^4.5.2",
-    "@fontsource/titillium-web": "^4.5.1",
     "autoprefixer": "^10.3.4",
     "babel-plugin-styled-components": "^2.0.2",
     "classnames": "^2.3.1",

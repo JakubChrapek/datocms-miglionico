@@ -1164,16 +1164,6 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@fontsource/k2d@^4.5.2":
-  version "4.5.6"
-  resolved "https://registry.yarnpkg.com/@fontsource/k2d/-/k2d-4.5.6.tgz#e561245bbe93d459b43d9df2efdfd223757b23ad"
-  integrity sha512-fq6T1JbREh2FgN68Or7lAY7zOrFOZbavPqSxAeHOUJQpMoyv4mKvJ5nj9l39VR/RANr+txG1lMYJfa7tFkZ+2Q==
-
-"@fontsource/titillium-web@^4.5.1":
-  version "4.5.5"
-  resolved "https://registry.yarnpkg.com/@fontsource/titillium-web/-/titillium-web-4.5.5.tgz#cc0ec9d9ae28d291b0043286ce199df0dbb89491"
-  integrity sha512-JNk5R7raBSh1qVegTSKolG8Ln9utNsKujHKI9+uWWFCemBKcS5Il0l+EcpcDu+V4F8Ovdco53zNLghug0MFPtA==
-
 "@gatsbyjs/parcel-namer-relative-to-cwd@0.0.2":
   version "0.0.2"
   resolved "https://registry.yarnpkg.com/@gatsbyjs/parcel-namer-relative-to-cwd/-/parcel-namer-relative-to-cwd-0.0.2.tgz#e1586f1796aa773e53e0909025ea16e423c14391"
