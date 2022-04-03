@@ -65,6 +65,10 @@ const Wrapper = styled(SectionWrapper)`
         max-width: 800px !important;
         padding: 0 30px;
         grid-gap: 0;
+
+        .imgPart{
+            margin: 10px auto 0 auto;
+        }
     }
 
     @media (max-width: 500px){
@@ -93,20 +97,21 @@ const STitle = styled(Title)`
     text-align: left;
     @media (max-width: 1044px){
         text-align: center;
+        max-width: 600px;
+        margin: 10px auto 0 auto;
     }
 `
 
 const List = styled.ul`
-    margin: 15px 0 60px 0 !important;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-column-gap: 30px;
+    margin: 25px 0 60px 0 !important;
     list-style: none;
-    display: ${props => props.mobile ? 'none' : 'grid'};
+    display: ${props => props.mobile ? 'none' : 'flex'};
+    justify-content: space-between;
 
     li{
         display: flex;
         flex-direction: column;
+        max-width: 138px;
 
         p{
             color: var(--primary-red);
@@ -121,16 +126,22 @@ const List = styled.ul`
             font-size: 24px;
             line-height: 31px;
             text-align: center;
-        }
+            color: var(--primary-navy);        }
     }
 
     @media (max-width: 1100px){
+        display: ${props => props.mobile ? 'none' : 'grid'};
         grid-template-columns: 1fr 1fr;
         grid-row-gap: 50px;
+
+        li{
+            margin: 0 auto;
+        }
     }
 
     @media (max-width: 1044px) {
         display: ${props => props.desctop ? 'none' : 'grid'};
+        width: 100%;
     }
 
     @media(max-width: 500px){

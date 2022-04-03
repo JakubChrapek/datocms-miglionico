@@ -17,17 +17,23 @@ const Wrapper = styled(SectionWrapper)`
     grid-template-columns: 1fr;
     text-align: center;
     padding-bottom: 60px;
+
+    @media (max-width: 680px) {
+        padding: 0 20px 60px 20px;
+    }
 `
 
 const SubTitle = styled(Paragraph)`
-    text-align: center;
-    margin: 18px auto 32px !important;
-    font-weight: 700 !important;
-    font-size: 18px !important;
-    color: var(--primary-navy) !important;
-    text-transform: uppercase;
-    max-width: 700px;
-    letter-spacing: unset !important;
+    p{
+        text-align: center;
+        margin: 18px auto 32px !important;
+        font-weight: 700 !important;
+        font-size: 18px !important;
+        color: var(--primary-navy) !important;
+        text-transform: uppercase;
+        max-width: 700px;
+        letter-spacing: unset !important;
+    }
 
 `
 
@@ -58,6 +64,10 @@ const PriceItem = styled.div`
         color: var(--primary-navy);
         margin-bottom: 37px;
         text-align: left;
+
+        @media(max-width: 360px){
+            font-size: 40px;
+        }
     }
 
     ul{
@@ -91,6 +101,7 @@ const PriceItem = styled.div`
 
     p{
         color: var(--primary-navy);
+        font-weight: 300;
 
     }
 
@@ -104,7 +115,7 @@ const PriceItem = styled.div`
             font-size: 48px;
 
             @media (max-width: 500px) {
-                font-size: 40px;
+                font-size: 36px;
             }
         }
     }
@@ -155,38 +166,45 @@ const PriceItem = styled.div`
     }
 `
 
+const ButtonWrapper = styled.div`
+    display: block;
+    width: fit-content;
+
+    a{
+        font-size: 16px;
+    }
+`
+
 
 
 export const PriceBlock = ({ data }) => {
     return (
 
         <Wrapper>
-            <UnityContainer>
-                <ContentWrapper>
-                    <Title>{data.title}</Title>
-                    <SubTitle><p>{data.text}</p></SubTitle>
-                    <PriceGrid>
-                        {data.priceItem.map((el, index) => (
-                            <PriceItem key={el.title}>
-                                <h3>{el.title}</h3>
-                                <ul>
-                                    {el.list.map(inEl => (
-                                        <li className={inEl.isactive ? '' : 'disabled'}>
-                                            <p>{inEl.text}</p>
-                                        </li>
-                                    ))}
-                                </ul>
-                                <span>do <b>{el.cennik}</b></span>
-                                {index === 1
-                                    ? <Button as={Link} variant={BUTTON_VARIANTS.EMPTY} to={'/unit/' + el.linkUrl.unitSlug + '/'}>{el.linkText}</Button>
-                                    : <Button as={Link} variant={BUTTON_VARIANTS.FILLED} to={'/unit/' + el.linkUrl.unitSlug + '/'}>{el.linkText}</Button>
-                                }
+            <ContentWrapper>
+                <Title>{data.title}</Title>
+                <SubTitle><p>{data.text}</p></SubTitle>
+                <PriceGrid>
+                    {data.priceItem.map((el, index) => (
+                        <PriceItem key={el.title}>
+                            <h3>{el.title}</h3>
+                            <ul>
+                                {el.list.map(inEl => (
+                                    <li className={inEl.isactive ? '' : 'disabled'}>
+                                        <p>{inEl.text}</p>
+                                    </li>
+                                ))}
+                            </ul>
+                            <span>od <b>{el.cennik}</b></span>
+                            {index === 1
+                                ? <ButtonWrapper><Button as={Link} variant={BUTTON_VARIANTS.EMPTY} to={'/unit/' + el.linkUrl.unitSlug + '/'}>{el.linkText}</Button></ButtonWrapper>
+                                : <ButtonWrapper><Button as={Link} variant={BUTTON_VARIANTS.FILLED} to={'/unit/' + el.linkUrl.unitSlug + '/'}>{el.linkText}</Button></ButtonWrapper>
+                            }
 
-                            </PriceItem>
-                        ))}
-                    </PriceGrid>
-                </ContentWrapper>
-            </UnityContainer>
+                        </PriceItem>
+                    ))}
+                </PriceGrid>
+            </ContentWrapper>
         </Wrapper>
     )
 }

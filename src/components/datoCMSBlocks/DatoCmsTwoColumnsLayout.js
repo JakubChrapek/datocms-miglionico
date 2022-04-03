@@ -14,6 +14,7 @@ import {
 
 const Wrapper = styled(SectionWrapper)`
   overflow: visible;
+  margin-bottom: 20px;
 `
 
 export const DatoCmsTwoColumnsLayout = ({

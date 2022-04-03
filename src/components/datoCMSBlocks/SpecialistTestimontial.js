@@ -27,9 +27,6 @@ const Slider = styled.div`
     padding: 0 100px;
     position: relative;
 
-    .track{
-        padding: 0 40px;
-    }
 
     .slider{
         display: grid;
@@ -73,10 +70,31 @@ const Slider = styled.div`
                 justify-content: space-evenly;
                 align-items: center;
                 margin-top: 28px;
+
+                @media (max-width: 350px) {
+                    flex-direction: column;
+                }
             }
 
             .description{
+                margin-left: 8px;
+                h3{
+                    font-weight: 400;
+                    font-size: 24px;
+                    line-height: 31px;
+                    text-align: center;
+                    color: #262F6E;
 
+                }
+
+                h4{
+                    font-weight: 300;
+                    font-size: 18px;
+                    line-height: 23px;
+                    text-align: center;
+                    color: #C3112D;
+                    margin-top: 6px;
+                }
             }
 
 
@@ -105,7 +123,21 @@ const Slider = styled.div`
 
     @media(max-width: 1192px){  
         padding: 10px 0 0 0;
-        margin: 60px 0 0 0;
+        margin: 80px 0 0 0;
+    }
+
+    @media(max-width: 1024px){
+        
+        .track{
+            padding: 0 40px;
+        }
+    }
+
+    @media(max-width: 360px){
+        
+        .track{
+            padding: 0 20px;
+        }
     }
 
     @media(max-width: 964px){
@@ -179,15 +211,17 @@ const SliderControls = styled.button`
         }
 
     @media (max-width: 1192px){
-      top: 0;
-      transform: translateY(-100%) scale(.5) ${props => props.left ? 'translateX(-200%)' : 'translateX(200%)'};
+    top: 0;
+    transform: translateY(-120%) scale(.857) ${props => props.left ? 'translateX(-150%)' : 'translateX(150%)'};
     left: ${props => props.left ? '50%' : 'unset'};
     right: ${props => props.right ? '50%' : 'unset'};
     }
 `
 
 const PTitle = styled(Title)`
-    padding: 0 22px;
+    padding: 0 20px;
+    margin: 0 auto;
+    max-width: 600px;
 `
 
 const SpecialistTestimontials = ({ data }) => {

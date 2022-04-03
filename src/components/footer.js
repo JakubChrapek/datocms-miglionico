@@ -188,6 +188,9 @@ const LogoAndSocialMediaWrapper = styled.div`
     }
   }
   @media (max-width: 420px) {
+    
+    width: 280px;
+
     a {
       width: 100%;
     }

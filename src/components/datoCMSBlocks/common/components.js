@@ -279,7 +279,7 @@ export const DownloadWrapper = styled.div`
 
   a{
     display: grid;
-    grid-template-columns: 22px 1fr;
+    grid-template-columns: 20px 1fr;
     grid-column-gap: 24px;
     align-items: center;
     color: var(--primary-navy);
@@ -287,11 +287,11 @@ export const DownloadWrapper = styled.div`
     width: fit-content;
   }
 
+  @media (max-width: 860px) {
+    grid-row-gap: 32px;
+  }
+
   @media (max-width: 500px) {
     grid-row-gap: 24px;
   }
-`
-
-export const UnityContainer = styled.div`
-  padding: 0 22px;
 `

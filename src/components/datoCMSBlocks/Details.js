@@ -15,6 +15,19 @@ const Wrapper = styled(SectionWrapper)`
     display: block;
     text-align: center;
     margin-top: 60px;
+    padding-left: 0;
+    padding-right: 0;
+    @media (max-width: 1560px){
+        padding-left: 40px;
+        padding-right: 40px;
+
+    }
+
+    @media (max-width: 1196px) {
+        padding-left: 0;
+        padding-right: 0;
+        
+    }
     @media (max-width: 1024px){
         grid-gap: 0;
         max-width: 100% !important;
@@ -22,7 +35,7 @@ const Wrapper = styled(SectionWrapper)`
 `
 
 const Slider = styled.div`
-    padding: 0 100px;
+    padding: 70px 100px 0 100px;
     position: relative;
     .slider{
         display: grid;
@@ -41,12 +54,18 @@ const Slider = styled.div`
             font-weight: 400;
             font-size: 18px;
             line-height: 23px;
+            color: var(--primary-navy);
         }
     }
 
     @media (max-width: 1092px){
-        padding: 10px 0 0 0;
-        margin-top: 60px;
+        padding: 10px 40px 0 40px;
+        margin-top: 80px;
+    }
+
+    @media (max-width: 1024px){
+        padding: 10px 20px 0 20px;
+
     }
 
     @media (max-width: 764px) {
@@ -76,7 +95,12 @@ const Slider = styled.div`
         padding: 0 40px !important;
     }
 
+    @media (max-width: 550px) {
+        padding: 0 60px !important;
+    }
+
     @media(max-width: 500px){
+        padding: 0 50px !important;
         .slider{
             grid-template-columns: repeat(${props => props.itemsCount}, 100%);
 
@@ -109,8 +133,8 @@ const SliderControls = styled.button`
     left: ${props => props.left ? '0' : 'unset'};
     right: ${props => props.right ? '0' : 'unset'};
 
-        width: 60px;
-        height: 60px;
+        width: 56px;
+        height: 56px;
         border-radius: 50%;
         border: 4px solid var(--primary-navy);
         display: inline-flex;
@@ -130,7 +154,7 @@ const SliderControls = styled.button`
 
     @media (max-width: 1092px){
         top: 0;
-        transform: translateY(-100%) scale(.5) ${props => props.left ? 'translateX(-200%)' : 'translateX(200%)'};
+        transform: translateY(-120%) scale(.857) ${props => props.left ? 'translateX(-150%)' : 'translateX(150%)'};
         left: ${props => props.left ? '50%' : 'unset'};
         right: ${props => props.right ? '50%' : 'unset'};
     }
@@ -141,7 +165,7 @@ const SliderControls = styled.button`
 `
 
 const PTitle = styled(Title)`
-    padding: 0 22px;
+    padding: 0 20px;
 `
 
 
