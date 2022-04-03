@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { startTransition } from '../functions/page-transtion'
 import { graphql } from 'gatsby'
 import HeroSection from '../components/heroSection'
 import UnitsSection from '../components/unitsSection'
@@ -13,8 +14,13 @@ export default function Index({
   }
 }) {
   const homeQueryData = homeData[0]
+
+  useEffect(() => {
+    startTransition()
+  }, [])
+  
   return (
-    <>
+    <main id="main">
       <HeroSection
         title={homeQueryData.title}
         textParagraph={
@@ -52,7 +58,7 @@ export default function Index({
         }
         testimonials={homeQueryData.testimonials}
       />
-    </>
+    </main>
   )
 }
 

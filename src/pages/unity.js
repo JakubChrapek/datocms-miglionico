@@ -9,6 +9,8 @@ import PriceBlock from "../components/datoCMSBlocks/PriceBlock"
 import Details from "../components/datoCMSBlocks/Details"
 import VerticalGraphickBlockWithList from "../components/datoCMSBlocks/VerticalGraphicBlockWithList"
 import SpecialistTestimontials from "../components/datoCMSBlocks/SpecialistTestimontial"
+import { useEffect } from 'react'
+import { startTransition } from '../functions/page-transtion'
 
 const HeroContainer = styled.section`
   --container-horizontal-padding: ${80 / 16}rem;
@@ -56,41 +58,46 @@ const AboutImage = styled(GatsbyImage)`
 
 
 const UnityPage = ({ data: { datoCmsUnityPage: data } }) => {
+  useEffect(() => {
+    startTransition()
+  }, [])
   return (
-    <div>
-      <HeroContainer>
-        <AboutTitle color={COLORS.GRADIENT}>
-          {data.welcomeTitle}
-        </AboutTitle>
-        <AboutText><p>{data.welcomeText}</p></AboutText>
-        <AboutImage image={data.heroSection.gatsbyImageData} />
-      </HeroContainer>
-      <StructuredText
-        data={data.pageContent}
-        renderBlock={({ record }) => {
-          switch (record.__typename) {
-            case 'DatoCmsPriceBlock':
-              return (
-                <PriceBlock data={record} />
-              )
-            case 'DatoCmsVerticalGraphicBlockWithList':
-              return (
-                <VerticalGraphickBlockWithList data={record} />
-              )
-            case 'DatoCmsDetailsBlock':
-              return (
-                <Details data={record} />
-              )
-            case 'DatoCmsSpecialistRecommendationBlock':
-              return (
-                <SpecialistTestimontials data={record} />
-              )
-            default:
-              return null
-          }
-        }}
-      />
-    </div>
+    <main id="main">
+      <div>
+        <HeroContainer>
+          <AboutTitle color={COLORS.GRADIENT}>
+            {data.welcomeTitle}
+          </AboutTitle>
+          <AboutText><p>{data.welcomeText}</p></AboutText>
+          <AboutImage image={data.heroSection.gatsbyImageData} />
+        </HeroContainer>
+        <StructuredText
+          data={data.pageContent}
+          renderBlock={({ record }) => {
+            switch (record.__typename) {
+              case 'DatoCmsPriceBlock':
+                return (
+                  <PriceBlock data={record} />
+                )
+              case 'DatoCmsVerticalGraphicBlockWithList':
+                return (
+                  <VerticalGraphickBlockWithList data={record} />
+                )
+              case 'DatoCmsDetailsBlock':
+                return (
+                  <Details data={record} />
+                )
+              case 'DatoCmsSpecialistRecommendationBlock':
+                return (
+                  <SpecialistTestimontials data={record} />
+                )
+              default:
+                return null
+            }
+          }}
+        />
+      </div>
+    </main>
   )
 }
 

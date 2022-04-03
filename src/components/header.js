@@ -11,6 +11,7 @@ import {
   useCycle
 } from 'framer-motion'
 import { useBlockBody } from './blockBodyContext'
+import { navigate } from "gatsby"
 
 const Wrapper = styled.header`
   background-color: var(--off-white);
@@ -218,6 +219,7 @@ export default function Header({ headerData }) {
       window &&
       window.removeEventListener('keydown', handleKeyDown)
   }, [dispatch, open, cycleMobileMenu])
+
 
   return (
     <Wrapper>

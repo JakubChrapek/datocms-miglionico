@@ -11,6 +11,8 @@ import {
   COLUMN_LAYOUT_VARIANTS,
   HERO_VARIANTS
 } from '../utils/constants'
+import { useEffect } from 'react'
+import { startTransition } from '../functions/page-transtion'
 
 const Wrapper = styled.main`
   @media(max-width: 1186px){
@@ -124,9 +126,13 @@ const AboutPage = ({ data }) => {
   const {
     datoCmsOFirmie: { welcomeTitle, heroImg, content }
   } = data
-  
+
+  useEffect(() => {
+    startTransition()
+  }, [])
+
   return (
-    <Wrapper>
+    <Wrapper id='main'>
       <HeroSection
         title={welcomeTitle}
         img={heroImg}

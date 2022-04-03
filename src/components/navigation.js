@@ -8,6 +8,7 @@ import {
   sideVariants
 } from '../utils/animations'
 import { useBlockBody } from './blockBodyContext'
+import { exitTransition } from '../functions/page-transtion'
 
 const NavigationWrapper = styled(motion.nav)`
   margin: 0 var(--nav-gap);
@@ -29,12 +30,12 @@ const NavigationWrapper = styled(motion.nav)`
 
   @media (max-width: 1024px) {
     ${({ open }) =>
-      open
-        ? css`
+    open
+      ? css`
             margin: 2rem 0 0;
             align-self: center;
           `
-        : css``}
+      : css``}
   }
 `
 
@@ -43,8 +44,8 @@ const NavigationList = styled(motion.ul)`
   padding-top: var(--list-alignment);
   @media (max-width: 1024px) {
     ${({ open }) =>
-      open &&
-      css`
+    open &&
+    css`
         padding-top: 0;
         flex-direction: column;
         align-items: center;
@@ -77,8 +78,8 @@ const NavigationItem = styled(motion.li)`
 
   @media (max-width: 1024px) {
     ${({ open }) =>
-      open &&
-      css`
+    open &&
+    css`
         margin: clamp(1rem, 3.5vw, 1.75rem) 0;
         a {
           font-size: clamp(

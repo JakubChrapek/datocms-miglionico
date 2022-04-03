@@ -2,6 +2,8 @@ import { graphql } from 'gatsby'
 import React from 'react'
 import { StructuredText } from 'react-datocms'
 import styled from 'styled-components'
+import { useEffect } from 'react'
+import { startTransition } from '../functions/page-transtion'
 
 const Wrapper = styled.section`
   background-color: var(--off-white);
@@ -53,7 +55,11 @@ const Container = styled.div`
 `
 
 const PagePrivacyPolicy = ({ data }) => {
+  useEffect(() => {
+    startTransition()
+  }, [])
   return (
+    <main id="main">
     <Wrapper>
       <Container>
         <StructuredText
@@ -61,6 +67,7 @@ const PagePrivacyPolicy = ({ data }) => {
         />
       </Container>
     </Wrapper>
+    </main>
   )
 }
 

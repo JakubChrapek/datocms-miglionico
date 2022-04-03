@@ -39,6 +39,13 @@ const GlobalStyles = createGlobalStyle`
 
   main{
     overflow-x: hidden;
+    /* transform: translateX(100%); */
+    opacity: 0;
+    transition: opacity .6s cubic-bezier(0.215, 0.610, 0.355, 1);
+    &.active{
+      /* transform: translateX(0); */
+      opacity:  1;
+    }
   }
 
   #gatsby-focus-wrapper {

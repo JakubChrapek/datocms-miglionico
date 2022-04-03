@@ -3,6 +3,8 @@ import React from 'react'
 import styled from 'styled-components';
 import UnitHeroSection from '../../components/unitHeroSection';
 import UnitInformationSection from '../../components/unitInformationSection';
+import { useEffect } from 'react'
+import { startTransition } from '../../functions/page-transtion'
 
 
 const Wrapper = styled.main`
@@ -11,8 +13,11 @@ const Wrapper = styled.main`
 
 const UnitPage = ({data}) => {
   const {datoCmsUnit: unitData} = data;
+  useEffect(() => {
+    startTransition()
+  }, [])
   return (
-    <Wrapper>
+    <Wrapper id='main'>
       <UnitHeroSection
         unitType={unitData.unitType}
         unitName={unitData.unitName}

@@ -15,6 +15,8 @@ import SocialMedia from '../components/socialMedia'
 import { VARIANTS } from '../utils/constants'
 import ContactDetails from '../components/contactDetails'
 import ContactForm from '../components/contactForm'
+import { useEffect } from 'react'
+import { startTransition } from '../functions/page-transtion'
 
 const ContactWrapper = styled.section`
   > section > svg {
@@ -152,8 +154,11 @@ const FormColumn = styled.div`
   }
 `
 const Kontakt = ({ data }) => {
+  useEffect(() => {
+    startTransition()
+  }, [])
   return (
-    <>
+    <main id="main">
       <HelmetDatoCms seo={data.contact.seo} />
       <ContactWrapper>
         <ContactContainer>
@@ -190,7 +195,7 @@ const Kontakt = ({ data }) => {
           </FormColumn>
         </ContactDetailsContainer>
       </ContactWrapper>
-    </>
+    </main>
   )
 }
 
