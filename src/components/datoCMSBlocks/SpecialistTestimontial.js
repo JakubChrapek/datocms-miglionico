@@ -21,6 +21,18 @@ const Wrapper = styled(SectionWrapper)`
         max-width: 100% !important;
         display: block;
     }
+
+    @media (max-width: 1460px) {
+        box-sizing: unset;
+        padding: 0 40px 60px 40px;
+        width: calc(100% - 80px);
+    }
+
+    @media (max-width: 680px) {
+        box-sizing: border-box;
+        padding: 0 20px 60px 20px;
+        width: 100%;
+    }
 `
 
 const Slider = styled.div`

@@ -10,7 +10,6 @@ export const SectionWrapper = styled.section`
   --container-horizontal-padding: 5rem;
   --container-max-width: calc( var(--container-max-size) - var(--container-horizontal-padding) );
   max-width: var(--container-max-width);
-  padding: 0 2.5rem;
   box-sizing: border-box;
   margin: 0 auto;
   display: grid;

@@ -8,11 +8,11 @@ import { startTransition } from '../../functions/page-transtion'
 
 
 const Wrapper = styled.main`
-
+  overflow: unset!important;
 `
 
-const UnitPage = ({data}) => {
-  const {datoCmsUnit: unitData} = data;
+const UnitPage = ({ data }) => {
+  const { datoCmsUnit: unitData } = data;
   useEffect(() => {
     startTransition()
   }, [])

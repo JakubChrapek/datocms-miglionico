@@ -17,9 +17,18 @@ const Wrapper = styled(SectionWrapper)`
     grid-template-columns: 1fr;
     text-align: center;
     padding-bottom: 60px;
+    overflow: unset;
+
+    @media (max-width: 1460px) {
+        box-sizing: unset;
+        padding: 0 40px 60px 40px;
+        width: calc(100% - 80px);
+    }
 
     @media (max-width: 680px) {
+        box-sizing: border-box;
         padding: 0 20px 60px 20px;
+        width: 100%;
     }
 `
 

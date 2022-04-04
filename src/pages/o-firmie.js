@@ -43,7 +43,6 @@ const AboutTitle = styled(Heading)`
   }
 `
 const AboutImage = styled(GatsbyImage)`
-  border-radius: ${10 / 16}rem;
   width: 100%;
 `
 
@@ -63,18 +62,96 @@ const ContentWrapper = styled.div`
   z-index: 2;
 `
 
-const HeroSection = ({ title, paragraph, img, video }) => (
-  <HeroContainer>
-    {title && (
-      <AboutTitle color={COLORS.GRADIENT}>
-        {title}
-      </AboutTitle>
-    )}
-    {img && img.gatsbyImageData && (
-      <AboutImage image={img.gatsbyImageData} />
-    )}
-  </HeroContainer>
-)
+const Grid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-radius: ${10 / 16}rem;
+  margin-top: 25px;
+  div{
+    aspect-ratio: 1/1;
+    :nth-child(1){
+      border-top-left-radius: ${10 / 16}rem;
+    }
+
+    :nth-child(3){
+      border-top-right-radius: ${10 / 16}rem;
+    }
+
+    :nth-child(4){
+      border-bottom-left-radius: ${10 / 16}rem;
+    }
+
+    :nth-child(6){
+      border-bottom-right-radius: ${10 / 16}rem;
+    }
+  }
+
+  @media(max-width: 760px){
+    grid-template-columns: repeat(2, 1fr);
+    div{
+      :nth-child(2){
+        border-top-right-radius: ${10 / 16}rem;
+      }
+      
+
+      :nth-child(3){
+        border-top-right-radius: unset;
+      }
+
+      :nth-child(4){
+        border-bottom-left-radius: unset;
+      }
+
+      :nth-child(5){
+        border-bottom-left-radius: ${10 / 16}rem;
+      }
+    }
+
+  }
+
+  @media(max-width: 420px){
+    grid-template-columns: 1fr;
+    div{
+      :nth-child(n){
+        border-radius: unset;
+      }
+
+      :first-child{
+        border-top-right-radius: ${10 / 16}rem;
+        border-top-left-radius: ${10 / 16}rem;
+
+      }
+      :last-child{
+        border-bottom-left-radius: ${10 / 16}rem;
+        border-bottom-right-radius: ${10 / 16}rem;
+
+      }
+    }
+  }
+`
+
+const GridItem = styled(GatsbyImage)`
+
+
+`
+
+const HeroSection = ({ title, paragraph, img, video }) => {
+  return (
+    <HeroContainer>
+      {title && (
+        <AboutTitle color={COLORS.GRADIENT}>
+          {title}
+        </AboutTitle>
+      )}
+      <Grid>
+        {img.map(el => (
+          <AboutImage image={el.gatsbyImageData} />
+        ))}
+      </Grid>
+
+    </HeroContainer>
+  )
+}
 
 const ContentSection = ({ content }) => {
   return (
