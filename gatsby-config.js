@@ -3,7 +3,8 @@ require(`dotenv`).config()
 module.exports = {
   siteMetadata: {
     title: `Miglionico`,
-    author: `@kryptonum.studio`
+    author: `@kryptonum.studio`,
+    siteUrl: `https://miglionico.pl`,
   },
   plugins: [
     `gatsby-plugin-postcss`,
@@ -52,6 +53,15 @@ module.exports = {
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-image`,
     `gatsby-plugin-sharp`,
-    `gatsby-transformer-sharp`
+    `gatsby-transformer-sharp`,
+    `gatsby-plugin-sitemap`,
+    {
+      resolve: 'gatsby-plugin-robots-txt',
+      options: {
+        host: 'https://www.example.com',
+        sitemap: 'https://www.example.com/sitemap/sitemap-index.xml',
+        policy: [{ userAgent: '*', allow: '/' }]
+      }
+    }
   ]
 }

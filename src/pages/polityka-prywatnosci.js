@@ -1,6 +1,7 @@
 import { graphql } from 'gatsby'
 import React from 'react'
 import { StructuredText } from 'react-datocms'
+import { Helmet } from 'react-helmet'
 import styled from 'styled-components'
 
 const Wrapper = styled.section`
@@ -55,6 +56,9 @@ const Container = styled.div`
 const PagePrivacyPolicy = ({ data }) => {
   return (
     <Wrapper>
+      <Helmet>
+        <link rel="canonical" href="https://miglionico.pl/polityka-prywatnosci" />
+      </Helmet>
       <Container>
         <StructuredText
           data={data.datoCmsPrivacyPolicy.content}

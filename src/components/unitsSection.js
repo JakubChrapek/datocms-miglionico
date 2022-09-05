@@ -6,7 +6,6 @@ import {
   NavyRect
 } from '../assets/backgrounds'
 import { Heading, Subheading } from './typography'
-import { useHasMounted } from '../utils/hooks'
 import { motion } from "framer-motion"
 import { useSwipeable } from "react-swipeable"
 import ArrowLeft from './../assets/arrow-left.svg'
@@ -413,7 +412,7 @@ const UnitsSection = ({
                 positionSet(position - 1);
               }}
             >
-              <img src={ArrowLeft} />
+              <img src={ArrowLeft} alt='strzałka w lewo'/>
             </SliderControls>
             <SliderControls
               itemsCount={unitsData.length}
@@ -425,7 +424,7 @@ const UnitsSection = ({
                 positionSet(position + 1);
               }}
             >
-              <img src={ArrowRight} />
+              <img src={ArrowRight}  alt='strzałka w prawo'/>
             </SliderControls>
           </Slider>
         </UnitsContentWrapper>

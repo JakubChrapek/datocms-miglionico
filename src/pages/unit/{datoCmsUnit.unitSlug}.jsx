@@ -1,5 +1,6 @@
 import { graphql } from 'gatsby';
 import React from 'react'
+import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
 import UnitHeroSection from '../../components/unitHeroSection';
 import UnitInformationSection from '../../components/unitInformationSection';
@@ -9,10 +10,13 @@ const Wrapper = styled.main`
 
 `
 
-const UnitPage = ({data}) => {
-  const {datoCmsUnit: unitData} = data;
+const UnitPage = ({ data }) => {
+  const { datoCmsUnit: unitData } = data;
   return (
     <Wrapper>
+      <Helmet>
+        <link rel="canonical" href={"https://miglionico.pl/unit/" + unitData.unitSlug} />
+      </Helmet>
       <UnitHeroSection
         unitType={unitData.unitType}
         unitName={unitData.unitName}

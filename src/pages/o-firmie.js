@@ -11,6 +11,7 @@ import {
   COLUMN_LAYOUT_VARIANTS,
   HERO_VARIANTS
 } from '../utils/constants'
+import { Helmet } from 'react-helmet'
 
 const Wrapper = styled.main`
   @media(max-width: 1186px){
@@ -77,6 +78,9 @@ const HeroSection = ({ title, paragraph, img, video }) => (
 const ContentSection = ({ content }) => {
   return (
     <ContentWrapper>
+      <Helmet>
+        <link rel="canonical" href="https://miglionico.pl/o-firmie" />
+      </Helmet>
       <StructuredText
         data={content}
         renderBlock={({ record }) => {
@@ -124,7 +128,7 @@ const AboutPage = ({ data }) => {
   const {
     datoCmsOFirmie: { welcomeTitle, heroImg, content }
   } = data
-  
+
   return (
     <Wrapper>
       <HeroSection

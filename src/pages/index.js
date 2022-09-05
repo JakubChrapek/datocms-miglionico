@@ -5,6 +5,7 @@ import UnitsSection from '../components/unitsSection'
 import WhoAreWeSection from '../components/whoAreWeSection'
 import FaqSection from '../components/faqSection'
 import TestimonialsSection from '../components/TestimonialsSection'
+import { Helmet } from 'react-helmet'
 
 export default function Index({
   data: {
@@ -15,6 +16,9 @@ export default function Index({
   const homeQueryData = homeData[0]
   return (
     <>
+      <Helmet>
+        <link rel="canonical" href="https://miglionico.pl" />
+      </Helmet>
       <HeroSection
         title={homeQueryData.title}
         textParagraph={

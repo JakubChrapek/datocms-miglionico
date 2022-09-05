@@ -3,7 +3,7 @@ import { GatsbyImage } from 'gatsby-plugin-image'
 import { StructuredText } from 'react-datocms'
 import { Link } from 'gatsby'
 import styled from 'styled-components'
-import { BUTTON_VARIANTS, COLORS } from '../utils/constants'
+import { BUTTON_VARIANTS } from '../utils/constants'
 import Button from './Button'
 import { Paragraph } from './typography'
 

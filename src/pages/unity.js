@@ -9,6 +9,7 @@ import PriceBlock from "../components/datoCMSBlocks/PriceBlock"
 import Details from "../components/datoCMSBlocks/Details"
 import VerticalGraphickBlockWithList from "../components/datoCMSBlocks/VerticalGraphicBlockWithList"
 import SpecialistTestimontials from "../components/datoCMSBlocks/SpecialistTestimontial"
+import { Helmet } from "react-helmet"
 
 const HeroContainer = styled.section`
   --container-horizontal-padding: ${80 / 16}rem;
@@ -58,6 +59,9 @@ const AboutImage = styled(GatsbyImage)`
 const UnityPage = ({ data: { datoCmsUnityPage: data } }) => {
   return (
     <div>
+      <Helmet>
+        <link rel="canonical" href="https://miglionico.pl/unity" />
+      </Helmet>
       <HeroContainer>
         <AboutTitle color={COLORS.GRADIENT}>
           {data.welcomeTitle}

@@ -15,6 +15,7 @@ import SocialMedia from '../components/socialMedia'
 import { VARIANTS } from '../utils/constants'
 import ContactDetails from '../components/contactDetails'
 import ContactForm from '../components/contactForm'
+import { Helmet } from 'react-helmet'
 
 const ContactWrapper = styled.section`
   > section > svg {
@@ -155,6 +156,9 @@ const Kontakt = ({ data }) => {
   return (
     <>
       <HelmetDatoCms seo={data.contact.seo} />
+      <Helmet>
+        <link rel="canonical" href="https://miglionico.pl/kontakt" />
+      </Helmet>
       <ContactWrapper>
         <ContactContainer>
           <SmallerRedRect />
