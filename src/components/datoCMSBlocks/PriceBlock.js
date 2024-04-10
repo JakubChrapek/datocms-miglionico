@@ -176,7 +176,7 @@ export const PriceBlock = ({ data }) => {
                                         </li>
                                     ))}
                                 </ul>
-                                <span>do <b>{el.cennik}</b></span>
+                                <span>od <b>{el.cennik}</b></span>
                                 {index === 1
                                     ? <Button as={Link} variant={BUTTON_VARIANTS.EMPTY} to={'/unit/' + el.linkUrl.unitSlug + '/'}>{el.linkText}</Button>
                                     : <Button as={Link} variant={BUTTON_VARIANTS.FILLED} to={'/unit/' + el.linkUrl.unitSlug + '/'}>{el.linkText}</Button>
